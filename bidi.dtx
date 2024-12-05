@@ -344,7 +344,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{58522}
+%% \CheckSum{58534}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -19091,7 +19091,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{lineno-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{lineno-xetex-bidi.def}[2018/01/28 v0.2 bidi adaptations for lineno package for XeTeX engine]
+\ProvidesFile{lineno-xetex-bidi.def}[2024/12/07 v0.3 bidi adaptations for lineno package for XeTeX engine]
 \bidi@patchcmd{\MakeLineNo}{%
   \hb@xt@\z@{\makeLineNumber}%
 }{%
@@ -19127,6 +19127,20 @@ bidi implementation of tufte title]
   }{}
   \@ifpackagewith{lineno}{right}{%
     \rightlinenumbers*
+  }{}
+  \@ifpackagewith{lineno}{switch}{%
+    \if@RTLmain
+      \switchlinenumbers*%
+    \else
+      \switchlinenumbers
+    \fi
+  }{}
+  \@ifpackagewith{lineno}{switch*}{%
+    \if@RTLmain
+      \switchlinenumbers
+    \else
+      \switchlinenumbers*%
+    \fi
   }{}
 }
 
