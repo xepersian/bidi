@@ -344,7 +344,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{58538}
+%% \CheckSum{58522}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -16631,21 +16631,19 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{fancyhdr-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{fancyhdr-xetex-bidi.def}[2018/02/15 v0.7 bidi adaptations for fancyhdr package for XeTeX engine]
+\ProvidesFile{fancyhdr-xetex-bidi.def}[2024/12/07 v0.8 bidi adaptations for fancyhdr package for XeTeX engine]
 
 \let\f@nch@everypar\everypar
 
-\def\f@nch@head#1#2#3#4#5{#1\hbox to\headwidth{\f@nch@reset
-    \f@nch@vbox\headheight{\hbox
-      {\rlap{\parbox[b]{\headwidth}{\bidi@raggedright#2}}\hfill
-        \parbox[b]{\headwidth}{\centering#3}\hfill
-        \llap{\parbox[b]{\headwidth}{\bidi@raggedleft#4}}}\headrule}}#5}
+\bidi@patchcmd\f@nch@head\raggedright\bidi@raggedright
+{}{\bidi@warningnoline{Oops! patching `\string\f@nch@head' failed}}
+\bidi@patchcmd\f@nch@head\raggedleft\bidi@raggedleft
+{}{\bidi@warningnoline{Oops! patching `\string\f@nch@head' failed}}
 
-\def\f@nch@foot#1#2#3#4#5{#1\hbox to\headwidth{\f@nch@reset
-    \f@nch@vbox\footskip{\footrule
-      \hbox{\rlap{\parbox[t]{\headwidth}{\bidi@raggedright#2}}\hfill
-        \parbox[t]{\headwidth}{\centering#3}\hfill
-        \llap{\parbox[t]{\headwidth}{\bidi@raggedleft#4}}}}}#5}
+\bidi@patchcmd\f@nch@foot\raggedright\bidi@raggedright
+{}{\bidi@warningnoline{Oops! patching `\string\f@nch@foot' failed}}
+\bidi@patchcmd\f@nch@foot\raggedleft\bidi@raggedleft
+{}{\bidi@warningnoline{Oops! patching `\string\f@nch@foot' failed}}
 
 %    \end{macrocode}
 % \iffalse
