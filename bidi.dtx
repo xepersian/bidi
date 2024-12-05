@@ -344,7 +344,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{58523}
+%% \CheckSum{58538}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -837,7 +837,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{article-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{article-xetex-bidi.def}[2017/06/09 v0.6 bidi adaptations for standard article class for XeTeX engine]
+\ProvidesFile{article-xetex-bidi.def}[2024/12/07 v0.7 bidi adaptations for standard article class for XeTeX engine]
 \if@titlepage
   \renewcommand\maketitle{\begin{titlepage}%
   \let\footnotesize\small
@@ -996,6 +996,9 @@ by Vafa Khalighi.
     \nobreak
     \vskip 3ex
     \@afterheading}
+\bidi@patchcmd\@spart\raggedright{%
+  \if@RTL\raggedleft\else\raggedright\fi
+}{}{\bidi@warningnoline{Oops! patching `\string\@spart' failed}}
 \renewenvironment{thebibliography}[1]
      {\section*{\refname}%
       \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
@@ -5901,7 +5904,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 % \section{File \texttt{biditools.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{biditools}[2022/06/15 v2.3 Programming tools for bidi package]
+\ProvidesPackage{biditools}[2024/12/07 v2.4 Programming tools for bidi package]
 \providecommand{\@bidi@saveprimitive}[2]{\begingroup\escapechar`\\\relax
   \edef\@tempa{\string#1}\edef\@tempb{\meaning#1}%
   \ifx\@tempa\@tempb \global\let#2#1%
@@ -6221,6 +6224,7 @@ ill-advised in the old versions of bidi package.%
 
 \protected\def\bidi@error{\PackageError{bidi}}
 \protected\def\bidi@warning{\PackageWarning{bidi}}
+\protected\def\bidi@warningnoline{\PackageWarningNoLine{bidi}}
 \protected\def\bidi@info{\PackageInfo{bidi}}
 
 \def\bidi@pos#1#2#3#4{\bidi@namegdef{bidi@#1pos@@#2@#3}{#4}}
