@@ -344,7 +344,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{58534}
+%% \CheckSum{58549}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -771,7 +771,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{array-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{array-xetex-bidi.def}[2015/11/07 v0.3 bidi adaptations for array package for XeTeX engine]
+\ProvidesFile{array-xetex-bidi.def}[2024/12/07 v0.4 bidi adaptations for array package for XeTeX engine]
 \def\@testpach{\@chclass
  \ifnum \@lastchclass=6 \@ne \@chnum \@ne \else
   \ifnum \@lastchclass=7 5 \else
@@ -792,30 +792,41 @@ by Vafa Khalighi.
        \if \@nextchar >9 \else
   10
   \@chnum
-  \if \@nextchar m\thr@@\else
+  \if \@nextchar m\thr@@ \else
    \if \@nextchar p4 \else
     \if \@nextchar b5 \else
    \z@ \@chclass \z@ \@preamerr \z@ \fi \fi \fi \fi
    \fi \fi  \fi  \fi  \fi  \fi  \fi \fi \fi \fi \fi \fi}
 \def\@tabular{%
   \leavevmode
+  \UseTaggingSocket{tbl/hmode/begin}%
   \hbox \bgroup\if@RTLtab\beginR \fi $\col@sep\tabcolsep \let\d@llarbegin\begingroup
                                     \let\d@llarend\endgroup
   \@tabarray}
-\def\endtabular{\endarray $\if@RTLtab\endR\fi\egroup}
+\def\endtabular{\endarray\m@th $\if@RTLtab\endR\fi\egroup
+  \UseTaggingSocket{tbl/hmode/end}%
+}
 \expandafter\let\csname endtabular*\endcsname=\endtabular
-\def\@array[#1]#2{%
+\ExplSyntaxOn
+\def\@array[#1]#2{
   \@tempdima \ht \strutbox
   \advance \@tempdima by\extrarowheight
   \setbox \@arstrutbox \hbox{\vrule
              \@height \arraystretch \@tempdima
              \@depth \arraystretch \dp \strutbox
              \@width \z@}%
+  \tbl_save_outer_table_cols:
   \begingroup
   \@mkpream{#2}%
-  \xdef\@preamble{\noexpand \ialign \@halignto
-                  \bgroup \@arstrut \@preamble
-                          \tabskip \z@ \cr}%
+  \tbl_count_table_cols:
+  \xdef\@preamble{
+    \noexpand \ar@ialign
+    \@halignto
+       \bgroup \@arstrut
+      \UseTaggingSocket{tbl/row/begin}
+      \tbl_init_cell_data_for_row:
+      \@preamble
+      \tabskip \z@ \cr}
   \endgroup
   \@arrayleft
   \if #1t\vtop \else \if#1b\vbox \else \vcenter \fi \fi
@@ -823,12 +834,26 @@ by Vafa Khalighi.
   \let \@sharp ##\let \protect \relax
   \lineskip \z@
   \baselineskip \z@
-  \m@th
-  \let\\\@arraycr \let\tabularnewline\\\let\par\@empty \if@RTLtab\hbox\bgroup\beginR\@hboxRconstructtrue\if #1t\vtop \else \vbox  \fi\bgroup\fi\@preamble}
-\def\@tabarray{\@ifnextchar[{\@array}{\@array[c]}}
-\def\endarray{\crcr \egroup\if@RTLtab\egroup\endR\egroup\fi \egroup \@arrayright \gdef\@preamble{}}
+  \mathsurround \z@
+  \let\\\@arraycr \let\tabularnewline\\\let\par\@empty
+  \UseTaggingSocket{tbl/init}
+  \if@RTLtab\hbox\bgroup\beginR\@hboxRconstructtrue\if #1t\vtop \else \vbox  \fi\bgroup\fi
+  \@preamble
+}
+\ExplSyntaxOff
+\def\@tabarray{\@ifnextchar[{\@@array}{\@@array[c]}}
+\ExplSyntaxOn
+\def\endarray {
+  \tbl_crcr:n{endarray} \egroup
+  \if@RTLtab\egroup\endR\egroup\fi 
+  \UseTaggingSocket{tbl/finalize}
+  \tbl_restore_outer_cell_data:
+  \egroup
+  \@arrayright \gdef\@preamble{}%
+}
+\ExplSyntaxOff
 \def\array{\col@sep\arraycolsep
-  \def\d@llarbegin{$}\let\d@llarend\d@llarbegin\gdef\@halignto{}%
+  \def\d@llarbegin{$}\let\d@llarend\d@llarbegin\def\@halignto{}%
   \@RTLtabfalse\@tabarray}
 %    \end{macrocode}
 % \iffalse
