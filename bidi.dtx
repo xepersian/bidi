@@ -344,7 +344,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{58549}
+%% \CheckSum{58565}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -27623,10 +27623,20 @@ to\rtside{\box\bslice\hfil}}
   \setbox\tw@\hbox{\special{x:gsave}\special{x:scale -1 1}\rlap{\copy\z@}\special{x:grestore}}%
   \hb@xt@\wd\z@{\kern\wd\z@\box\tw@\hss}%
 }
+\if@bidi@csundef{XeTeX}{%
 \bidi@newrobustcmd*{\XeTeX}{\LR{\leavevmode$\smash{\hbox{X\lower.5ex
-  \hbox{\kern-.125em\bidi@reflect@box{E}}\kern-.1667em \TeX}}$}}
+  \hbox{\kern-.125em\bidi@reflect@box{E}}\kern-.1667em \TeX}}$}}%
+}{%
+\let\@bidi@orig@XeTeX\XeTeX
+\bidi@renewrobustcmd*{\XeTeX}{\LR{\@bidi@orig@XeTeX}}%
+}
+\if@bidi@csundef{XeLaTeX}{%
 \bidi@newrobustcmd*{\XeLaTeX}{\LR{\leavevmode$\smash{\hbox{X\lower.5ex
-  \hbox{\kern-.125em\bidi@reflect@box{E}}\kern-.1667em \LaTeX}}$}}
+  \hbox{\kern-.125em\bidi@reflect@box{E}}\kern-.1667em \LaTeX}}$}}%
+}{%
+\let\@bidi@orig@XeLaTeX\XeLaTeX
+\bidi@renewrobustcmd*{\XeLaTeX}{\LR{\@bidi@orig@XeLaTeX}}%
+}
 \let\setRL=\setRTL
 \let\setLR=\setLTR
 \let\unsetRL=\setLTR
