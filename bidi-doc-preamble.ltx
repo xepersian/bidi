@@ -4,13 +4,14 @@
 \usepackage{bbding}
 \usepackage{bidicode}
 \usepackage{microtype}
+\definecolor{niceblue}{rgb}{0.2,0.4,0.8}
 \definecolor{bidiblue}{rgb}{0.1,0.2,0.8}
 \usepackage[numbered]{hypdoc}
 \hypersetup{%
   pdfauthor={Vafa Khalighi},%
-  linkcolor=bidiblue,%
-  urlcolor=bidiblue,%
-  citecolor=bidiblue%
+  linkcolor=niceblue,%
+  urlcolor=niceblue,%
+  citecolor=niceblue%
 }
 \setlength\columnseprule{.4pt}
 \newcommand\XeTeX{Xe\TeX}
@@ -43,7 +44,7 @@
      \interlinepenalty \@M
      \normalfont
      \ifnum \c@secnumdepth >\m@ne
-       \Large\bfseries\color{blue!65!black} \partname\nobreakspace\thepart
+       \Large\bfseries\color{bidiblue} \partname\nobreakspace\thepart
        \par\nobreak
      \fi
      \huge \bfseries #2%
@@ -55,30 +56,30 @@
     {\parindent \z@ \raggedright
      \interlinepenalty \@M
      \normalfont
-     \huge \bfseries\color{blue!65!black} #1\par}%
+     \huge \bfseries\color{bidiblue} #1\par}%
      \nobreak
      \vskip 3ex
      \@afterheading}
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                    {-3.5ex \@plus -1ex \@minus -.2ex}%
                                    {2.3ex \@plus.2ex}%
-                                   {\normalfont\Large\bfseries\color{blue!65!black}}}
+                                   {\normalfont\Large\bfseries\color{bidiblue}}}
 \renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
                                      {1.5ex \@plus .2ex}%
-                                     {\normalfont\large\bfseries\color{blue!65!black}}}
+                                     {\normalfont\large\bfseries\color{bidiblue}}}
 \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
                                      {1.5ex \@plus .2ex}%
-                                     {\normalfont\normalsize\bfseries\color{blue!65!black}}}
+                                     {\normalfont\normalsize\bfseries\color{bidiblue}}}
 \renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
                                     {3.25ex \@plus1ex \@minus.2ex}%
                                     {-1em}%
-                                    {\normalfont\normalsize\bfseries\color{blue!65!black}}}
+                                    {\normalfont\normalsize\bfseries\color{bidiblue}}}
 \renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
                                        {3.25ex \@plus1ex \@minus .2ex}%
                                        {-1em}%
-                                      {\normalfont\normalsize\bfseries\color{blue!65!black}}}  
+                                      {\normalfont\normalsize\bfseries\color{bidiblue}}}  
 \makeatother
 \pagestyle{docheadings}
 \newcounter{local}
