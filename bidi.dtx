@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v39.9
+v40.0
 
 This package provides a convenient interface for typesetting
 bidirectional texts in Plain TeX and LaTeX, using XeTeX engine.
@@ -30,7 +30,7 @@ The announcements for the new releases of the package will
 also appear in the Discussions space under the Announcements
 category.
   
-Current version release date: 2024/12/07
+Current version release date: 2024/12/08
 
 ___________________________________________
 Vafa Khalighi
@@ -175,6 +175,7 @@ by Vafa Khalighi.
 \generate{\file{imsproc-xetex-bidi.def}{\from{\jobname.dtx}{table,imsproc-xetex-bidi.def}}}
 \generate{\file{leqno-xetex-bidi.def}{\from{\jobname.dtx}{table,leqno-xetex-bidi.def}}}
 \generate{\file{letter-xetex-bidi.def}{\from{\jobname.dtx}{table,letter-xetex-bidi.def}}}
+\generate{\file{lettrine-xetex-bidi.def}{\from{\jobname.dtx}{table,lettrine-xetex-bidi.def}}}
 \generate{\file{lineno-xetex-bidi.def}{\from{\jobname.dtx}{table,lineno-xetex-bidi.def}}}
 \generate{\file{listings-xetex-bidi.def}{\from{\jobname.dtx}{table,listings-xetex-bidi.def}}}
 \generate{\file{loadingorder-xetex-bidi.def}{\from{\jobname.dtx}{table,loadingorder-xetex-bidi.def}}}
@@ -266,7 +267,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 39.9 of the bidi
+  pdftitle={Source documentation for version 40.0 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -285,7 +286,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting in plain \TeX{} and \LaTeX, using \XeTeX{} engine\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 39.9}}
+%\large Source documentation for \textcolor{bidiblue}{version 40.0}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -295,7 +296,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 39.9}}
+%Source documentation for \textcolor{bidiblue}{version 40.0}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -344,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{58565}
+%% \CheckSum{58589}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4682,8 +4683,8 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2024/12/07}
-\def\bidi@version{39.9}
+\def\bididate{2024/12/08}
+\def\bidi@version{40.0}
 \def\bidi@releasename{John Torrence Tate, Jr.}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -4772,7 +4773,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released December 7, 2024. 
+  Released December 8, 2024. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -5016,9 +5017,9 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2024/12/07}
+\def\bididate{2024/12/08}
 \catcode`@=11
-\def\bidi@version{39.9}
+\def\bidi@version{40.0}
 \def\bidi@releasename{John Torrence Tate, Jr.}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
@@ -5122,7 +5123,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released December 7, 2024. 
+  Released December 8, 2024. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
@@ -19112,6 +19113,26 @@ bidi implementation of tufte title]
 %    \end{macrocode}
 % \iffalse
 %</letter-xetex-bidi.def>
+%<*lettrine-xetex-bidi.def>
+%\fi
+% \section{File \texttt{lettrine-xetex-bidi.def}}
+%    \begin{macrocode}
+\ProvidesFile{lettrine-xetex-bidi.def}[2024/12/08 v0.9 bidi adaptations for lettrine package for XeTeX engine]
+\RemoveFromHook{begindocument}[lettrine]
+\AtBeginDocument[lettrine]{%
+  \if\DefaultOptionsFile\relax
+  \else
+    \InputIfFileExists{\DefaultOptionsFile}%
+      {}%
+      {\PackageWarning{lettrine.sty}%
+         {File \DefaultOptionsFile\space not found}%
+      }%
+  \fi
+  \let\ifL@RTL\if@RTL
+}
+%    \end{macrocode}
+% \iffalse
+%</lettrine-xetex-bidi.def>
 %<*lineno-xetex-bidi.def>
 %\fi
 % \section{File \texttt{lineno-xetex-bidi.def}}
@@ -19287,7 +19308,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{loadingorder-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{loadingorder-xetex-bidi.def}[2024/12/07 v0.98 making sure that bidi is the last package loaded]
+\ProvidesFile{loadingorder-xetex-bidi.def}[2024/12/08 v0.99 making sure that bidi is the last package loaded]
 \bidi@isloaded{amsmath}
 \bidi@isloaded{amstext}
 \bidi@isloaded{amsthm}
@@ -19327,6 +19348,7 @@ bidi implementation of tufte title]
 \bidi@isloaded{overpic}
 \bidi@isloaded{pdfpages}
 \bidi@isloaded{listings}
+\bidi@isloaded{lettrine}
 \bidi@isloaded{lineno}
 \bidi@isloaded{media9}
 \bidi@isloaded{pstricks}
@@ -19471,6 +19493,9 @@ bidi implementation of tufte title]
   \if@bidi@pdfpagesloaded@\else
     \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package pdfpages after bidi package. Please load package pdfpages before bidi package, and then try to run xelatex on your document again}{}]{pdfpages}
   \fi%
+  \if@bidi@lettrineloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package lettrine after bidi package. Please load package lettrine before bidi package, and then try to run xelatex on your document again}{}]{lettrine}
+  \fi
   \if@bidi@linenoloaded@\else
     \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package lineno after bidi package. Please load package lineno before bidi package, and then try to run xelatex on your document again}{}]{lineno}
   \fi%
@@ -27523,7 +27548,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{latex-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{latex-xetex-bidi.def}[2024/12/07 v1.5.0 bidi adaptations  for `latex.ltx' for XeTeX engine]
+\ProvidesFile{latex-xetex-bidi.def}[2024/12/08 v1.5.1 bidi adaptations  for `latex.ltx' for XeTeX engine]
 \newcommand{\TeXXeTOn}{\TeXXeTstate\@ne}
 \newcommand{\TeXXeTOff}{\TeXXeTstate\z@}
 \TeXXeTOn
@@ -28428,6 +28453,7 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
 \@ifpackageloaded{pdfbase}{\input{pdfbase-xetex-bidi.def}}{}
 \@ifpackageloaded{pdflscape}{\input{pdflscape-xetex-bidi.def}}{}
 \@ifpackageloaded{pdfpages}{\input{pdfpages-xetex-bidi.def}}{}
+\@ifpackageloaded{lettrine}{\input{lettrine-xetex-bidi.def}}{}
 \@ifpackageloaded{lineno}{\input{lineno-xetex-bidi.def}}{}
 \@ifpackageloaded{listings}{\input{listings-xetex-bidi.def}}{}
 \@ifpackageloaded{media9}{\RequirePackage{bidi-media9}}{}
