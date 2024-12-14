@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v40.1
+v40.2
 
 This package provides a convenient interface for typesetting
 bidirectional texts in Plain TeX and LaTeX, using XeTeX engine.
@@ -30,7 +30,7 @@ The announcements for the new releases of the package will
 also appear in the Discussions space under the Announcements
 category.
   
-Current version release date: 2024/12/10
+Current version release date: 2024/12/14
 
 ___________________________________________
 Vafa Khalighi
@@ -267,7 +267,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 40.1 of the bidi
+  pdftitle={Source documentation for version 40.2 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -286,7 +286,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting in plain \TeX{} and \LaTeX, using \XeTeX{} engine\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 40.1}}
+%\large Source documentation for \textcolor{bidiblue}{version 40.2}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -296,7 +296,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 40.1}}
+%Source documentation for \textcolor{bidiblue}{version 40.2}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{58587}
+%% \CheckSum{58538}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4685,12 +4685,144 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2024/12/10}
-\def\bidi@version{40.1}
-\def\bidi@releasename{John Torrence Tate, Jr.}
+\def\bididate{2024/12/14}
+\def\bidi@version{40.2}
+\def\bidi@releasename{John Willard Milnor}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
 Bidirectional typesetting in plain TeX and LaTeX]
+\newif\if@bidi@banner
+\newif\if@bidi@pdfbanner
+\newif\iffootdir@debug
+\newif\if@extrafootnotefeatures
+\newif\if@nonlatin
+\newif\if@bidi@pdfm@mark
+\newif\if@bidi@perpage@footnote
+\ExplSyntaxOn
+\keys_define:nn { bidi }
+  {
+    banner .choice: ,
+    banner / on .code:n = \@bidi@bannertrue ,
+    banner / off .code:n = \@bidi@bannerfalse ,
+    banner .default:n = on
+  }
+\keys_define:nn { bidi }
+  {
+    PDFbanner .choice: ,
+    PDFbanner / on .code:n = \@bidi@pdfbannertrue ,
+    PDFbanner / off .code:n = \@bidi@pdfbannerfalse ,
+    PDFbanner .default:n = on
+  }
+\keys_define:nn { bidi }
+  {
+    RTLdocument .choice: ,
+    RTLdocument / on .code:n = \AtEndOfPackage{\@RTLtrue} ,
+    RTLdocument / off .code:n = \AtEndOfPackage{\@RTLfalse} ,
+    RTLdocument .default:n = on
+  }
+\keys_define:nn { bidi }
+  {
+    rldocument .choice: ,
+    rldocument / on .code:n = \AtEndOfPackage{\@RTLtrue} ,
+    rldocument / off .code:n = \AtEndOfPackage{\@RTLfalse} ,
+    rldocument .default:n = on
+  }  
+\keys_define:nn { bidi }
+  {
+    documentdirection .choice: ,
+    documentdirection / righttoleft .code:n = \AtEndOfPackage{\@RTLtrue} ,
+    documentdirection / lefttoright .code:n = \AtEndOfPackage{\@RTLfalse} 
+  }
+\keys_define:nn { bidi }
+  {
+    tabledirection .choice: ,
+    tabledirection / righttoleft .code:n = \AtEndOfPackage{\@RTLtabtrue} ,
+    tabledirection / lefttoright .code:n = \AtEndOfPackage{\@RTLtabfalse} 
+  }
+\keys_define:nn { bidi }
+  {
+    footnotedirection .choice: ,
+    footnotedirection / righttoleft .code:n = \AtEndOfPackage{\@RTL@footnotetrue} ,
+    footnotedirection / lefttoright .code:n = \AtEndOfPackage{\@RTL@footnotefalse} 
+  }
+\keys_define:nn { bidi }
+  {
+    debugfootnotedirection .choice: ,
+    debugfootnotedirection / on .code:n = \footdir@debugtrue ,
+    debugfootnotedirection / off .code:n = \footdir@debugfalse ,
+    debugfootnotedirection .default:n = on
+  }
+\keys_define:nn { bidi }
+  {
+    footnoterule .choice: ,
+    footnoterule / automatic .code:n = \AtEndOfPackage{\autofootnoterule} ,
+    footnoterule / left .code:n = \AtEndOfPackage{\leftfootnoterule} ,
+    footnoterule / right .code:n = \AtEndOfPackage{\rightfootnoterule} ,
+    footnoterule / split .code:n = \AtEndOfPackage{\SplitFootnoteRule} ,
+    footnoterule / textwidth .code:n = \AtEndOfPackage{\textwidthfootnoterule} 
+  }
+\keys_define:nn { bidi }
+  {
+    extrafootnotefeatures .choice: ,
+    extrafootnotefeatures / on .code:n = \@extrafootnotefeaturestrue ,
+    extrafootnotefeatures / off .code:n = \@extrafootnotefeaturesfalse ,
+    extrafootnotefeatures .default:n = on
+  }
+\keys_define:nn { bidi }
+  {
+    script .choice: ,
+    script / latin .code:n = \@nonlatinfalse ,
+    script / nonlatin .code:n = \@nonlatintrue ,
+    script .default:n = latin
+  }
+\keys_define:nn { bidi }
+  {
+    DetectColumn .choice: ,
+    DetectColumn / on .code:n = 
+      \def\bidi@firstcolumn@status@write{% 
+        \protected@write\@auxout{}%
+          {\string\bidi@column@status
+            {1}}} 
+      \def\bidi@lastcolumn@status@write{%
+        \protected@write\@auxout{}%
+          {\string\bidi@column@status{2}}} ,
+    DetectColumn / off .code:n = 
+       \let\bidi@firstcolumn@status@write\relax
+       \let\bidi@lastcolumn@status@write\relax ,
+    DetectColumn .default:n = on
+  }
+\keys_define:nn { bidi }
+  {
+    logo .choice: ,
+    logo / on .code:n = \AtBeginDocument{\@bidi@inslogo@} ,
+    logo / off .code:n = \let\@bidi@logo@\@empty \let\@bidi@inslogo@\@empty ,
+    logo .default:n = on
+  }
+\keys_define:nn { bidi }
+  {
+    pdfinfo .choice: ,
+    pdfinfo / on .code:n = \@bidi@pdfm@marktrue ,
+    pdfinfo / off .code:n = \@bidi@pdfm@markfalse ,
+    pdfinfo .default:n = on
+  }
+% The `perpagefootnote' option is documented in UK TeX FAQ at 
+%  <https://texfaq.org/FAQ-footnpp> (see last paragraph)
+\keys_define:nn { bidi }
+  {
+    perpagefootnote .choice: ,
+    perpagefootnote / on .code:n = \@bidi@perpage@footnotetrue ,
+    perpagefootnote / off .code:n = \@bidi@perpage@footnotefalse ,
+    perpagefootnote .default:n = on
+  }
+\keys_set:nn { bidi }
+  {
+    banner = on ,
+    PDFbanner = on ,
+    DetectColumn = off
+    
+  }
+\ExplSyntaxOff
+\ProcessKeyOptions
 \edef\@bidi@info{****************************************************^^J%
 * ^^J%
 * bidi package (Bidirectional typesetting in^^J% 
@@ -4718,9 +4850,11 @@ Bidirectional typesetting in plain TeX and LaTeX]
 * Primary author of bidi package: Vafa Khalighi.^^J%
 * ^^J%
 ****************************************************}
-\typeout{\@bidi@info}
 \edef\bidi@everyjob{\the\everyjob}
-\everyjob{\bidi@everyjob\typeout{\@bidi@info}}
+\if@bidi@banner
+  \typeout{\@bidi@info}
+  \everyjob{\bidi@everyjob\typeout{\@bidi@info}}
+\fi
 \newcommand*{\bidiversion}{\ensuremath\bidi@version}
 \newcommand*{\IfbidiPackageVersionLater}[1]{%
   \ifdim\bidi@version pt > #1 pt %
@@ -4746,11 +4880,8 @@ Bidirectional typesetting in plain TeX and LaTeX]
 \RequirePackage{zref-abspage}
 \RequirePackage{auxhook}
 \RequirePackage{ltxcmds}
-\RequirePackage{xkeyval}
 \eqnewif{\if@RTLmain}{\if@rlmain}
 \eqnewif{\if@RTL}{\if@rl}
-\newif\if@nonlatin
-\newif\if@bidi@perpage@footnote
 \newcommand*{\setlatin}{\@nonlatinfalse}
 \newcommand*{\setnonlatin}{\@nonlatintrue}
 \eqnewif{\if@RTLtab}{\if@tab@rl}
@@ -4758,12 +4889,10 @@ Bidirectional typesetting in plain TeX and LaTeX]
 \newif\if@bidi@pdfencrypt
 \newcommand*{\setRTLtable}{\@RTLtabtrue}
 \newcommand*{\setLTRtable}{\@RTLtabfalse}
-\newif\if@bidi@pdfm@mark
 \newif\if@RTLmarginpar
 \newif\if@LTRmarginpar
 \newif\if@LTRbibitems
 \newif\if@RTLbibitems
-\newif\if@extrafootnotefeatures
 \eqnewif{\if@RTL@footnote}{\if@rl@footnote}
 \newif\if@bidi@list@minipage@parbox
 \newif\if@bidi@list@minipage@parbox@not@nob
@@ -4775,7 +4904,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released December 10, 2024. 
+  Released December 14, 2024. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -4833,126 +4962,32 @@ Bidirectional typesetting in plain TeX and LaTeX]
   \@bidi@logo@hb@xt@columnwidth
     {\hss\LRE{\bfseries Typeset by the \textsf{bidi} 
     package\quad\@bidi@logo{bidi-logo.pdf}}}}
-\define@key{bidi@pdfencrypt}{userpassword}[]{%
-  \def\bidi@pdfencrypt@userpassword{#1}%
-}
-\define@key{bidi@pdfencrypt}{ownerpassword}[]{%
-  \def\bidi@pdfencrypt@ownerpassword{#1}%
-}
-\define@key{bidi@pdfencrypt}{keylength}[128]{%
-  \def\bidi@pdfencrypt@keylength{#1}%
-}
-\define@key{bidi@pdfencrypt}{permissionflags}[2052]{%
-  \def\bidi@pdfencrypt@permissionflags{#1}%
-}
-\newcommand*{\pdfencryptsetup}{\setkeys{bidi@pdfencrypt}}
+\ExplSyntaxOn
+\keys_define:nn { bidi / pdfencrypt }
+  {
+    userpassword .code:n = \def\bidi@pdfencrypt@userpassword{#1} ,
+    userpassword .default:n =
+  }
+\keys_define:nn { bidi / pdfencrypt }
+  {
+    ownerpassword .code:n = \def\bidi@pdfencrypt@ownerpassword{#1} ,
+    ownerpassword .default:n =
+  }
+\keys_define:nn { bidi / pdfencrypt }
+  {
+    keylength .code:n = \def\bidi@pdfencrypt@keylength{#1} ,
+    keylength .default:n = 128
+  }
+\keys_define:nn { bidi / pdfencrypt }
+  {
+    permissionflags .code:n = \def\bidi@pdfencrypt@permissionflags{#1} ,
+    permissionflags .default:n = 2052
+  }
+\NewDocumentCommand \pdfencryptsetup {m} { \keys_set:nn { bidi / pdfencrypt } {#1} }
+\ExplSyntaxOff
 \@onlypreamble\pdfencryptsetup
 \input{latex-xetex-bidi.def}
 \input{loadingorder-xetex-bidi.def}
-\define@choicekey{bidi.sty}{RTLdocument}[\bidi@tempa\bidi@tempb]{on,off}[on]{%
-  \ifcase\bidi@tempb\relax
-    \@RTLtrue
-  \or
-    \@RTLfalse
-  \fi}
-\define@choicekey{bidi.sty}{documentdirection}[\bidi@tempa\bidi@tempb]{righttoleft,lefttoright}{%
-  \ifcase\bidi@tempb\relax
-    \@RTLtrue
-  \or
-    \@RTLfalse
-  \fi}
-\define@choicekey{bidi.sty}{tabledirection}[\bidi@tempa\bidi@tempb]{righttoleft,lefttoright}{%
-  \ifcase\bidi@tempb\relax
-    \@RTLtabtrue
-  \or
-    \@RTLtabfalse
-  \fi}
-\define@choicekey{bidi.sty}{script}[\bidi@tempa\bidi@tempb]{latin,nonlatin}[latin]{%
-  \ifcase\bidi@tempb\relax
-    \@nonlatinfalse
-  \or
-    \@nonlatintrue
-  \fi}
-\define@choicekey{bidi.sty}{rldocument}[\bidi@tempa\bidi@tempb]{on,off}[on]{%
-  \ifcase\bidi@tempb\relax
-    \@RTLtrue
-  \or
-    \@RTLfalse
-  \fi}
-\define@choicekey{bidi.sty}{footnoterule}[\bidi@tempa\bidi@tempb]{automatic,left,right,split,textwidth}{%
-  \ifcase\bidi@tempb\relax
-    \autofootnoterule
-  \or
-    \leftfootnoterule
-  \or
-    \rightfootnoterule
-  \or
-    \SplitFootnoteRule
-  \or
-    \textwidthfootnoterule
-  \fi}
-\define@choicekey{bidi.sty}{footnotedirection}[\bidi@tempa\bidi@tempb]{righttoleft,lefttoright}{%
-  \ifcase\bidi@tempb\relax
-    \@RTL@footnotetrue
-  \or
-    \@RTL@footnotefalse
-  \fi}
-\define@choicekey{bidi.sty}{debugfootnotedirection}[\bidi@tempa\bidi@tempb]{on,off}[on]{%
-  \ifcase\bidi@tempb\relax
-    \footdir@debugtrue
-  \or
-    \footdir@debugfalse
-  \fi}
-\define@choicekey{bidi.sty}{extrafootnotefeatures}[\bidi@tempa\bidi@tempb]{on,off}[on]{%
-  \ifcase\bidi@tempb\relax
-    \@extrafootnotefeaturestrue
-  \or
-    \@extrafootnotefeaturesfalse
-  \fi}
-  
-\define@choicekey{bidi.sty}{DetectColumn}[\bidi@tempa\bidi@tempb]{on,off}[on]{%
-  \ifcase\bidi@tempb\relax
-  \def\bidi@firstcolumn@status@write{%
-         \protected@write\@auxout{}%
-              {\string\bidi@column@status
-              {1}}}%
-  \def\bidi@lastcolumn@status@write{%
-         \protected@write\@auxout{}%
-              {\string\bidi@column@status{2}}}%
-  \or
-    \let\bidi@firstcolumn@status@write\relax
-    \let\bidi@lastcolumn@status@write\relax
-  \fi}
-  
-\define@choicekey{bidi.sty}{logo}[\bidi@tempa\bidi@tempb]{on,off}[on]{%
-  \ifcase\bidi@tempb\relax
-    \AtBeginDocument{\@bidi@inslogo@}%
-  \or
-    \let\@bidi@logo@\@empty \let\@bidi@inslogo@\@empty
-  \fi}
-  
-\define@choicekey{bidi.sty}{pdfinfo}[\bidi@tempa\bidi@tempb]{on,off}[on]{%
-  \ifcase\bidi@tempb\relax
-    \@bidi@pdfm@marktrue
-  \or
-    \@bidi@pdfm@markfalse
-  \fi}
-  
-% The `perpagefootnote' option is documented in UK TeX FAQ at 
-%  <https://texfaq.org/FAQ-footnpp> (see last paragraph)
-  
-\define@choicekey{bidi.sty}{perpagefootnote}[\bidi@tempa\bidi@tempb]{on,off}[on]{%
-  \ifcase\bidi@tempb\relax
-    \@bidi@perpage@footnotetrue
-  \or
-    \@bidi@perpage@footnotefalse
-  \fi}
-  
-\ExecuteOptionsX{%
-    DetectColumn=off%
-}
-
-\ProcessOptionsX
 
 \pdfencryptsetup{%
   userpassword,%
@@ -4998,20 +5033,44 @@ Bidirectional typesetting in plain TeX and LaTeX]
     }%
   \fi
 }
-\AtEndDocument{%
-   \special{pdf:%
-     docinfo<<%
-     \if@bidi@pdfm@mark
-       /Creator(\@bidi@pdfcreator)%
-       /Producer(\@bidi@pdfproducer)%
-     \fi
-     /BIDI.Fullbanner(\@bidi@pdfcustomproperties)%
-     \if@bidi@csdef{@xepersian@pdfcustomproperties}{%
-       /XEPERSIAN.Fullbanner(\@xepersian@pdfcustomproperties)%
-     }{}%
-      >>%
-    }%
-}
+\if@bidi@pdfbanner
+  \if@bidi@pdfm@mark
+    \AtEndDocument{%
+      \special{pdf:%
+        docinfo<<%
+          /Creator(\@bidi@pdfcreator)%
+          /Producer(\@bidi@pdfproducer)%
+          /BIDI.Fullbanner(\@bidi@pdfcustomproperties)%
+          \if@bidi@csdef{@xepersian@pdfcustomproperties}{%
+            /XEPERSIAN.Fullbanner(\@xepersian@pdfcustomproperties)%
+          }{}%
+        >>%
+      }%
+    }
+  \else
+    \AtEndDocument{%
+      \special{pdf:%
+        docinfo<<%
+          /BIDI.Fullbanner(\@bidi@pdfcustomproperties)%
+          \if@bidi@csdef{@xepersian@pdfcustomproperties}{%
+            /XEPERSIAN.Fullbanner(\@xepersian@pdfcustomproperties)%
+          }{}%
+        >>%
+      }%
+    }
+  \fi
+\else
+  \if@bidi@pdfm@mark
+    \AtEndDocument{%
+      \special{pdf:%
+        docinfo<<%
+          /Creator(\@bidi@pdfcreator)%
+          /Producer(\@bidi@pdfproducer)%
+        >>%
+      }%
+    }
+  \fi
+\fi
 %    \end{macrocode}
 % \iffalse
 %</bidi.sty>
@@ -5019,10 +5078,10 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2024/12/10}
+\def\bididate{2024/12/14}
 \catcode`@=11
-\def\bidi@version{40.1}
-\def\bidi@releasename{John Torrence Tate, Jr.}
+\def\bidi@version{40.2}
+\def\bidi@releasename{John Willard Milnor}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
 \newlinechar`\^^J
@@ -5053,8 +5112,8 @@ Bidirectional typesetting in plain TeX and LaTeX]
 * Primary author of bidi package: Vafa Khalighi.^^J%
 * ^^J%
 ****************************************************}
-\message{\@bidi@info}
 \edef\bidi@everyjob{\the\everyjob}
+\message{\@bidi@info}
 \everyjob{\bidi@everyjob\message{\@bidi@info}}
 \def\bidiversion{%
   \relax
@@ -5125,7 +5184,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released December 10, 2024. 
+  Released December 14, 2024. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
@@ -16986,7 +17045,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{footnote-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{footnote-xetex-bidi.def}[2023/01/18 v1.2 bidi footnote macros for XeTeX engine]
+\ProvidesFile{footnote-xetex-bidi.def}[2024/12/14 v1.3 bidi footnote macros for XeTeX engine]
 \if@RTLmain\@RTL@footnotetrue\else\@RTL@footnotefalse\fi
 \newif\ifbidi@autofootnoterule
 \def\bidi@mpfootnoterule{\footnoterule}
@@ -16996,7 +17055,6 @@ bidi implementation of tufte title]
   \stepcounter{footdir@label}%
   \zref@labelbyprops{\thefootdir@label}{abspage}%
 }
-\newif\iffootdir@debug
 \newcommand*{\debugfootnotedirection}{\footdir@debugtrue}
 \newtoks\footdir@toks
 \newcommand*{\footdir@debug}[1]{%
