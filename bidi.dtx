@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v40.4
+v40.5
 
 This package provides a convenient interface for typesetting
 bidirectional texts in Plain TeX and LaTeX, using XeTeX engine.
@@ -30,7 +30,7 @@ The announcements for the new releases of the package will
 also appear in the Discussions space under the Announcements
 category.
   
-Current version release date: 2024/12/15
+Current version release date: 2024/12/20
 
 ___________________________________________
 Vafa Khalighi
@@ -267,7 +267,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 40.4 of the bidi
+  pdftitle={Source documentation for version 40.5 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -286,7 +286,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting in plain \TeX{} and \LaTeX, using \XeTeX{} engine\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 40.4}}
+%\large Source documentation for \textcolor{bidiblue}{version 40.5}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -296,7 +296,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 40.4}}
+%Source documentation for \textcolor{bidiblue}{version 40.5}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{58539}
+%% \CheckSum{58550}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2019,7 +2019,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{beamerbaseauxtemplates-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{beamerbaseauxtemplates-xetex-bidi.def}[2023/08/02 v0.3 bidi adaptations for beamerbaseauxtemplates package for XeTeX engine]
+\ProvidesFile{beamerbaseauxtemplates-xetex-bidi.def}[2024/12/20 v0.4 bidi adaptations for beamerbaseauxtemplates package for XeTeX engine]
 \bidi@csundef{beamer@@tmpop@subsection in toc@sections numbered}
 
 \bidi@csundef{beamer@@tmpop@subsubsection in toc@sections numbered}
@@ -2297,6 +2297,21 @@ by Vafa Khalighi.
     \bidi@beamer@ragged%
     \usebeamerfont{block body example}%
 }%
+
+\bidi@csundef{beamer@@tmpop@caption@numbered}
+
+\defbeamertemplate{caption}{numbered}
+{%
+  \leavevmode
+  \bidi@beamer@ragged
+  {%
+    \usebeamercolor[fg]{caption name}%
+    \usebeamerfont*{caption name}%
+    \insertcaptionname~\insertcaptionnumber
+    \usebeamertemplate{caption label separator}%
+  }%
+  \insertcaption\par
+}
 
 \bidi@csundef{beamer@@tmpop@caption@caption name own line}
 
@@ -4685,8 +4700,8 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2024/12/15}
-\def\bidi@version{40.4}
+\def\bididate{2024/12/20}
+\def\bidi@version{40.5}
 \def\bidi@releasename{John Willard Milnor}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -4904,7 +4919,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released December 15, 2024. 
+  Released December 20, 2024. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -5078,9 +5093,9 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2024/12/15}
+\def\bididate{2024/12/20}
 \catcode`@=11
-\def\bidi@version{40.4}
+\def\bidi@version{40.5}
 \def\bidi@releasename{John Willard Milnor}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
@@ -5184,7 +5199,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released December 15, 2024. 
+  Released December 20, 2024. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
