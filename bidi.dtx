@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v40.5
+v40.6
 
 This package provides a convenient interface for typesetting
 bidirectional texts in Plain TeX and LaTeX, using XeTeX engine.
@@ -267,7 +267,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 40.5 of the bidi
+  pdftitle={Source documentation for version 40.6 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -286,7 +286,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting in plain \TeX{} and \LaTeX, using \XeTeX{} engine\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 40.5}}
+%\large Source documentation for \textcolor{bidiblue}{version 40.6}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -296,7 +296,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 40.5}}
+%Source documentation for \textcolor{bidiblue}{version 40.6}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{58550}
+%% \CheckSum{58558}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2328,6 +2328,16 @@ by Vafa Khalighi.
       \insertcaption
     \end{minipage}
 }
+
+\@ifpackageloaded{caption}{%
+  \DeclareCaptionFont{beamer@font}{%
+    \usebeamerfont*{caption}%
+%    \usebeamercolor[fg]{caption}%
+  }
+  \SetCaptionDefault{font}{beamer@font}
+  \DeclareCaptionJustification{bidi@beamer@ragged}{\bidi@beamer@ragged}
+  \SetCaptionDefault{justification}{bidi@beamer@ragged}
+}{}
 
 %    \end{macrocode}
 % \iffalse
@@ -4701,7 +4711,7 @@ by Vafa Khalighi.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \def\bididate{2024/12/20}
-\def\bidi@version{40.5}
+\def\bidi@version{40.6}
 \def\bidi@releasename{John Willard Milnor}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -5095,7 +5105,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %    \begin{macrocode}
 \def\bididate{2024/12/20}
 \catcode`@=11
-\def\bidi@version{40.5}
+\def\bidi@version{40.6}
 \def\bidi@releasename{John Willard Milnor}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
