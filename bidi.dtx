@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v40.6
+v40.7
 
 This package provides a convenient interface for typesetting
 bidirectional texts in Plain TeX and LaTeX, using XeTeX engine.
@@ -30,12 +30,12 @@ The announcements for the new releases of the package will
 also appear in the Discussions space under the Announcements
 category.
   
-Current version release date: 2024/12/20
+Current version release date: 2025/01/01
 
 ___________________________________________
 Vafa Khalighi
   
-Copyright (c) Vafa Khalighi 2007--2024
+Copyright (c) Vafa Khalighi 2007--2025
 Copyright (c) bidi-tex GitHub Organization 2018--2020
                       
 It may be distributed and/or modified under the LaTeX Project Public License,
@@ -57,7 +57,7 @@ by Vafa Khalighi.
   __________________________________________________
   Vafa Khalighi
   
-  Copyright (c) 2007--2024  Vafa Khalighi
+  Copyright (c) 2007--2025  Vafa Khalighi
   Copyright (c) 2018--2020 bidi-tex GitHub Organization
 
   It may be distributed and/or modified under the LaTeX Project Public License,
@@ -267,7 +267,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 40.6 of the bidi
+  pdftitle={Source documentation for version 40.7 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -286,7 +286,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting in plain \TeX{} and \LaTeX, using \XeTeX{} engine\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 40.6}}
+%\large Source documentation for \textcolor{bidiblue}{version 40.7}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -296,7 +296,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 40.6}}
+%Source documentation for \textcolor{bidiblue}{version 40.7}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -329,7 +329,7 @@ by Vafa Khalighi.
 %
 %\vskip 0pt plus 3fill
 %
-%Copyright (c) 2007--2024 Vafa Khalighi
+%Copyright (c) 2007--2025 Vafa Khalighi
 %
 %Copyright (c) 2018--2020 bidi-tex GitHub Organization
 %
@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{58558}
+%% \CheckSum{58578}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2551,7 +2551,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{beamerbaseframecomponents-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{beamerbaseframecomponents-xetex-bidi.def}[2023/08/02 v0.6 bidi adaptations for beamerbaseframecomponents package for XeTeX engine]
+\ProvidesFile{beamerbaseframecomponents-xetex-bidi.def}[2025/01/01 v0.7 bidi adaptations for beamerbaseframecomponents package for XeTeX engine]
 \renewcommand{\setbeamersize}[1]{%
   \beamer@dogeometryfalse%
   \setkeys{beamer@margin}{#1}%
@@ -2715,6 +2715,15 @@ by Vafa Khalighi.
     \dp\beamer@tempbox=0pt%
     \box\beamer@tempbox}}}
   \let\@evenhead\@oddhead\let\@evenfoot\@oddfoot}
+  
+\renewenvironment<>{beamer@columnenv}[2][\beamer@colmode]{%
+  \beamer@colclose\def\beamer@colclose{}%
+  \begin{actionenv}#3%
+    \setkeys{beamer@col}{#1}%
+    \begin{minipage}[\beamer@colalign]{#2}%
+      \leavevmode\bidi@beamer@ragged\beamer@colheadskip\ignorespaces}
+    {\end{minipage}\hfill\end{actionenv}\@ignoretrue}
+\let\endcolumn\endbeamer@columnenv
 
 \renewcommand<>\beamer@columncom[2][\beamer@colmode]{%
   \beamer@colclose%
@@ -4710,9 +4719,9 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2024/12/20}
-\def\bidi@version{40.6}
-\def\bidi@releasename{John Willard Milnor}
+\def\bididate{2025/01/01}
+\def\bidi@version{40.7}
+\def\bidi@releasename{William Paul Thurston}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
 Bidirectional typesetting in plain TeX and LaTeX]
@@ -4858,7 +4867,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 * and LaTeX.  The package includes adaptations^^J%
 * for use with many other commonly-used packages.^^J%
 * ^^J%
-* Copyright (c) 2007--2024 Vafa Khalighi^^J%
+* Copyright (c) 2007--2025 Vafa Khalighi^^J%
 * Copyright (c) 2018--2020 bidi-tex GitHub organization^^J%
 * ^^J%
 * v\bidi@version\space (Release \bidi@releasename), \bididate^^J%
@@ -4929,7 +4938,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released December 20, 2024. 
+  Released January 1, 2025. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -5103,10 +5112,10 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2024/12/20}
+\def\bididate{2025/01/01}
 \catcode`@=11
-\def\bidi@version{40.6}
-\def\bidi@releasename{John Willard Milnor}
+\def\bidi@version{40.7}
+\def\bidi@releasename{William Paul Thurston}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
 \newlinechar`\^^J
@@ -5120,7 +5129,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 * and LaTeX.  The package includes adaptations^^J%
 * for use with many other commonly-used packages.^^J%
 * ^^J%
-* Copyright (c) 2007--2024 Vafa Khalighi^^J%
+* Copyright (c) 2007--2025 Vafa Khalighi^^J%
 * Copyright (c) 2018--2020 bidi-tex GitHub organization^^J%
 * ^^J%
 * v\bidi@version\space (Release \bidi@releasename), \bididate^^J%
@@ -5209,7 +5218,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released December 20, 2024. 
+  Released January 1, 2025. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
