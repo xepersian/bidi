@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v40.7
+v40.8
 
 This package provides a convenient interface for typesetting
 bidirectional texts in Plain TeX and LaTeX, using XeTeX engine.
@@ -30,7 +30,7 @@ The announcements for the new releases of the package will
 also appear in the Discussions space under the Announcements
 category.
   
-Current version release date: 2024/12/28
+Current version release date: 2025/01/01
 
 ___________________________________________
 Vafa Khalighi
@@ -267,7 +267,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 40.7 of the bidi
+  pdftitle={Source documentation for version 40.8 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -286,7 +286,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting in plain \TeX{} and \LaTeX, using \XeTeX{} engine\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 40.7}}
+%\large Source documentation for \textcolor{bidiblue}{version 40.8}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -296,7 +296,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 40.7}}
+%Source documentation for \textcolor{bidiblue}{version 40.8}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{58578}
+%% \CheckSum{58641}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4719,8 +4719,8 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2024/12/28}
-\def\bidi@version{40.7}
+\def\bididate{2025/01/01}
+\def\bidi@version{40.8}
 \def\bidi@releasename{William Paul Thurston}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -4938,7 +4938,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released December 28, 2024. 
+  Released January 1, 2025. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -4992,9 +4992,19 @@ Bidirectional typesetting in plain TeX and LaTeX]
   }%
   \the\toks@
 }
+\newcount\bidi@typesethour
+\newcount\bidi@typesetminute
+\bidi@typesethour=\time
+\divide\bidi@typesethour 60
+\bidi@typesetminute=-\bidi@typesethour
+\multiply\bidi@typesetminute 60
+\advance\bidi@typesetminute \time
+\newcommand*{\TypesetHour}{\two@digits\bidi@typesethour}
+\newcommand*{\TypesetMinute}{\two@digits\bidi@typesetminute}
+\newcommand*{\TypesetTime}{\TypesetHour:\TypesetMinute}
 \newcommand*{\@bidi@logo@}{%
   \@bidi@logo@hb@xt@columnwidth
-    {\hss\LRE{\bfseries Typeset by the \textsf{bidi} 
+    {\hss\LRE{\bfseries Typeset {\today} at {\TypesetTime} by the \textsf{bidi} 
     package\quad\@bidi@logo{bidi-logo.pdf}}}}
 \ExplSyntaxOn
 \keys_define:nn { bidi / pdfencrypt }
@@ -5112,9 +5122,9 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2024/12/28}
+\def\bididate{2025/01/01}
 \catcode`@=11
-\def\bidi@version{40.7}
+\def\bidi@version{40.8}
 \def\bidi@releasename{William Paul Thurston}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
@@ -5208,7 +5218,18 @@ Bidirectional typesetting in plain TeX and LaTeX]
   }%
   \the\toks@
 }
-\def\@bidi@logo@{\@bidi@logo@hb@xt@\hsize{\hss\LRE{\bf Typeset by the bidi package\quad\@bidi@logo{bidi-logo.pdf}}}}
+\def\two@digits#1{\ifnum#1<10 0\fi\number#1}
+\newcount\bidi@typesethour
+\newcount\bidi@typesetminute
+\bidi@typesethour=\time
+\divide\bidi@typesethour 60
+\bidi@typesetminute=-\bidi@typesethour
+\multiply\bidi@typesetminute 60
+\advance\bidi@typesetminute \time
+\def\TypesetHour{\two@digits\bidi@typesethour}
+\def\TypesetMinute{\two@digits\bidi@typesetminute}
+\def\TypesetTime{\TypesetHour:\TypesetMinute}
+\def\@bidi@logo@{\@bidi@logo@hb@xt@\hsize{\hss\LRE{\bf Typeset {\today} at {\TypesetTime} by the bidi package\quad\@bidi@logo{bidi-logo.pdf}}}}
 \def\nobidilogo{\let\@bidi@logo@\@empty \let\@bidi@inslogo@\@empty}
 \def\@bidi@pdfcreator{%
   The bidi package, v\bidi@version\space (Release \bidi@releasename), \bididate
@@ -5218,7 +5239,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released December 28, 2024. 
+  Released January 1, 2025. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
