@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{58641}
+%% \CheckSum{57977}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -6046,7 +6046,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 % \section{File \texttt{biditools.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{biditools}[2024/12/07 v2.4 Programming tools for bidi package]
+\ProvidesPackage{biditools}[2025/01/01 v2.5 Programming tools for bidi package]
 \providecommand{\@bidi@saveprimitive}[2]{\begingroup\escapechar`\\\relax
   \edef\@tempa{\string#1}\edef\@tempb{\meaning#1}%
   \ifx\@tempa\@tempb \global\let#2#1%
@@ -7546,524 +7546,237 @@ ill-advised in the old versions of bidi package.%
 
 % infinite loop
 %\looprepeat \doloopbody {}
-    
-\renewcommand{\InputIfFileExists}[2]{%
-  \begingroup\expandafter\expandafter\expandafter\endgroup
-  \expandafter\ifx\csname #1-@bidi@alias\endcsname\relax
-    \expandafter\@secondoftwo
-  \else
-    \bidi@replacefile@msg{\csname #1-@bidi@alias\endcsname}{#1}%
-    \expandafter\@firstoftwo
-  \fi
-  {%
-    \expandafter\InputIfFileExists\expandafter{\csname
-      #1-@bidi@alias\endcsname}{#2}%
-  }%
-  {\IfFileExists{#1}{%
-      \bidi@load@hook{before}{#1}%
-      #2\@addtofilelist{#1}%
-      \@@input \@filef@und
-      \bidi@load@hook{after}{#1}%
-    }}%
-}
 
-\newcommand*{\bidi@@loadwithoptions}{}
-\newcommand*{\bidi@loadwithoptions}{}
-\let\bidi@loadwithoptions\@loadwithoptions
+\ExplSyntaxOn
+\NewDocumentCommand \bidi@AfterClass { s m o +m }
+  {
+    \IfBooleanTF { #1 }
+      {
+        \@ifclassloaded{ #2 }
+          { #4 }
+          {
+            \hook_gput_code:nnn
+              { file / #2.\@clsextension / after }
+              { #3 }
+              { #4 }
+          }
+      }
+      {
+        \hook_gput_code:nnn { file / #2.\@clsextension / after } { #3 } { #4 }
+      }
+  }
+  
+\seq_new:N \g__biditools_input_file_seq
 
-\renewcommand*{\@loadwithoptions}[3]{%
-  \begingroup\expandafter\expandafter\expandafter\endgroup
-  \expandafter\ifx\csname #3.#1-@bidi@aliasname\endcsname\relax
-    \def\bidi@@loadwithoptions{\bidi@loadwithoptions{#1}{#2}{#3}}%
-  \else
-    \bidi@replacefile@msg{\csname #3.#1-@bidi@aliasname\endcsname.#1}{#3.#1}%
-    \def\bidi@@loadwithoptions{%
-      \@loadwithoptions{#1}{#2}{\csname #3.#1-@bidi@aliasname\endcsname}%
-    }%
-  \fi
-  \bidi@@loadwithoptions
-}
+\prg_new_protected_conditional:Npnn \__bidi_if_loading:n #1 { T, F, TF }
+  {
+    \str_set:Nx \l_tmpa_str { #1 }
+    \seq_if_in:NxTF \g__biditools_input_file_seq { \str_use:N \l_tmpa_str }
+      { \prg_return_true: }
+      { \prg_return_false: }
+  }
 
-\newcommand*{\bidi@onefilewithoptions}{}
-\let\bidi@onefilewithoptions\@onefilewithoptions
-\def\@onefilewithoptions#1[#2][#3]#4{%
-  \begingroup\expandafter\expandafter\expandafter\endgroup
-  \expandafter\ifx\csname #1.#4-@bidi@aliasname\endcsname\relax
-    \def\bidi@@onefilewithoptions{\bidi@onefilewithoptions{#1}}%
-  \else
-    \bidi@replacefile@msg{\csname #1.#4-@bidi@aliasname\endcsname.#4}{#1.#4}%
-    \edef\bidi@@onefilewithoptions{%
-      \noexpand\@onefilewithoptions{\csname #1.#4-@bidi@aliasname\endcsname}}%
-  \fi
-  \bidi@@onefilewithoptions[{#2}][{#3}]{#4}%
-  \bidi@load@hook{lateafter}{#1.#4}%
-}
+\prg_new_protected_conditional:Npnn \bidi_if_class_loaded:n #1 { T, F, TF }
+  {
+    \@ifclassloaded { #1 }
+      {
+        \__bidi_if_loading:nTF { #1.\@clsextension }
+          { \prg_return_false: }
+          { \prg_return_true: }
+      }
+      {
+        \prg_return_false:
+      }
+  }
+  
+\prg_new_protected_conditional:Npnn \bidi_if_package_loaded:n #1 { T, F, TF }
+  {
+    \@ifpackageloaded { #1 }
+      {
+        \__bidi_if_loading:nTF { #1.\@pkgextension }
+          { \prg_return_false: }
+          { \prg_return_true: }
+      }
+      {
+        \prg_return_false:
+      }
+  }
 
-\newcommand*{\bidi@ReplaceInput}[2]{%
-  \expandafter\edef\csname #1-@bidi@alias\endcsname{#2}%
-}
+\NewDocumentCommand \bidi@AfterAtEndOfClass { s m o +m }
+  {
+    \IfBooleanTF { #1 }
+      {
+        \bidi_if_class_loaded:nTF { #2 }
+          { #4 }
+          { \hook_gput_code:nnn { class / #2 / after } { #3 } { #4 } }
+      }
+      {
+        \bidi_if_class_loaded:nF
+          { #2 }
+          { \hook_gput_code:nnn { class / #2 / after } { #3 } { #4 } }
+      }
+  }
+  
+\NewDocumentCommand \bidi@AfterPackage { s m o +m }
+  {
+    \IfBooleanTF { #1 }
+      {
+        \@ifpackageloaded{ #2 }
+          { #4 }
+          {
+            \hook_gput_code:nnn
+              { file / #2.\@pkgextension / after }
+              { #3 }
+              { #4 }
+          }
+      }
+      {
+        \hook_gput_code:nnn { file / #2.\@pkgextension / after } { #3 } { #4 }
+      }
+  }
+  
+\NewDocumentCommand \bidi@AfterAtEndOfPackage { s m o +m }
+  {
+    \IfBooleanTF { #1 }
+      {
+        \bidi_if_package_loaded:nTF { #2 }
+          { #4 }
+          { \hook_gput_code:nnn { package / #2 / after } { #3 } { #4 } }
+      }
+      {
+        \bidi_if_package_loaded:nF
+          { #2 }
+          { \hook_gput_code:nnn { package / #2 / after } { #3 } { #4 } }
+      }
+  }
+  
+\clist_new:N \l__biditools_package_clist
+\msg_new:nnn { biditools } { cannot-prevent-for-already-loaded-package }
+  {
+    Can~not~prevent~package~`#1'~from~being~loaded,~
+    since~it~has~been~loaded~already~before~line~\msg_line_number:
+  }
+\clist_new:N \g__biditools_prevent_clist
 
-\newcommand*{\bidi@UnReplaceInput}[1]{%
-  \ifcsname #1-@bidi@alias\endcsname
-    \expandafter\let\csname #1-@bidi@alias\endcsname\relax
-  \fi
-}
+\NewDocumentCommand \bidi@PreventPackageFromLoading { s +o m }
+  {
+    \clist_set:Nx \l__biditools_package_clist { #3 }
+    \clist_map_inline:Nn \l__biditools_package_clist
+      {
+        \@ifpackageloaded { ##1 }
+          {
+            \IfBooleanTF { #1 } { \msg_info:nnn } { \msg_warning:nnn }
+              { biditools } { cannot-prevent-for-already-loaded-package } { ##1 }
+          }
+          {
+            \clist_if_in:NnF \g__biditools_prevent_clist { ##1 }
+              { \clist_gput_right:Nn \g__biditools_prevent_clist { ##1 } }
+            \tl_if_exist:cF { g__biditools_exclude_package_##1_tl }
+              {
+                \tl_new:c { g__biditools_exclude_package_##1_tl }
+              }
+            \IfValueT { #2 }
+              {
+                \tl_gput_right:cn { g__biditools_exclude_package_##1_tl } { #2 }
+              }
+            \disable@package@load { ##1 }
+              { \tl_use:c { g__biditools_exclude_package_##1_tl } }
+          }
+      }
+    \clist_clear:N \l__biditools_package_clist
+  }
+  
+\NewDocumentCommand \bidi@ResetPreventPackageFromLoading {}
+  {
+    \clist_map_function:NN \g__biditools_prevent_clist \reenable@package@load
+    \clist_gclear:N \g__biditools_prevent_clist
+  }
+  
+\NewDocumentCommand \bidi@StorePreventPackageFromLoading { m }
+  { \edef #1 { \clist_use:Nn \g__biditools_prevent_clist { , } } }
 
-\newcommand*{\@bidi@replacefilewithext}[3]{%
-  \expandafter\edef\csname #1.#3-@bidi@aliasname\endcsname{#2}%
- }
+\NewDocumentCommand \bidi@UnPreventPackageFromLoading { s m }
+  {
+    \clist_set:Nx \l__biditools_package_clist { #2 }
+    \clist_map_inline:Nn \l__biditools_package_clist
+      {
+        \clist_if_in:NnT \g__biditools_prevent_clist { ##1 }
+          {
+            \clist_gremove_all:Nn \g__biditools_prevent_clist { ##1 }
+            \reenable@package@load { ##1 }
+            \IfBooleanT { #1 }
+              { \cs_undefine:c { g__biditools_exclude_package_##1_tl } }
+          }
+      }
+  }
+
+\NewDocumentCommand \bidi@BeforeClosingMainAux { o m }
+  {
+    \hook_gput_code:nnn { enddocument / afterlastpage } { #1 }
+      {
+        \debug_suspend:
+        \RenewDocumentCommand \bidi@BeforeClosingMainAux { m } { ##1 }
+        \cs_set_eq:NN \__biditools_protected@write:Nnn \protected@write
+        \cs_set_eq:NN \protected@write \protected@immediate@write
+        #2
+        \cs_set_eq:NN \protected@write \__biditools_protected@write:Nnn
+        \debug_resume:
+      }
+  }
+
+\NewDocumentCommand \bidi@AfterReadingMainAux { o m }
+  {
+    \hook_gput_code:nnn { enddocument / afteraux } { #1 }
+      {
+        \debug_suspend:
+        \RenewDocumentCommand \bidi@AfterReadingMainAux { m } { ##1 }
+        \cs_set_eq:NN \__biditools_protected@write:Nnn \protected@write
+        \cs_set_eq:NN \protected@write \protected@immediate@write
+        #2
+        \cs_set_eq:NN \protected@write \__biditools_protected@write:Nnn
+        \debug_resume:
+      }
+  }
+\ExplSyntaxOff
+
+\newcommand*{\bidi@ReplaceInput}{\declare@file@substitution}
+\newcommand*{\bidi@UnReplaceInput}
+{\undeclare@file@substitution}
 \newcommand*{\bidi@ReplacePackage}[2]{%
-  \@bidi@replacefilewithext{#1}{#2}\@pkgextension
-}
-\newcommand*{\bidi@ReplaceClass}[2]{%
-  \@bidi@replacefilewithext{#1}{#2}\@clsextension
-}
-\newcommand*{\@bidi@unreplacefilewithext}[2]{%
-  \ifcsname #1.#2-@bidi@aliasname\endcsname
-    \expandafter\let\csname #1.#2-@bidi@aliasname\endcsname\relax
-  \fi
+  \declare@file@substitution{#1.\@pkgextension}{#2.\@pkgextension}%
 }
 \newcommand*{\bidi@UnReplacePackage}[1]{%
-  \@bidi@unreplacefilewithext{#1}\@pkgextension
+  \undeclare@file@substitution{#1.\@pkgextension}%
+}
+\newcommand*{\bidi@ReplaceClass}[2]{%
+  \declare@file@substitution{#1.\@clsextension}{#2.\@clsextension}%
 }
 \newcommand*{\bidi@UnReplaceClass}[1]{%
-  \@bidi@unreplacefilewithext{#1}\@clsextension
+  \undeclare@file@substitution{#1.\@clsextension}%
 }
-\newcommand*{\bidi@replacefile@msg}[2]{%
-  \PackageInfo{biditools}{inputing `#1' instead of `#2'}%
+\newcommand*{\bidi@BeforeFile}[1]{%
+  \AddToHook{file/#1/before}%
 }
-
-\newcommand*{\bidi@load@hook}[2]{%
-  \@ifundefined{#2-@#1}{}{%
-    \@nameuse{#2-@#1}%
-    \expandafter\let\csname #2-@#1\endcsname=\relax}}
-\newcommand*{\bidi@set@load@hook}[2]{%
-  \@ifundefined{#2-@#1}{\@namedef{#2-@#1}{}}{}%
-  \expandafter\g@addto@macro\csname #2-@#1\endcsname}
-\newcommand*{\bidi@BeforeFile}{\bidi@set@load@hook{before}}
-\newcommand*{\bidi@AfterFile}{\bidi@set@load@hook{after}}
+\newcommand*{\bidi@AfterFile}[1]{%
+  \AddToHook{file/#1/after}%
+}
 \newcommand*{\bidi@BeforeClass}[1]{%
-  \bidi@set@load@hook{before}{#1.\@clsextension}}
-\newcommand*{\bidi@AfterClass}{%
-  \@ifstar {\@s@bidi@AfterClass}{%
-    \@ifnextchar +\@@bidi@AfterClass{%
-      \@ifnextchar !\@@@bidi@AfterClass\@bidi@AfterClass
-    }%
-  }%
+    \bidi@BeforeFile{#1.\@clsextension}%
 }
-
-\newcommand*{\@@@bidi@AfterClass}[2]{%
-  \begingroup\ifx\csname #2.\@clsextension-h@@k\endcsname\relax
-    \aftergroup\@s@bidi@AfterClass
-  \else
-    \aftergroup\bidi@AfterAtEndOfClass
-  \fi
-  \endgroup{#2}%
-}
-
-\newcommand*{\bidi@AfterAtEndOfClass}[1]{%
-  \bidi@set@load@hook{lateafter}{#1.\@clsextension}}
-\newcommand*{\@@bidi@AfterClass}[2]{%
-  \begingroup
-    \expandafter\ifx\csname #2.\@clsextension-h@@k\endcsname\relax
-      \aftergroup\@s@bidi@AfterClass
-    \else
-      \aftergroup\@bidi@AfterClass
-    \fi
-  \endgroup{#2}%
-}
-
-\newcommand*{\@bidi@AfterClass}[1]{%
-  \bidi@set@load@hook{after}{#1.\@clsextension}}
-\newcommand*{\@s@bidi@AfterClass}[1]{%
-  \begingroup
-    \@ifclassloaded{#1}{%
-      \aftergroup\@secondoftwo
-    }{%
-      \aftergroup\@bidi@AfterClass
-    }%
-  \endgroup
-  {#1}%
-}
-
-
 \newcommand*{\bidi@BeforePackage}[1]{%
-  \bidi@set@load@hook{before}{#1.\@pkgextension}}
-\newcommand*{\bidi@AfterPackage}{%
-  \@ifstar {\@s@bidi@AfterPackage}{%
-    \@ifnextchar +\@@bidi@AfterPackage{%
-      \@ifnextchar !\@@@bidi@AfterPackage\@bidi@AfterPackage
-    }%
-  }%
-}
-\newcommand*{\@@@bidi@AfterPackage}[2]{%
-  \begingroup\ifx\csname #2.\@pkgextension-h@@k\endcsname\relax
-    \aftergroup\@s@bidi@AfterPackage
-  \else
-    \aftergroup\bidi@AfterAtEndOfPackage
-  \fi
-  \endgroup{#2}%
-}
-\newcommand*{\bidi@AfterAtEndOfPackage}[1]{%
-  \bidi@set@load@hook{lateafter}{#1.\@pkgextension}}
-\newcommand*{\@@bidi@AfterPackage}[2]{%
-  \begingroup
-    \expandafter\ifx\csname #2.\@pkgextension-h@@k\endcsname\relax
-      \aftergroup\@s@bidi@AfterPackage
-    \else
-      \aftergroup\@bidi@AfterPackage
-    \fi
-  \endgroup{#2}%
-}
-\newcommand*{\@bidi@AfterPackage}[1]{%
-  \bidi@set@load@hook{after}{#1.\@pkgextension}}
-\newcommand*{\@s@bidi@AfterPackage}[1]{%
-  \begingroup
-    \@ifpackageloaded{#1}{%
-      \aftergroup\@secondoftwo
-    }{%
-      \aftergroup\@bidi@AfterPackage
-    }%
-  \endgroup
-  {#1}%
+  \bidi@BeforeFile{#1.\@pkgextension}%
 }
 
-\newcommand*{\bidi@excludedpackages}{}
-\let\bidi@excludedpackages\@empty
-\newcommand*{\bidi@saved@RequirePackage}{}
-\newcommand*{\bidi@PreventPackageFromLoading}{%
-  \@ifstar{\@bidi@PreventPackageFromLoading\PackageInfo}%
-          {\@bidi@PreventPackageFromLoading\PackageWarning}%
-}
-\newcommand*{\@bidi@PreventPackageFromLoading}[1]{%
-  \@ifnextchar [%]
-    {\@@bidi@PreventPackageFromLoading#1}{\@@bidi@PreventPackageFromLoading#1[]}%
-}
-\newcommand*{\@@bidi@PreventPackageFromLoading}{}
-
-\def\@@bidi@PreventPackageFromLoading#1[#2]#3{%
-  \edef\reserved@b{\zap@space#3 \@empty}%
-  \ifx \reserved@b\@empty
-    #1{biditools}{%
-      \string\bidi@PreventPackageFromLoading\space with empty packages\MessageBreak
-      argument ignored%
-    }%
-  \else
-    \ifx\bidi@excludedpackages\@empty
-      \let\bidi@saved@RequirePackage\RequirePackage
-      \let\RequirePackage\bidi@RequirePackage
-      \def\reserved@a##1##{%
-        \@latex@error
-        {\noexpand \usepackage before \string\documentclass}%
-        {\noexpand \usepackage may only appear in the document
-          preamble, i.e.,\MessageBreak
-          between \noexpand\documentclass and
-          \string\begin{document}.}%
-        \@gobble}%
-      \ifx\reserved@a\usepackage\else
-        \ifx\usepackage\bidi@saved@RequirePackage\else
-          \PackageWarning{biditools}{%
-            Maybe serious problem: unexpected definition of\MessageBreak
-            \string\usepackage
-          }%
-        \fi
-        \let\usepackage\RequirePackage
-      \fi
-    \fi
-    \expandafter\@for \expandafter\reserved@a\expandafter:\expandafter=%
-    \reserved@b\do {%
-      \ifx\reserved@a\@empty
-        #1{biditools}{%
-          empty package argument for
-          \string\bidi@PreventPackageFromLoading\MessageBreak
-          ignored%
-        }%
-      \else
-        \expandafter\@ifpackageloaded\expandafter{\reserved@a}{%
-          #1{biditools}{%
-            package `\reserved@a' already loaded.\MessageBreak
-            Cannot prevent it from beeing loaded%
-          }%
-        }{%
-          \edef\bidi@excludedpackages{\bidi@excludedpackages,%
-            \reserved@a}%
-          \if\relax\detokenize{#2}\relax\else
-            \@ifundefined{bidi@exclude@package@\reserved@a @do}{%
-              \@namedef{bidi@exclude@package@\reserved@a @do}{}%
-            }{}%
-            \expandafter\def
-            \csname bidi@exclude@package@\reserved@a
-                    @do\expandafter\expandafter\expandafter\endcsname
-            \expandafter\expandafter\expandafter{%
-              \csname bidi@exclude@package@\reserved@a @do\endcsname
-              #2%
-            }%
-          \fi
-        }%
-      \fi
-    }%
-    \ifx\bidi@excludedpackages\@empty
-      \bidi@ResetPreventPackageFromLoading
-    \fi
-  \fi
-}
-
-\@onlypreamble\bidi@PreventPackageFromLoading
-\newcommand*{\bidi@ResetPreventPackageFromLoading}{%
-  \let\bidi@excludedpackages\@empty
-  \ifx\RequirePackage\bidi@RequirePackage
-    \ifx\usepackage\RequirePackage
-      \let\usepackage\bidi@saved@RequirePackage
-    \fi
-    \let\RequirePackage\bidi@saved@RequirePackage
-  \fi
-}
-\@onlypreamble\bidi@ResetPreventPackageFromLoading
-\newcommand*{\bidi@StorePreventPackageFromLoading}[1]{%
-  \let#1\bidi@excludedpackages
-}
-\@onlypreamble\bidi@StorePreventPackageFromLoading
-\newcommand*{\bidi@UnPreventPackageFromLoading}{%
-  \@ifstar {\@tempswatrue\@bidi@UnPreventPackageFromLoading}%
-           {\@tempswafalse\@bidi@UnPreventPackageFromLoading}%
-}
-
-\newcommand*{\@bidi@UnPreventPackageFromLoading}[1]{%
-  \edef\reserved@b{\zap@space#1 \@empty}%
-  \if@tempswa
-    \@for\reserved@a:=\reserved@b\do {%
-      \ifx\reserved@a\@empty \else
-        \ifcsname bidi@exclude@package@\reserved@a @do\endcsname
-          \expandafter\let
-          \csname bidi@exclude@package@\reserved@a @do\endcsname
-          \undefined
-        \fi
-      \fi
-    }%
-  \fi
-  \ifcsname bidi@excludedpackages\endcsname
-    \let\reserved@a\bidi@excludedpackages
-    \let\bidi@excludedpackages\@empty
-    \expandafter\@for\expandafter\reserved@c
-    \expandafter:\expandafter=\reserved@a
-    \do{%
-      \ifx\reserved@c\@empty\else
-        \@expandtwoargs\in@{,\reserved@c,}{,\reserved@b,}%
-        \ifin@
-        \else
-          \edef\bidi@excludedpackages{%
-            \bidi@excludedpackages,\reserved@c
-          }%
-        \fi
-      \fi
-    }%
-    \ifx\bidi@excludedpackages\@empty\bidi@ResetPreventPackageFromLoading\fi
-  \fi
-}
-
-
-\newcommand*{\bidi@RequirePackage}[2][]{%
-  \let\reserved@c\@empty
-  \let\reserved@d\@empty
-  \edef\reserved@b{\zap@space#2 \@empty}%
-  \expandafter\@for\expandafter\reserved@b\expandafter:\expandafter=\reserved@b
-  \do {%
-    \begingroup
-      \@tempswatrue
-      \@for\reserved@a:=\bidi@excludedpackages\do {%
-        \ifx\reserved@a\reserved@b
-          \@tempswafalse
-        \fi
-      }%
-      \if@tempswa
-        \xdef\reserved@c{\reserved@c,\reserved@b}%
-      \else
-        \ifx\reserved@b\@empty\else
-          \PackageInfo{biditools}{Excluding package `\reserved@b'\MessageBreak
-            from loading}%
-          \@ifundefined{bidi@exclude@package@\reserved@b @do}{%
-          }{%
-            \expandafter\g@addto@macro\expandafter\reserved@d
-            \csname bidi@exclude@package@\reserved@b @do\endcsname
-          }%
-        \fi
-      \fi
-    \endgroup
-  }%
-  \ifx\reserved@c\@empty
-    \let\reserved@a\bidi@gobbleopt
-  \else
-    \edef\reserved@a{\noexpand\bidi@saved@RequirePackage[#1]{%
-        \expandafter\@gobble\reserved@c\@empty}}%
-  \fi
-  \expandafter\reserved@d
-  \reserved@a
-}
-
-\newcommand{\bidi@gobbleopt}[1][]{}
-\AtEndDocument{%
-  \let\bidi@saved@checkend=\@checkend
-  \renewcommand*{\@checkend}[1]{%
-    \def\reserved@a{#1}\def\reserved@b{document}%
-    \bidi@saved@checkend{#1}%
-    \ifx\reserved@a\reserved@b
-      \let\bidi@saved@clearpage=\clearpage
-      \renewcommand*{\clearpage}{\bidi@saved@clearpage
-        \bidi@hook@bcma
-        \bidi@restore@newpage
-        \let\clearpage=\bidi@saved@clearpage}%
-    \fi%
-    \let\bidi@saved@dofilelist\@dofilelist
-    \def\@dofilelist{%
-      \bidi@hook@acma
-      \let\@dofilelist\bidi@saved@dofilelist
-      \bidi@saved@dofilelist
-    }%
-  }%
-}
-
-
-\newcommand*{\bidi@saved@checkend}{}
-\newcommand*{\bidi@saved@dofilelist}{}
-\newcommand*{\bidi@redefine@newpage}{%
-  \let\bidi@saved@newpage\newpage
-  \def\bidi@restore@newpage{%
-    \renewcommand*{\newpage}{%
-      \PackageWarningNoLine{%
-        biditools%
-      }{%
-        \string\newpage\space at main aux file!\MessageBreak
-        You have output material at the main aux file.\MessageBreak
-        Note, that the \string\bidi@BeforeClosingMainAux\space commands\MessageBreak
-        are processed before the output from aux file%
-      }%
-      \let\newpage\bidi@saved@newpage
-      \newpage
-    }%
-  }%
-  \renewcommand*{\newpage}{%
-    \PackageError{%
-      biditools%
-    }{%
-      \string\newpage\space at \string\bidi@BeforeClosingMainAux
-    }{%
-      You should never use \string\newpage\space or
-      \string\clear(double)page or other output material at the\MessageBreak
-      argument of \string\bidi@BeforeClosingMainAux!\MessageBreak
-      If you'll continue, the \string\newpage\space will be ignored to
-      avoid corruption of\MessageBreak
-      every prior use of \string\bidi@BeforeClosingMainAux.
-    }%
-  }%
-}
-
-\newcommand*{\bidi@restore@newpage}{}
-\newcommand*{\bidi@hook@bcma}{}
-\newcommand*{\bidi@hook@acma}{}
-\newcommand*{\bidi@BeforeClosingMainAux}{%
-  \ifx\bidi@hook@bcma\@empty
-    \gdef\bidi@hook@bcma{%
-      \renewcommand*{\bidi@BeforeClosingMainAux}[1]{####1}%
-      \let\protected@write\bidi@protected@immediate@write
-      \bidi@redefine@newpage
-    }%
-  \fi
-  \g@addto@macro\bidi@hook@bcma%
-}
-
-\newcommand*{\bidi@AfterReadingMainAux}{%
-  \ifx\bidi@hook@acma\@empty
-    \gdef\bidi@hook@acma{%
-      \renewcommand*{\bidi@AfterReadingMainAux}[1]{####1}%
-      \let\protected@write\bidi@protected@immediate@write
-    }%
-  \fi
-  \g@addto@macro\bidi@hook@acma%
-}
-
-\long\def\bidi@protected@immediate@write#1#2#3{%
-  \begingroup
-    #2%
-    \let\protect\@unexpandable@protect
-    \edef\reserved@a{\immediate\write#1{#3}}%
-    \reserved@a
-  \endgroup
-  \if@nobreak\ifvmode\nobreak\fi\fi
-}
-
-\def\bidi@patch@counter{0}%
-\if@bidi@csundef{numexpr}{%
-  \def\bidi@patch@stepcounter{%
-    \begingroup
-      \count@\bidi@patch@counter\relax
-      \advance\count@\@ne\relax
-    \edef\x{\endgroup
-      \noexpand\def\noexpand\bidi@patch@counter{\the\count@}%
-    }%
-    \x
-  }%
-}{%
-  \def\bidi@patch@stepcounter{%
-    \edef\bidi@patch@counter{%
-      \the\numexpr\bidi@patch@counter+\@ne\relax
-    }%
-  }%
-}
-\def\bidi@patch@list{}
-\def\bidi@patch@Add{%
-  \bidi@appto\bidi@patch@list
-}
 \def\bidi@patch@AfterPackage#1{%
   \@ifpackageloaded{#1}{%
     \@firstofone
   }{%
-    \@bidi@patch@AfterPackage{#1}%
+    \AddToHook{package/#1/after}%
   }%
 }
-\def\@bidi@patch@AfterPackage#1{%
-  \edef\bidi@patch@temp{#1}%
-  \bidi@patch@stepcounter
-  \expandafter\bidi@patch@@AfterPackage
-  \csname @bidi@patch@\bidi@patch@counter\expandafter\endcsname{%
-    \bidi@patch@temp
-  }%
+\def\bidi@ApplyPatchToPackage#1{%
+  \bidi@patch@AfterPackage{#1}{\input{#1-xetex-bidi.def}}%
 }
-\def\bidi@patch@@AfterPackage#1#2#3{%
-  \begingroup
-    \toks@{#3}%
-    \xdef\bidi@patch@gtemp{%
-      \noexpand\@ifpackageloaded{#2}{%
-        \noexpand\let\noexpand#1\noexpand\relax
-        \the\toks@
-      }{}%
-    }%
-  \endgroup
-  \let#1\bidi@patch@gtemp
-  \bidi@patch@Add#1%
-  \bidi@patch@try{bidi@AfterPackage}{#2}#1%
-}
-
-\def\bidi@patch@try#1#2#3{%
-  \if@bidi@csundef{#1}{}{%
-    \csname #1\endcsname{#2}{#3}%
-  }%
-}
-
-\AtBeginDocument{\bidi@patch@list}
-
-\bidi@AtEndPreamble{\bidi@patch@list}%
-
-\bidi@AfterEndPreamble{%
-  \let\bidi@patch@OrgIfPackageLoaded\@ifpackageloaded
-  \let\bidi@patch@OrgIfPackageLater\@ifpackagelater
-  \let\bidi@patch@OrgIfClassLoaded\@ifclassloaded
-  \let\bidi@patch@OrgIfClassLater\@ifclasslater
-  \bidi@patch@list
-  \let\@ifpackageloaded\bidi@patch@OrgIfPackageLoaded
-  \let\@ifpackagelater\bidi@patch@OrgIfPackageLater
-  \let\@ifclassloaded\bidi@patch@OrgIfClassLoaded
-  \let\@ifclasslater\bidi@patch@OrgIfClassLater
-}%        
 %    \end{macrocode}
 % \iffalse
 %</biditools.sty>
