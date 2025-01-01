@@ -7784,9 +7784,10 @@ ill-advised in the old versions of bidi package.%
     \AddToHook{package/#1/after}%
   }%
 }
-\def\bidi@ApplyPatchToPackage#1{%
-  \bidi@patch@AfterPackage{#1}{\input{#1-xetex-bidi.def}}%
-}
+\NewDocumentCommand \ApplyPatchToPackage { m O{bidi} }
+  {
+    \bidi@patch@AfterPackage{#1}{\input{#1-xetex-#2.def}}%
+  }
 %    \end{macrocode}
 % \iffalse
 %</biditools.sty>
