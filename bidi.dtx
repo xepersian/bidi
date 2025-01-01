@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{57977}
+%% \CheckSum{57995}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -7717,7 +7717,7 @@ ill-advised in the old versions of bidi package.%
         \debug_suspend:
         \RenewDocumentCommand \bidi@BeforeClosingMainAux { m } { ##1 }
         \cs_set_eq:NN \__biditools_protected@write:Nnn \protected@write
-        \cs_set_eq:NN \protected@write \protected@immediate@write
+        \cs_set_eq:NN \protected@write \bidi@protected@immediate@write
         #2
         \cs_set_eq:NN \protected@write \__biditools_protected@write:Nnn
         \debug_resume:
@@ -7731,7 +7731,7 @@ ill-advised in the old versions of bidi package.%
         \debug_suspend:
         \RenewDocumentCommand \bidi@AfterReadingMainAux { m } { ##1 }
         \cs_set_eq:NN \__biditools_protected@write:Nnn \protected@write
-        \cs_set_eq:NN \protected@write \protected@immediate@write
+        \cs_set_eq:NN \protected@write \bidi@protected@immediate@write
         #2
         \cs_set_eq:NN \protected@write \__biditools_protected@write:Nnn
         \debug_resume:
@@ -7765,6 +7765,16 @@ ill-advised in the old versions of bidi package.%
 }
 \newcommand*{\bidi@BeforePackage}[1]{%
   \bidi@BeforeFile{#1.\@pkgextension}%
+}
+
+\long\def\bidi@protected@immediate@write#1#2#3{%
+  \begingroup
+    #2%
+    \let\protect\@unexpandable@protect
+    \edef\reserved@a{\immediate\write#1{#3}}%
+    \reserved@a
+  \endgroup
+  \if@nobreak\ifvmode\nobreak\fi\fi
 }
 
 \def\bidi@patch@AfterPackage#1{%
