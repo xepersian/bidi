@@ -864,7 +864,8 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{article-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{article-xetex-bidi.def}[2024/12/07 v0.7 bidi adaptations for standard article class for XeTeX engine]
+\ProvidesFile{article-xetex-bidi.def}[2025/02/23 v0.8 bidi adaptations for standard article class for XeTeX engine]
+\IfClassLoadedT{svmult}{\endinput}
 \if@titlepage
   \renewcommand\maketitle{\begin{titlepage}%
   \let\footnotesize\small
@@ -7757,6 +7758,16 @@ ill-advised in the old versions of bidi package.%
       }
     \clist_clear:N \l__biditools_class_patch_clist
   }
+  
+\NewDocumentCommand \ApplyPatchToClassesIfPackageLoadedF { m m O{bidi} }
+  {
+    \clist_set:Nx \l__biditools_class_patch_clist { #1 }
+    \clist_map_inline:Nn \l__biditools_class_patch_clist
+      {
+        \ApplyPatchToClassIfPackageLoadedF { ##1 } { #2 } [ #3 ]
+      }
+    \clist_clear:N \l__biditools_class_patch_clist
+  }
 \ExplSyntaxOff
 
 \newcommand*{\bidi@ReplaceInput}{\declare@file@substitution}
@@ -7832,6 +7843,26 @@ ill-advised in the old versions of bidi package.%
     \AddToHook{begindocument/before}{%
       \IfPackageLoadedF{#1}{%
         \ApplyPatchToFiles{#2}[#3][#4]%
+      }%
+    }
+  }
+  
+\NewDocumentCommand \ApplyPatchToClassIfPackageLoadedF { m m O{bidi} }
+  {
+    \AddToHook{begindocument/before}{%
+      \IfPackageLoadedF{#2}{%
+        \ifnum\catcode`\@=11
+          \@ifclassloaded{#1}{%
+            \input{#1-xetex-#3.def}%
+          }{}%
+        \else
+          \bidi@storecatcode\@
+          \makeatletter
+          \@ifclassloaded{#1}{%
+            \input{#1-xetex-#3.def}%
+          }{}%
+          \bidi@restorecatcode\@
+        \fi
       }%
     }
   }
@@ -27959,11 +27990,10 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
 \renewcommand\@idxitem{\par\hangindent \if@RTL-\fi40\p@}%
 }
 
-\@ifclassloaded{article}{\@ifclassloaded{svmult}{}{\input{article-xetex-bidi.def}}}{}
-
-\@ifclassloaded{report}{\@ifpackageloaded{flowfram}{}{\input{report-xetex-bidi.def}}}{}
-
-\@ifclassloaded{book}{\@ifpackageloaded{flowfram}{}{\input{book-xetex-bidi.def}}}{}
+\ApplyPatchToClassesIfPackageLoadedF{%
+  book, %
+  report %
+}{flowfram}
 
 \ApplyPatchToFilesIfPackageLoadedF{amsmath}{%
   fleqn, %
@@ -27989,6 +28019,7 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
 \ApplyPatchToClasses{%
   amsart, %
   amsbook, %
+  article, %
   artikel1, %
   artikel2, %
   artikel3, %
