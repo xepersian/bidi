@@ -10808,7 +10808,8 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{crop-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{crop-xetex-bidi.def}[2013/04/10 v0.2 bidi adaptations for crop package for XeTeX engine]
+\ProvidesFile{crop-xetex-bidi.def}[2025/02/23 v0.3 bidi adaptations for crop package for XeTeX engine]
+\IfClassLoadedT{memoir}{\endinput}
 \renewcommand*\CROP@@ulc{%
    \if@RTLmain%
        \begin{picture}(0,0)
@@ -25405,7 +25406,8 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{tocbibind-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{tocbibind-xetex-bidi.def}[2017/06/09 v0.4 bidi adaptations for tocbibind package for XeTeX engine]
+\ProvidesFile{tocbibind-xetex-bidi.def}[2025/02/23 v0.5 bidi adaptations for tocbibind package for XeTeX engine]
+\IfClassLoadedT{memoir}{\endinput}
 \if@dotocbib
   \@ifpackageloaded{natbib}{}{% natbib not loaded
     \renewcommand{\bibsection}{\t@cb@bchapsec}
@@ -25493,7 +25495,8 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{tocloft-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{tocloft-xetex-bidi.def}[2023/08/02 v0.3 bidi adaptations for tocloft package for XeTeX engine]
+\ProvidesFile{tocloft-xetex-bidi.def}[2025/02/23 v0.4 bidi adaptations for tocloft package for XeTeX engine]
+\IfClassLoadedT{memoir}{\endinput}
 \renewcommand{\cftpnumalign}{\if@RTL l\else r\fi}
 \let\cftdot\@SepMark
 \if@cfthaspart
@@ -28087,6 +28090,7 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
   caption3, %
   color, %
   colortbl, %
+  crop, %
   cuted, %
   cutwin, %
   dblfnote, %
@@ -28141,6 +28145,8 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
   titlesec, %
   titletoc, %
   tocbasic, %
+  tocbibind, %
+  tocloft, %
   tocstyle, %
   todonotes, %
   wrapfig, %
@@ -28148,7 +28154,6 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
   xltxtra %
 }
 
-\@ifpackageloaded{crop}{\@ifclassloaded{memoir}{}{\input{crop-xetex-bidi.def}}}{}
 \@ifpackageloaded{float}{\@ifpackageloaded{floatrow}{}{\input{float-xetex-bidi.def}}}{}
 
 \@ifpackageloaded{media9}{\RequirePackage{bidi-media9}}{}
@@ -28175,9 +28180,6 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
   \renewcommand*{\SC@FLOAT}[2]{{#1}\hspace{\sidecaptionsep}{#2}}
   \def\SC@justify@caption{\RaggedLeft}\fi%
 }{}
-
-\@ifpackageloaded{tocbibind}{\@ifclassloaded{memoir}{}{\input{tocbibind-xetex-bidi.def}}}{}
-\@ifpackageloaded{tocloft}{\@ifclassloaded{memoir}{}{\input{tocloft-xetex-bidi.def}}}{}
 
 \ApplyPatchToFiles{%
   pgfcorescopes.code, %
