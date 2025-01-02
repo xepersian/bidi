@@ -7883,7 +7883,7 @@ ill-advised in the old versions of bidi package.%
 % \section{File \texttt{bidituftefloat.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bidituftefloat}[2017/05/19 v0.2
+\ProvidesPackage{bidituftefloat}[2025/02/23 v0.3
 bidi implementation of tufte float]
 \RequirePackage{xifthen}
 \newcommand{\@bidituftefloat@pkgname}{bidituftefloat}
@@ -7909,7 +7909,7 @@ bidi implementation of tufte float]
 \setboolean{@bidituftefloat@twoside}{false}%
 \setboolean{@bidituftefloat@symmetric}{false}%
 }
-\@ifclassloaded{book}{\ExecuteOptions{twoside}}{}
+\IfClassLoadedT{book}{\ExecuteOptions{twoside}}
 \newboolean{@bidituftefloat@debug}
 \newcommand*{\@bidituftefloat@caption@justification}{\@bidituftefloat@justification@autodetect}
 \ProcessOptions
@@ -10341,7 +10341,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{book-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{book-xetex-bidi.def}[2017/06/09 v1.0 bidi adaptations for standard book class for XeTeX engine]
+\ProvidesFile{book-xetex-bidi.def}[2025/02/23 v1.1 bidi adaptations for standard book class for XeTeX engine]
 \renewenvironment{theindex}
                {\if@twocolumn
                   \@restonecolfalse
@@ -10357,7 +10357,7 @@ bidi implementation of tufte title]
                 \parskip\z@ \@plus .3\p@\relax
                 \let\item\@idxitem}
                {\if@restonecol\onecolumn\else\clearpage\fi}
-\@ifclassloaded{bookest}{}{%
+\IfClassLoadedF{bookest}{%
   \if@titlepage
   \renewcommand\maketitle{\begin{titlepage}%
   \let\footnotesize\small
@@ -12568,7 +12568,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{extrafootnotefeatures-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{extrafootnotefeatures-xetex-bidi.def}[2023/08/02 v2.6 bidi extra footnote features for XeTeX engine]
+\ProvidesFile{extrafootnotefeatures-xetex-bidi.def}[2025/02/23 v2.7 bidi extra footnote features for XeTeX engine]
 \newdimen\bidi@columnwidth
 \def\bidi@floathook{%
   \bidi@columnwidth\columnwidth
@@ -12791,7 +12791,7 @@ bidi implementation of tufte title]
   \@bidi@after@Hy@hyperfootnotes
   \@ifstar\bidi@star@footmarkwidth\bidi@normal@footmarkwidth
 }
-\@ifclassloaded{memoir}{\let\plainfootnotes\normalfootnotes}{}
+\IfClassLoadedT{memoir}{\let\plainfootnotes\normalfootnotes}
 \bidi@ensure@newcommand*{\setSingleSpace}[1]{%
   \def\m@m@singlespace{#1}%
   \def\m@m@footnote@spacing{#1}%
@@ -16755,7 +16755,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{flowfram-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{flowfram-xetex-bidi.def}[2018/09/29 v0.5 bidi adaptations for flowfram package for XeTeX engine]
+\ProvidesFile{flowfram-xetex-bidi.def}[2025/02/23 v0.6 bidi adaptations for flowfram package for XeTeX engine]
 \def\@outputdblcol{%
 \@nxtcol=\c@thisframe
 \c@curpg=\c@page
@@ -16874,7 +16874,7 @@ bidi implementation of tufte title]
 {\csname colheight\romannumeral#1\endcsname}{%
 \expandafter\box\csname column\romannumeral#1\endcsname}%
 }}}
-\@ifclassloaded{book}{%
+\IfClassLoadedT{book}{%
 \renewcommand\theequation
   {\ifnum \c@chapter>\z@ \thechapter\@SepMark\fi \@arabic\c@equation}
 \renewcommand \thefigure
@@ -16886,8 +16886,8 @@ bidi implementation of tufte title]
 \renewcommand\thesubsection   {\thesection\@SepMark\@arabic\c@subsection}
 \renewcommand\thesubsubsection{\thesubsection \@SepMark\@arabic\c@subsubsection}
 \renewcommand\theparagraph    {\thesubsubsection\@SepMark\@arabic\c@paragraph}
-\renewcommand\thesubparagraph {\theparagraph\@SepMark\@arabic\c@subparagraph}}{}
-\@ifclassloaded{report}{%
+\renewcommand\thesubparagraph {\theparagraph\@SepMark\@arabic\c@subparagraph}}
+\IfClassLoadedT{report}{%
 \renewcommand\theequation
   {\ifnum \c@chapter>\z@ \thechapter\@SepMark\fi \@arabic\c@equation}
 \renewcommand \thefigure
@@ -16899,7 +16899,7 @@ bidi implementation of tufte title]
 \renewcommand\thesubsection   {\thesection\@SepMark\@arabic\c@subsection}
 \renewcommand\thesubsubsection{\thesubsection \@SepMark\@arabic\c@subsubsection}
 \renewcommand\theparagraph    {\thesubsubsection\@SepMark\@arabic\c@paragraph}
-\renewcommand\thesubparagraph {\theparagraph\@SepMark\@arabic\c@subparagraph}}{}
+\renewcommand\thesubparagraph {\theparagraph\@SepMark\@arabic\c@subparagraph}}
 \renewcommand{\rotateframe}[2]{\if@ttb@rotate
 \rotatebox{#1}{\if@RTL\beginL\fi#2\if@RTL\endL\fi}%
 \else
