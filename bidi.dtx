@@ -6130,12 +6130,6 @@ Old form `\string#1' should be \string\begin{\expandafter\@gobble\string#1}%
 ill-advised in the old versions of bidi package.%
   }%
 }
-\def\@tagsextension{clo}
-\def\@definitionfileextension{def}
-\def\@texfileextension{tex}
-\def\@iftagsloaded{\@ifl@aded\@tagsextension}
-\def\@ifdefinitionfileloaded{\@ifl@aded\@definitionfileextension}
-\def\@iftexfileloaded{\@ifl@aded\@texfileextension}
 \def\eqnewif#1#2{%
   \count@\escapechar \escapechar\m@ne
     \let#1\iffalse
@@ -7727,6 +7721,18 @@ ill-advised in the old versions of bidi package.%
         \debug_resume:
       }
   }
+  
+\clist_new:N \l__biditools_file_patch_clist  
+  
+\NewDocumentCommand \ApplyPatchToFiles { m O{def} O{bidi} }
+  {
+    \clist_set:Nx \l__biditools_file_patch_clist { #1 }
+    \clist_map_inline:Nn \l__biditools_file_patch_clist
+      {
+        \ApplyPatchToFile { ##1 } [ #2 ] [ #3 ]
+      }
+    \clist_clear:N \l__biditools_file_patch_clist
+  }
 
 \clist_new:N \l__biditools_package_patch_clist  
   
@@ -7798,6 +7804,34 @@ ill-advised in the old versions of bidi package.%
     \AddToHook{package/#1/after}%
   }%
 }
+
+\def\bidi@patch@AfterFile#1{%
+  \IfFileLoadedTF{#1}{%
+    \@firstofone
+  }{%
+    \AddToHook{file/#1/after}%
+  }%
+}
+
+\NewDocumentCommand \ApplyPatchToFile { m O{def} O{bidi} }
+  {
+    \bidi@patch@AfterFile{#1.#2}{%
+      \bidi@storecatcode\@
+      \makeatletter
+      \input{#1-xetex-#3.def}%
+      \bidi@restorecatcode\@
+    }%
+  }
+  
+\NewDocumentCommand \ApplyPatchToFilesIfPackageLoadedF { m m O{def} O{bidi} }
+  {
+    \AddToHook{begindocument/before}{%
+      \IfPackageLoadedF{#1}{%
+        \ApplyPatchToFiles{#2}[#3][#4]%
+      }%
+    }
+  }
+
 \NewDocumentCommand \ApplyPatchToPackage { m O{bidi} }
   {
     \bidi@patch@AfterPackage{#1}{\input{#1-xetex-#2.def}}%
@@ -27927,10 +27961,11 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
 
 \@ifclassloaded{book}{\@ifpackageloaded{flowfram}{}{\input{book-xetex-bidi.def}}}{}
 
-\@ifpackageloaded{amsmath}{}{%
-\@iftagsloaded{leqno}{\input{leqno-xetex-bidi.def}}{}
-\@iftagsloaded{fleqn}{\input{fleqn-xetex-bidi.def}}{}
-}
+\ApplyPatchToFilesIfPackageLoadedF{amsmath}{%
+  fleqn, %
+  leqno%
+}[clo]
+
 \@ifpackageloaded{mathtools}{%
   \RequirePackage{graphicx}%
   \input{mathtools-xetex-bidi.def}%
@@ -28083,10 +28118,6 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
 
 \@ifpackageloaded{media9}{\RequirePackage{bidi-media9}}{}
 
-\@iftexfileloaded{pstricks}{\input{pstricks-xetex-bidi.def}}{}
-
-\@iftexfileloaded{pgfcorescopes.code}{\input{pgfcorescopes.code-xetex-bidi.def}}{}
-
 \@ifpackagewith{sidecap}{innercaption}{%
 \if@RTL  \renewcommand*{\SC@FLOAT}[2]{%
     \isSC@ODD{{#2}\hspace{\sidecaptionsep}{#1}} {{#1}\hspace{\sidecaptionsep}{#2}}}
@@ -28113,8 +28144,11 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
 \@ifpackageloaded{tocbibind}{\@ifclassloaded{memoir}{}{\input{tocbibind-xetex-bidi.def}}}{}
 \@ifpackageloaded{tocloft}{\@ifclassloaded{memoir}{}{\input{tocloft-xetex-bidi.def}}}{}
 
-\@ifdefinitionfileloaded{tc-xetex}{\input{tc-xetex-bidi.def}}{}
-
+\ApplyPatchToFiles{%
+  pgfcorescopes.code, %
+  pstricks %
+}[tex]
+\ApplyPatchToFile{tc-xetex}
 %    \end{macrocode}
 % \iffalse
 %</latex-xetex-bidi.def>
