@@ -7816,10 +7816,14 @@ ill-advised in the old versions of bidi package.%
 \NewDocumentCommand \ApplyPatchToFile { m O{def} O{bidi} }
   {
     \bidi@patch@AfterFile{#1.#2}{%
-      \bidi@storecatcode\@
-      \makeatletter
-      \input{#1-xetex-#3.def}%
-      \bidi@restorecatcode\@
+      \ifnum\catcode`\@=11
+        \input{#1-xetex-#3.def}%
+      \else
+        \bidi@storecatcode\@
+        \makeatletter
+        \input{#1-xetex-#3.def}%
+        \bidi@restorecatcode\@
+      \fi
     }%
   }
   
