@@ -30,7 +30,7 @@ The announcements for the new releases of the package will
 also appear in the Discussions space under the Announcements
 category.
   
-Current version release date: 2025/02/23
+Current version release date: 2025/01/03
 
 ___________________________________________
 Vafa Khalighi
@@ -182,6 +182,7 @@ by Vafa Khalighi.
 \generate{\file{lscape-xetex-bidi.def}{\from{\jobname.dtx}{table,lscape-xetex-bidi.def}}}
 \generate{\file{mathtools-xetex-bidi.def}{\from{\jobname.dtx}{table,mathtools-xetex-bidi.def}}}
 \generate{\file{mdframed-xetex-bidi.def}{\from{\jobname.dtx}{table,mdframed-xetex-bidi.def}}}
+\generate{\file{media9-xetex-bidi.def}{\from{\jobname.dtx}{table,media9-xetex-bidi.def}}}
 \generate{\file{bidi-media9.sty}{\from{\jobname.dtx}{table,bidi-media9.sty}}}
 \generate{\file{memoir-xetex-bidi.def}{\from{\jobname.dtx}{table,memoir-xetex-bidi.def}}}
 \generate{\file{midfloat-xetex-bidi.def}{\from{\jobname.dtx}{table,midfloat-xetex-bidi.def}}}
@@ -344,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{0}
+%% \CheckSum{57378}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -549,12 +550,12 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{algorithm2e-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{algorithm2e-xetex-bidi.def}[2018/09/23 v0.2 bidi adaptations for algorithm2e package for XeTeX engine]
+\ProvidesFile{algorithm2e-xetex-bidi.def}[2025/01/03 v0.3 bidi adaptations for algorithm2e package for XeTeX engine]
 \expandafter\ifx\csname algocf@within\endcsname\relax% if \algocf@within doesn't exist
 \else%                                     else
 \renewcommand\thealgocf{\csname the\algocf@within\endcsname\@SepMark\@arabic\c@algocf}%
 \fi
-\@ifpackageloaded{color}{}{%
+\ApplyPatchIfPackageLoadedF{color}{%
   \bidi@patchcmd{\@algocf@start}{\bgroup}{%
     \bgroup
     \if@RTL
@@ -580,6 +581,16 @@ by Vafa Khalighi.
     \fi
   }{}{}
 }
+
+\@ifpackagewith{algorithm2e}{algonl}{%
+\renewcommand{\theAlgoLine}{\expandafter\csname the\algocf@float\endcsname\@SepMark\arabic{AlgoLine}}%
+}{}
+
+\@ifpackagewith{algorithm2e}{algopart}{\renewcommand{\algocf@within}{part}}{}
+
+\@ifpackagewith{algorithm2e}{algochapter}{\renewcommand{\algocf@within}{chapter}}{}
+
+\@ifpackagewith{algorithm2e}{algosection}{\renewcommand{\algocf@within}{section}}{}
 %    \end{macrocode}
 %
 %\iffalse
@@ -864,7 +875,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{article-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{article-xetex-bidi.def}[2025/02/23 v0.8 bidi adaptations for standard article class for XeTeX engine]
+\ProvidesFile{article-xetex-bidi.def}[2025/01/03 v0.8 bidi adaptations for standard article class for XeTeX engine]
 \IfClassLoadedT{svmult}{\endinput}
 \if@titlepage
   \renewcommand\maketitle{\begin{titlepage}%
@@ -1852,7 +1863,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{arydshln-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{arydshln-xetex-bidi.def}[2010/08/01 v0.2 bidi adaptations for arydshln package for XeTeX engine]
+\ProvidesFile{arydshln-xetex-bidi.def}[2025/01/03 v0.3 bidi adaptations for arydshln package for XeTeX engine]
 \def\endarray{\adl@endarray \egroup \adl@arrayrestore \if@RTLtab\egroup\endR\egroup\fi\egroup}
 \def\endtabular{\endarray $\if@RTLtab\endR\fi\egroup}
 \expandafter\let\csname endtabular*\endcsname\endtabular
@@ -1940,7 +1951,7 @@ by Vafa Khalighi.
 \def\adl@class@start{6}
 \def\adl@class@iiiorvii{3}
 \fi
-\@ifpackageloaded{colortbl}{%
+\ApplyPatchCodeToPackage{colortbl}{%
 \def\adl@inactivate{\adl@org@inactivate \let\CT@setup\adl@CT@setup}
 \def\adl@activate{\adl@org@activate \let\CT@setup\adl@act@CT@setup
         \let\@endpbox\adl@org@endpbox}
@@ -1986,7 +1997,7 @@ by Vafa Khalighi.
         \prepnext@tok}
 \let\adl@act@classz\@classz
 \let\adl@org@classz\@classz
-}{}
+}
 %    \end{macrocode}
 % \iffalse
 %</arydshln-xetex-bidi.def>
@@ -2019,7 +2030,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{beamerbaseauxtemplates-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{beamerbaseauxtemplates-xetex-bidi.def}[2024/12/20 v0.4 bidi adaptations for beamerbaseauxtemplates package for XeTeX engine]
+\ProvidesFile{beamerbaseauxtemplates-xetex-bidi.def}[2025/01/03 v0.5 bidi adaptations for beamerbaseauxtemplates package for XeTeX engine]
 \bidi@csundef{beamer@@tmpop@subsection in toc@sections numbered}
 
 \bidi@csundef{beamer@@tmpop@subsubsection in toc@sections numbered}
@@ -2329,7 +2340,7 @@ by Vafa Khalighi.
     \end{minipage}
 }
 
-\@ifpackageloaded{caption}{%
+\ApplyPatchCodeToPackage{caption}{%
   \DeclareCaptionFont{beamer@font}{%
     \usebeamerfont*{caption}%
 %    \usebeamercolor[fg]{caption}%
@@ -2337,7 +2348,7 @@ by Vafa Khalighi.
   \SetCaptionDefault{font}{beamer@font}
   \DeclareCaptionJustification{bidi@beamer@ragged}{\bidi@beamer@ragged}
   \SetCaptionDefault{justification}{bidi@beamer@ragged}
-}{}
+}
 
 %    \end{macrocode}
 % \iffalse
@@ -2612,7 +2623,7 @@ by Vafa Khalighi.
                 \usebeamertemplate***{sidebar left}%
                 \vfil%
             }}%
-            \@ifpackageloaded{beamerinnerthemeinmargin}{}{%
+            \ApplyPatchIfPackageLoadedF{beamerinnerthemeinmargin}{%
               \hskip-\textwidth
             }%
             \fi
@@ -4719,7 +4730,7 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2025/02/23}
+\def\bididate{2025/01/03}
 \def\bidi@version{41.0}
 \def\bidi@releasename{Maryam Mirzakhani}
 \newcommand*{\bidireleasename}{\bidi@releasename}
@@ -4938,7 +4949,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released February 23, 2025. 
+  Released January 3, 2025. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -5121,7 +5132,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2025/02/23}
+\def\bididate{2025/01/03}
 \catcode`@=11
 \def\bidi@version{41.0}
 \def\bidi@releasename{Maryam Mirzakhani}
@@ -5238,7 +5249,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released February 23, 2025. 
+  Released January 3, 2025. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
@@ -6045,7 +6056,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 % \section{File \texttt{biditools.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{biditools}[2025/02/23 v2.6 Programming tools for bidi package]
+\ProvidesPackage{biditools}[2025/01/03 v2.6 Programming tools for bidi package]
 \providecommand{\@bidi@saveprimitive}[2]{\begingroup\escapechar`\\\relax
   \edef\@tempa{\string#1}\edef\@tempb{\meaning#1}%
   \ifx\@tempa\@tempb \global\let#2#1%
@@ -7866,11 +7877,59 @@ ill-advised in the old versions of bidi package.%
       }%
     }
   }
+  
+\NewDocumentCommand \ApplyPatchToPackageIfPackageLoadedF { m m O{bidi} }
+  {
+    \AddToHook{begindocument/before}{%
+      \IfPackageLoadedF{#2}{%
+        \IfPackageLoadedT{#1}{%
+          \ifnum\catcode`\@=11
+            \input{#1-xetex-#3.def}%
+          \else
+            \bidi@storecatcode\@
+            \makeatletter
+            \input{#1-xetex-#3.def}%
+            \bidi@restorecatcode\@
+          \fi
+        }%
+      }%
+    }
+  }
+  
+\NewDocumentCommand \ApplyPatchIfPackageLoaded { m +m +m }
+  {
+    \AddToHook{begindocument/before}{%
+       \ifnum\catcode`\@=11
+         \@ifpackageloaded{#1}{#2}{#3}%
+       \else
+         \bidi@storecatcode\@
+         \makeatletter
+         \@ifpackageloaded{#1}{#2}{#3}%
+         \bidi@restorecatcode\@
+       \fi
+    }
+  }
+  
+\NewDocumentCommand \ApplyPatchIfPackageLoadedT { m +m }
+  {
+    \ApplyPatchIfPackageLoaded{#1}{#2}{}%
+  }
+  
+\NewDocumentCommand \ApplyPatchIfPackageLoadedF { m +m }
+  {
+    \ApplyPatchIfPackageLoaded{#1}{}{#2}%
+  }
 
 \NewDocumentCommand \ApplyPatchToPackage { m O{bidi} }
   {
     \bidi@patch@AfterPackage{#1}{\input{#1-xetex-#2.def}}%
   }
+
+\NewDocumentCommand \ApplyPatchCodeToPackage { m +m }
+  {
+    \bidi@patch@AfterPackage{#1}{#2}%
+  }
+  
 \NewDocumentCommand \ApplyPatchToClass { m O{bidi} }
   {
     \@ifclassloaded{#1}{\input{#1-xetex-#2.def}}{}%
@@ -7883,7 +7942,7 @@ ill-advised in the old versions of bidi package.%
 % \section{File \texttt{bidituftefloat.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bidituftefloat}[2025/02/23 v0.3
+\ProvidesPackage{bidituftefloat}[2025/01/03 v0.3
 bidi implementation of tufte float]
 \RequirePackage{xifthen}
 \newcommand{\@bidituftefloat@pkgname}{bidituftefloat}
@@ -10341,7 +10400,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{book-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{book-xetex-bidi.def}[2025/02/23 v1.1 bidi adaptations for standard book class for XeTeX engine]
+\ProvidesFile{book-xetex-bidi.def}[2025/01/03 v1.1 bidi adaptations for standard book class for XeTeX engine]
 \renewenvironment{theindex}
                {\if@twocolumn
                   \@restonecolfalse
@@ -10808,8 +10867,9 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{crop-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{crop-xetex-bidi.def}[2025/02/23 v0.3 bidi adaptations for crop package for XeTeX engine]
+\ProvidesFile{crop-xetex-bidi.def}[2025/01/03 v0.3 bidi adaptations for crop package for XeTeX engine]
 \IfClassLoadedT{memoir}{\endinput}
+\RequirePackage{graphicx}
 \renewcommand*\CROP@@ulc{%
    \if@RTLmain%
        \begin{picture}(0,0)
@@ -12568,7 +12628,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{extrafootnotefeatures-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{extrafootnotefeatures-xetex-bidi.def}[2025/02/23 v2.7 bidi extra footnote features for XeTeX engine]
+\ProvidesFile{extrafootnotefeatures-xetex-bidi.def}[2025/01/03 v2.7 bidi extra footnote features for XeTeX engine]
 \newdimen\bidi@columnwidth
 \def\bidi@floathook{%
   \bidi@columnwidth\columnwidth
@@ -16743,7 +16803,8 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{floatrow-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{floatrow-xetex-bidi.def}[2013/04/08 v0.1 bidi adaptations for floatrow package for XeTeX engine]
+\ProvidesFile{floatrow-xetex-bidi.def}[2025/01/03 v0.2 bidi adaptations for floatrow package for XeTeX engine]
+\RequirePackage{color}
 \renewcommand\flnew@within[1]{\@addtoreset{\FB@captype}{#1}%
   \expandafter\edef\csname the\FB@captype\endcsname{%
       \expandafter\noexpand\csname
@@ -16755,7 +16816,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{flowfram-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{flowfram-xetex-bidi.def}[2025/02/23 v0.6 bidi adaptations for flowfram package for XeTeX engine]
+\ProvidesFile{flowfram-xetex-bidi.def}[2025/01/03 v0.6 bidi adaptations for flowfram package for XeTeX engine]
 \def\@outputdblcol{%
 \@nxtcol=\c@thisframe
 \c@curpg=\c@page
@@ -18260,7 +18321,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{hyperref-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{hyperref-xetex-bidi.def}[2018/11/11 v1.1 bidi adaptations for hyperref package for XeTeX engine]
+\ProvidesFile{hyperref-xetex-bidi.def}[2025/01/03 v1.2 bidi adaptations for hyperref package for XeTeX engine]
 \AtBeginDocument{%
 \def\contentsline#1#2#3#4{%
   \ifx\\#4\\%
@@ -18410,7 +18471,7 @@ bidi implementation of tufte title]
       \fi
     }%
   }%
-    \@ifpackageloaded{tabularx}{%
+    \ApplyPatchCodeToPackage{tabularx}{%
     \let\HyOrg@TX@endtabularx\TX@endtabularx
     \def\Hy@tabularx@hook{%
       \let\@footnotetext\H@@footnotetext
@@ -18429,8 +18490,8 @@ bidi implementation of tufte title]
       }%
     \endgroup
     \let\TX@endtabularx\Hy@gtemp
-  }{}%
-    \@ifpackageloaded{longtable}{%
+  }%
+    \ApplyPatchCodeToPackage{longtable}{%
     \CheckCommand*{\LT@p@LTRftntext}[1]{%
       \edef\@tempa{%
         \the\LT@p@ftn
@@ -18507,8 +18568,8 @@ bidi implementation of tufte title]
         \fi
       }%
     }%
-  }{}%
-    \@ifpackageloaded{bidipoem}{%
+  }%
+    \ApplyPatchCodeToPackage{bidipoem}{%
     \long\def\bidipoem@p@ftntext#1{%
       \edef\@tempx{%
         \the\bidipoem@p@ftn
@@ -18602,7 +18663,7 @@ bidi implementation of tufte title]
         \fi
       }%
     }%
-  }{}%
+  }%
   \let\HyOrg@maketitle\maketitle
   \def\maketitle{%
     \let\Hy@saved@footnotemark\@footnotemark
@@ -18807,7 +18868,7 @@ bidi implementation of tufte title]
 \def\XeTeX{Xe\TeX}%
 \def\XeLaTeX{Xe\LaTeX}%
 }
-\@ifpackageloaded{longtable}{%
+\ApplyPatchCodeToPackage{longtable}{%
   \begingroup
     \def\y{\LT@array}%
     \@ifundefined{scr@LT@array}{%
@@ -18837,7 +18898,7 @@ bidi implementation of tufte title]
       }%
     }%
   \expandafter\x\LT@start\@nil
-}{}
+}
 \bidi@patchcmd\@TextField{%
   \@pdfm@mark
 }{%
@@ -19124,7 +19185,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{listings-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{listings-xetex-bidi.def}[2018/09/15 v1.5 bidi adaptations for listings package for XeTeX engine]
+\ProvidesFile{listings-xetex-bidi.def}[2025/01/03 v1.6 bidi adaptations for listings package for XeTeX engine]
 \lst@Key{captiondirection}{textdirection}{%
     \lstKV@SwitchCases{#1}%
     {textdirection:\\%
@@ -19204,7 +19265,7 @@ bidi implementation of tufte title]
 \endgroup%
 }{}{}%
 }
-\@ifpackageloaded{caption}{%
+\ApplyPatchIfPackageLoaded{caption}{%
   \AtBeginCaption{%
   \bidi@lst@ensure@caption@script{\@nonlatintrue}{\@nonlatinfalse}%
   \bidi@lst@ensure@caption@direction{\@RTLfalse}{\@RTLtrue}%
@@ -19235,7 +19296,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{longtable-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{longtable-xetex-bidi.def}[2022/05/20 v0.6 bidi adaptations for longtable package for XeTeX engine]
+\ProvidesFile{longtable-xetex-bidi.def}[2025/01/03 v0.7 bidi adaptations for longtable package for XeTeX engine]
 \def\LT@array[#1]#2{%
   \refstepcounter{table}\stepcounter{LT@tables}%
   \if l#1%
@@ -19299,7 +19360,7 @@ bidi implementation of tufte title]
     \fi
     \endgraf\vskip\baselineskip}%
   \hss}}}
-\@ifpackageloaded{caption}{%
+\ApplyPatchCodeToPackage{caption}{%
   \renewcommand\LT@makecaption[3]{%
     \caption@LT@make{%
       \caption@LT@settype\LTcaptype
@@ -19316,7 +19377,7 @@ bidi implementation of tufte title]
         \caption@@make{#2}{#3}\endgraf
         \caption@make@below
       \caption@end}}%
-}{}
+}
 \def\LT@startpbox#1{%
   \bgroup\color@begingroup
     \let\@footnotetext\LT@p@ftntext
@@ -19368,7 +19429,8 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{lscape-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{lscape-xetex-bidi.def}[2022/07/14 v0.2 bidi adaptations for lscape package for XeTeX engine]
+\ProvidesFile{lscape-xetex-bidi.def}[2025/01/03 v0.3 bidi adaptations for lscape package for XeTeX engine]
+\RequirePackage{graphicx}
 \bidi@patchcmd{\LS@rot}{\rotatebox{90}{\box\@outputbox}}{%
   \if@RTL
     \rotatebox[origin=br]{-90}{\box\@outputbox}%
@@ -19405,7 +19467,8 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{mathtools-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{mathtools-xetex-bidi.def}[2018/01/07 v0.1 bidi adaptations for mathtools package for XeTeX engine]
+\ProvidesFile{mathtools-xetex-bidi.def}[2025/01/03 v0.2 bidi adaptations for mathtools package for XeTeX engine]
+\RequirePackage{graphicx}
 \MHInternalSyntaxOn
 \def\MT_define_tagform:nwnn #1[#2]#3#4{
   \@namedef{MT_tagform_#1:n}##1
@@ -19498,6 +19561,15 @@ bidi implementation of tufte title]
 %    \end{macrocode}
 % \iffalse
 %</mdframed-xetex-bidi.def>
+%<*media9-xetex-bidi.def>
+%\fi
+% \section{File \texttt{media9-xetex-bidi.def}}
+%    \begin{macrocode}
+\ProvidesFile{media9-xetex-bidi.def}[2025/01/03 v0.1 bidi adaptations for media9 package for XeTeX engine]
+\RequirePackage{bidi-media9}
+%    \end{macrocode}
+% \iffalse
+%</media9-xetex-bidi.def>
 %<*bidi-media9.sty>
 %\fi
 % \section{File \texttt{bidi-media9.sty}}
@@ -20091,7 +20163,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{memoir-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{memoir-xetex-bidi.def}[2017/06/09 v0.6 bidi adaptations for memoir class for XeTeX engine]
+\ProvidesFile{memoir-xetex-bidi.def}[2025/01/03 v0.7 bidi adaptations for memoir class for XeTeX engine]
 \renewcommand{\keepthetitle}{%
   \@bsmtitlempty
   \global\let\thanks\relax
@@ -20201,7 +20273,7 @@ bidi implementation of tufte title]
     }  % end of the \parbox
   \fi
   \vskip\belowcaptionskip}
-\@ifpackageloaded{caption}{%
+\ApplyPatchCodeToPackage{caption}{%
 \AtBeginPackage{caption}{
 \ClassWarningNoLine{memoir}{%
   You are using the caption package with the memoir \MessageBreak
@@ -20242,7 +20314,7 @@ bidi implementation of tufte title]
     \normalsize
     \@makecaption{\csname fnum@##1\endcsname}{\ignorespaces ##3}\par
   \endgroup}
-}}{}
+}}
 \renewenvironment{thebibliography}[1]{%
   \bibsection
   \if@RTL\if@LTRbibitems\@RTLfalse\else\fi\else\if@RTLbibitems\@RTLtrue\else\fi\fi
@@ -24975,13 +25047,39 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{sidecap-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{sidecap-xetex-bidi.def}[2010/08/01 v0.1 bidi adaptations for sidecap package for XeTeX engine]
+\ProvidesFile{sidecap-xetex-bidi.def}[2025/01/03 v0.2 bidi adaptations for sidecap package for XeTeX engine]
+\RequirePackage{ragged2e}
 \renewcommand*{\SC@FLOAT}[2]{\if@RTL%
     \isSC@ODD{{#1}\hspace{\sidecaptionsep}{#2}} {{#2}\hspace{\sidecaptionsep}{#1}}\else%
 \isSC@ODD{{#2}\hspace{\sidecaptionsep}{#1}} {{#1}\hspace{\sidecaptionsep}{#2}}\fi}
   \renewcommand*\SC@justify@caption{\if@RTL%
 \isSC@ODD{\RaggedLeft}{\RaggedRight}\else%
     \isSC@ODD{\RaggedRight}{\RaggedLeft}\fi}
+    
+\@ifpackagewith{sidecap}{innercaption}{%
+\if@RTL  \renewcommand*{\SC@FLOAT}[2]{%
+    \isSC@ODD{{#2}\hspace{\sidecaptionsep}{#1}} {{#1}\hspace{\sidecaptionsep}{#2}}}
+  \renewcommand*\SC@justify@caption{%
+    \isSC@ODD{\RaggedRight}{\RaggedLeft}}\else
+  \renewcommand*{\SC@FLOAT}[2]{%
+    \isSC@ODD{{#1}\hspace{\sidecaptionsep}{#2}} {{#2}\hspace{\sidecaptionsep}{#1}}}
+  \renewcommand*\SC@justify@caption{%
+    \isSC@ODD{\RaggedLeft}{\RaggedRight}}\fi
+}{}
+    
+\@ifpackagewith{sidecap}{rightcaption}{%
+  \if@RTL\renewcommand*{\SC@FLOAT}[2]{{#1}\hspace{\sidecaptionsep}{#2}}
+  \def\SC@justify@caption{\RaggedLeft}\else%
+  \renewcommand*{\SC@FLOAT}[2]{{#2}\hspace{\sidecaptionsep}{#1}}
+  \def\SC@justify@caption{\RaggedRight}\fi%
+}{}
+
+\@ifpackagewith{sidecap}{leftcaption}{%
+\if@RTL  \renewcommand*{\SC@FLOAT}[2]{{#2}\hspace{\sidecaptionsep}{#1}}
+  \def\SC@justify@caption{\RaggedRight}\else%
+  \renewcommand*{\SC@FLOAT}[2]{{#1}\hspace{\sidecaptionsep}{#2}}
+  \def\SC@justify@caption{\RaggedLeft}\fi%
+}{}    
 %    \end{macrocode}
 % \iffalse
 %</sidecap-xetex-bidi.def>
@@ -25406,10 +25504,10 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{tocbibind-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{tocbibind-xetex-bidi.def}[2025/02/23 v0.5 bidi adaptations for tocbibind package for XeTeX engine]
+\ProvidesFile{tocbibind-xetex-bidi.def}[2025/01/03 v0.5 bidi adaptations for tocbibind package for XeTeX engine]
 \IfClassLoadedT{memoir}{\endinput}
 \if@dotocbib
-  \@ifpackageloaded{natbib}{}{% natbib not loaded
+  \ApplyPatchIfPackageLoadedF{natbib}{% natbib not loaded
     \renewcommand{\bibsection}{\t@cb@bchapsec}
     \renewenvironment{thebibliography}[1]{%
       \bibsection
@@ -25434,9 +25532,11 @@ to\rtside{\box\bslice\hfil}}
      {\@latex@warning{Empty `thebibliography' environment}}%
      \endlist}
 
+\ApplyPatchCodeToPackage{chapterbib}{%
   \@ifpackagewith{chapterbib}{sectionbib}%
     {\renewcommand{\sectionbib}[2]{}}%
-    {}
+    {}%
+ }
 
 \fi
 \if@inltxdoc\else
@@ -25495,7 +25595,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{tocloft-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{tocloft-xetex-bidi.def}[2025/02/23 v0.4 bidi adaptations for tocloft package for XeTeX engine]
+\ProvidesFile{tocloft-xetex-bidi.def}[2025/01/03 v0.4 bidi adaptations for tocloft package for XeTeX engine]
 \IfClassLoadedT{memoir}{\endinput}
 \renewcommand{\cftpnumalign}{\if@RTL l\else r\fi}
 \let\cftdot\@SepMark
@@ -27176,7 +27276,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{latex-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{latex-xetex-bidi.def}[2024/12/08 v1.5.1 bidi adaptations  for `latex.ltx' for XeTeX engine]
+\ProvidesFile{latex-xetex-bidi.def}[2025/01/03 v1.5.2 bidi adaptations  for `latex.ltx' for XeTeX engine]
 \newcommand{\TeXXeTOn}{\TeXXeTstate\@ne}
 \newcommand{\TeXXeTOff}{\TeXXeTstate\z@}
 \TeXXeTOn
@@ -27294,7 +27394,7 @@ to\rtside{\box\bslice\hfil}}
 \let\setLR=\setLTR
 \let\unsetRL=\setLTR
 \def\bidi@tabular@RTLcases{\let\@halignto\@empty\@bidi@tabular@RTLcases}
-\@ifpackageloaded{array}{%
+\ApplyPatchIfPackageLoaded{array}{%
 \def\@bidi@tabular@RTLcases{\@RTLtabtrue%
   \leavevmode
   \hbox \bgroup $\left.\col@sep\tabcolsep \let\d@llarbegin\begingroup
@@ -27979,7 +28079,7 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
 \let\bidi@saved@leqno=\leqno
 \def\eqno{\ifnum\predisplaydirection<\z@ \bidi@saved@leqno \else \bidi@saved@eqno \fi}
 \def\leqno{\ifnum\predisplaydirection<\z@ \bidi@saved@eqno \else \bidi@saved@leqno \fi}
-\@ifpackageloaded{amsmath}{}{
+\ApplyPatchIfPackageLoadedF{amsmath}{
 \def\@eqnnum{{\normalfont \normalcolor \if@RTL\beginR\fi(\theequation)\if@RTL\endR\fi}}
 }
 \input{footnote-xetex-bidi.def}
@@ -27998,26 +28098,12 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
   report %
 }{flowfram}
 
+\ApplyPatchToPackageIfPackageLoadedF{float}{floatrow}
+
 \ApplyPatchToFilesIfPackageLoadedF{amsmath}{%
   fleqn, %
   leqno%
 }[clo]
-
-\@ifpackageloaded{mathtools}{%
-  \RequirePackage{graphicx}%
-  \input{mathtools-xetex-bidi.def}%
-  }{}
-\@ifpackageloaded{crop}{\RequirePackage{graphicx}}{}
-\@ifpackageloaded{lscape}{\RequirePackage{graphicx}}{}
-\@ifpackageloaded{sidecap}{\RequirePackage{ragged2e}}{}
-\@ifpackageloaded{floatrow}{\RequirePackage{color}}{}
-
-\@ifpackagewith{algorithm2e}{algonl}{%
-\renewcommand{\theAlgoLine}{\expandafter\csname the\algocf@float\endcsname\@SepMark\arabic{AlgoLine}}%
-}{}
-\@ifpackagewith{algorithm2e}{algopart}{\renewcommand{\algocf@within}{part}}{}
-\@ifpackagewith{algorithm2e}{algochapter}{\renewcommand{\algocf@within}{chapter}}{}
-\@ifpackagewith{algorithm2e}{algosection}{\renewcommand{\algocf@within}{section}}{}
 
 \ApplyPatchToClasses{%
   amsart, %
@@ -28101,8 +28187,9 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
   fancybox, %
   fancyhdr, %
   fix2col, %
-  flowfram, %
+  float, %
   floatrow, %
+  flowfram, %
   footnotebackref, %
   framed, %
   ftnright, %
@@ -28115,7 +28202,9 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
   listings, %
   longtable, %
   lscape, %
+  mathtools, %
   mdframed, %
+  media9, %
   midfloat, %
   minitoc, %
   multicol, %
@@ -28154,37 +28243,11 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
   xltxtra %
 }
 
-\@ifpackageloaded{float}{\@ifpackageloaded{floatrow}{}{\input{float-xetex-bidi.def}}}{}
-
-\@ifpackageloaded{media9}{\RequirePackage{bidi-media9}}{}
-
-\@ifpackagewith{sidecap}{innercaption}{%
-\if@RTL  \renewcommand*{\SC@FLOAT}[2]{%
-    \isSC@ODD{{#2}\hspace{\sidecaptionsep}{#1}} {{#1}\hspace{\sidecaptionsep}{#2}}}
-  \renewcommand*\SC@justify@caption{%
-    \isSC@ODD{\RaggedRight}{\RaggedLeft}}\else
-  \renewcommand*{\SC@FLOAT}[2]{%
-    \isSC@ODD{{#1}\hspace{\sidecaptionsep}{#2}} {{#2}\hspace{\sidecaptionsep}{#1}}}
-  \renewcommand*\SC@justify@caption{%
-    \isSC@ODD{\RaggedLeft}{\RaggedRight}}\fi
-}{}
-\@ifpackagewith{sidecap}{rightcaption}{%
-  \if@RTL\renewcommand*{\SC@FLOAT}[2]{{#1}\hspace{\sidecaptionsep}{#2}}
-  \def\SC@justify@caption{\RaggedLeft}\else%
-  \renewcommand*{\SC@FLOAT}[2]{{#2}\hspace{\sidecaptionsep}{#1}}
-  \def\SC@justify@caption{\RaggedRight}\fi%
-}{}
-\@ifpackagewith{sidecap}{leftcaption}{%
-\if@RTL  \renewcommand*{\SC@FLOAT}[2]{{#2}\hspace{\sidecaptionsep}{#1}}
-  \def\SC@justify@caption{\RaggedRight}\else%
-  \renewcommand*{\SC@FLOAT}[2]{{#1}\hspace{\sidecaptionsep}{#2}}
-  \def\SC@justify@caption{\RaggedLeft}\fi%
-}{}
-
 \ApplyPatchToFiles{%
   pgfcorescopes.code, %
   pstricks %
 }[tex]
+
 \ApplyPatchToFile{tc-xetex}
 %    \end{macrocode}
 % \iffalse
