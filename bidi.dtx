@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{57378}
+%% \CheckSum{57381}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -7847,6 +7847,11 @@ ill-advised in the old versions of bidi package.%
         \bidi@restorecatcode\@
       \fi
     }%
+  }
+  
+\NewDocumentCommand \ApplyPatchCodeToFile { m +m O{def} }
+  {
+    \bidi@patch@AfterFile{#1.#3}{#2}%
   }
   
 \NewDocumentCommand \ApplyPatchToFilesIfPackageLoadedF { m m O{def} O{bidi} }
