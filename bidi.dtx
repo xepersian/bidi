@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v41.0
+v41.1
 
 This package provides a convenient interface for typesetting
 bidirectional texts in Plain TeX and LaTeX, using XeTeX engine.
@@ -30,7 +30,7 @@ The announcements for the new releases of the package will
 also appear in the Discussions space under the Announcements
 category.
   
-Current version release date: 2025/01/03
+Current version release date: 2025/01/05
 
 ___________________________________________
 Vafa Khalighi
@@ -267,7 +267,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 41.0 of the bidi
+  pdftitle={Source documentation for version 41.1 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -286,7 +286,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting in plain \TeX{} and \LaTeX, using \XeTeX{} engine\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 41.0}}
+%\large Source documentation for \textcolor{bidiblue}{version 41.1}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -296,7 +296,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 41.0}}
+%Source documentation for \textcolor{bidiblue}{version 41.1}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{57381}
+%% \CheckSum{0}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4730,8 +4730,8 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2025/01/03}
-\def\bidi@version{41.0}
+\def\bididate{2025/01/05}
+\def\bidi@version{41.1}
 \def\bidi@releasename{Maryam Mirzakhani}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -4949,7 +4949,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released January 3, 2025. 
+  Released January 5, 2025. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -5132,9 +5132,9 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2025/01/03}
+\def\bididate{2025/01/05}
 \catcode`@=11
-\def\bidi@version{41.0}
+\def\bidi@version{41.1}
 \def\bidi@releasename{Maryam Mirzakhani}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
@@ -5249,7 +5249,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released January 3, 2025. 
+  Released January 5, 2025. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
@@ -18326,7 +18326,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{hyperref-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{hyperref-xetex-bidi.def}[2025/01/03 v1.2 bidi adaptations for hyperref package for XeTeX engine]
+\ProvidesFile{hyperref-xetex-bidi.def}[2025/01/05 v1.3 bidi adaptations for hyperref package for XeTeX engine]
 \AtBeginDocument{%
 \def\contentsline#1#2#3#4{%
   \ifx\\#4\\%
@@ -18872,37 +18872,6 @@ bidi implementation of tufte title]
 \let\RL\@firstofone
 \def\XeTeX{Xe\TeX}%
 \def\XeLaTeX{Xe\LaTeX}%
-}
-\ApplyPatchCodeToPackage{longtable}{%
-  \begingroup
-    \def\y{\LT@array}%
-    \@ifundefined{scr@LT@array}{%
-      \@ifundefined{adl@LT@array}{}{\def\y{\adl@LT@array}}%
-    }{\def\y{\scr@LT@array}}%
-    \long\def\x\refstepcounter#1#2\@sharp#3#4\@nil{%
-      \expandafter\endgroup
-      \expandafter\def\y[##1]##2{%
-        \H@refstepcounter{#1}%
-        \hyper@makecurrent{table}%
-        \let\Hy@LT@currentHref\@currentHref
-        #2\@sharp#####4%
-      }%
-    }%
-  \expandafter\expandafter\expandafter\x\y[{#1}]{#2}\@nil
-  \begingroup
-    \def\x#1\ifvoid\LT@foot#2\fi#3\@nil{%
-      \endgroup
-      \def\LT@start{%
-        #1%
-        \ifvoid\LT@foot#2\fi
-        \let\@currentHref\Hy@LT@currentHref
-        \Hy@raisedlink{%
-          \hyper@anchorstart{\@currentHref}\hyper@anchorend
-        }%
-        #3%
-      }%
-    }%
-  \expandafter\x\LT@start\@nil
 }
 \bidi@patchcmd\@TextField{%
   \@pdfm@mark
