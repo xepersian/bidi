@@ -16,4 +16,4 @@ mv bidi-tds.zip bidi.tds.zip
 mv doc/xelatex/bidi/*.pdf doc/xelatex/bidi/*.jpg doc/xelatex/bidi/README source/xelatex/bidi/*.ltx source/xelatex/bidi/bidi.dtx tex/xelatex/bidi/bibitem.pdf bidi
 zip -r bidi bidi.tds.zip bidi
 rm -r doc source tex bidi
-rm *.idx *.out *.toc *.gls *.ilg *.ind *.glo *.hd *.aux *.log bidi.tds.zip
+rm *.idx *.out *.toc *.ilg *.ind *.hd *.aux *.log bidi.tds.zip
