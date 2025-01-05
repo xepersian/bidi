@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v41.1
+v41.2
 
 This package provides a convenient interface for typesetting
 bidirectional texts in Plain TeX and LaTeX, using XeTeX engine.
@@ -267,7 +267,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 41.1 of the bidi
+  pdftitle={Source documentation for version 41.2 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -286,7 +286,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting in plain \TeX{} and \LaTeX, using \XeTeX{} engine\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 41.1}}
+%\large Source documentation for \textcolor{bidiblue}{version 41.2}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -296,7 +296,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 41.1}}
+%Source documentation for \textcolor{bidiblue}{version 41.2}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{57365}
+%% \CheckSum{57382}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -875,7 +875,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{article-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{article-xetex-bidi.def}[2025/01/03 v0.8 bidi adaptations for standard article class for XeTeX engine]
+\ProvidesFile{article-xetex-bidi.def}[2025/01/05 v0.9 bidi adaptations for standard article class for XeTeX engine]
 \IfClassLoadedT{svmult}{\endinput}
 \if@titlepage
   \renewcommand\maketitle{\begin{titlepage}%
@@ -1035,9 +1035,15 @@ by Vafa Khalighi.
     \nobreak
     \vskip 3ex
     \@afterheading}
-\bidi@patchcmd\@spart\raggedright{%
-  \if@RTL\raggedleft\else\raggedright\fi
-}{}{\bidi@warningnoline{Oops! patching `\string\@spart' failed}}
+\ApplyPatchIfPackageLoaded{nameref}{%
+  \bidi@patchcmd\NR@spart\raggedright{%
+    \if@RTL\raggedleft\else\raggedright\fi
+  }{}{\bidi@warningnoline{Oops! patching `\string\NR@spart' failed}}%
+}{%
+  \bidi@patchcmd\@spart\raggedright{%
+    \if@RTL\raggedleft\else\raggedright\fi
+  }{}{\bidi@warningnoline{Oops! patching `\string\@spart' failed}}%
+}
 \renewenvironment{thebibliography}[1]
      {\section*{\refname}%
       \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
@@ -4731,7 +4737,7 @@ by Vafa Khalighi.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \def\bididate{2025/01/05}
-\def\bidi@version{41.1}
+\def\bidi@version{41.2}
 \def\bidi@releasename{Maryam Mirzakhani}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -5134,7 +5140,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %    \begin{macrocode}
 \def\bididate{2025/01/05}
 \catcode`@=11
-\def\bidi@version{41.1}
+\def\bidi@version{41.2}
 \def\bidi@releasename{Maryam Mirzakhani}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
@@ -12232,7 +12238,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{extarticle-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{extarticle-xetex-bidi.def}[2017/06/09 v0.4 bidi adaptations for extarticle class for XeTeX engine]
+\ProvidesFile{extarticle-xetex-bidi.def}[2025/01/05 v0.5 bidi adaptations for extarticle class for XeTeX engine]
 \renewcommand*\l@section[2]{%
   \ifnum \c@tocdepth >\z@
     \addpenalty\@secpenalty
@@ -12279,14 +12285,15 @@ bidi implementation of tufte title]
     \nobreak
     \vskip 3ex
     \@afterheading}  
- \def\@spart#1{%
-    {\parindent \z@ \if@RTL\raggedleft\else\raggedright\fi
-     \interlinepenalty \@M
-     \normalfont
-     \huge \bfseries #1\par}%
-     \nobreak
-     \vskip 3ex
-     \@afterheading}
+\ApplyPatchIfPackageLoaded{nameref}{%
+  \bidi@patchcmd\NR@spart\raggedright{%
+    \if@RTL\raggedleft\else\raggedright\fi
+  }{}{\bidi@warningnoline{Oops! patching `\string\NR@spart' failed}}%
+}{%
+  \bidi@patchcmd\@spart\raggedright{%
+    \if@RTL\raggedleft\else\raggedright\fi
+  }{}{\bidi@warningnoline{Oops! patching `\string\@spart' failed}}%
+}
 \renewenvironment{thebibliography}[1]
      {\section*{\refname
         \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}%
