@@ -199,7 +199,7 @@ by Vafa Khalighi.
 \generate{\file{pdflscape-xetex-bidi.def}{\from{\jobname.dtx}{table,pdflscape-xetex-bidi.def}}}
 \generate{\file{pdfpages-xetex-bidi.def}{\from{\jobname.dtx}{table,pdfpages-xetex-bidi.def}}}
 \generate{\file{pgfcorescopes.code-xetex-bidi.def}{\from{\jobname.dtx}{table,pgfcorescopes.code-xetex-bidi.def}}}
-\generate{\file{pgfsys.code-xetex-bidi.def}{\from{\jobname.dtx}{table,pgfsys.code-xetex-bidi.def}}}
+\generate{\file{pgfsys-xetex-bidi.def}{\from{\jobname.dtx}{table,pgfsys-xetex-bidi.def}}}
 \generate{\file{picinpar-xetex-bidi.def}{\from{\jobname.dtx}{table,picinpar-xetex-bidi.def}}}
 \generate{\file{plain-xetex-bidi.def}{\from{\jobname.dtx}{table,plain-xetex-bidi.def}}}
 \generate{\file{pstricks-xetex-bidi.def}{\from{\jobname.dtx}{table,pstricks-xetex-bidi.def}}}
@@ -21235,11 +21235,11 @@ bidi implementation of tufte title]
 %    \end{macrocode}
 % \iffalse
 %</pgfcorescopes.code-xetex-bidi.def>
-%<*pgfsys.code-xetex-bidi.def>
+%<*pgfsys-xetex-bidi.def>
 %\fi
-% \section{File \texttt{pgfsys.code-xetex-bidi.def}}
+% \section{File \texttt{pgfsys-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{pgfsys.code-xetex-bidi.def}[2022/06/01 v0.1 bidi adaptations for pgfsys.code.tex file for XeTeX engine]
+\ProvidesFile{pgfsys-xetex-bidi.def}[2025/01/05 v0.1 bidi adaptations for pgfsys package for XeTeX engine]
 \def\pgfsys@shadingoutsidepgfpicture#1{%
   \beginL#1\endL%
 }
@@ -21247,7 +21247,7 @@ bidi implementation of tufte title]
 
 %    \end{macrocode}
 % \iffalse
-%</pgfsys.code-xetex-bidi.def>
+%</pgfsys-xetex-bidi.def>
 %<*picinpar-xetex-bidi.def>
 %\fi
 % \section{File \texttt{picinpar-xetex-bidi.def}}
@@ -28242,6 +28242,7 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
   pdfbase, %
   pdflscape, %
   pdfpages, %
+  pgfsys, %
   picinpar, %
   quotchap, %
   ragged2e, %
@@ -28268,7 +28269,6 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
 
 \ApplyPatchToFiles{%
   pgfcorescopes.code, %
-  pgfsys.code, %
   pstricks %
 }[tex]
 
