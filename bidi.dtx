@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v41.3
+v41.4
 
 This package provides a convenient interface for typesetting
 bidirectional texts in Plain TeX and LaTeX, using XeTeX engine.
@@ -220,7 +220,7 @@ by Vafa Khalighi.
 \generate{\file{tabls-xetex-bidi.def}{\from{\jobname.dtx}{table,tabls-xetex-bidi.def}}}
 \generate{\file{tabularx-xetex-bidi.def}{\from{\jobname.dtx}{table,tabularx-xetex-bidi.def}}}
 \generate{\file{tabulary-xetex-bidi.def}{\from{\jobname.dtx}{table,tabulary-xetex-bidi.def}}}
-\generate{\file{tc-xetex-bidi.def}{\from{\jobname.dtx}{table,tc-xetex-bidi.def}}}
+\generate{\file{tc-xetex-xetex-bidi.def}{\from{\jobname.dtx}{table,tc-xetex-xetex-bidi.def}}}
 \generate{\file{tcolorbox-xetex-bidi.def}{\from{\jobname.dtx}{table,tcolorbox-xetex-bidi.def}}}
 \generate{\file{titlesec-xetex-bidi.def}{\from{\jobname.dtx}{table,titlesec-xetex-bidi.def}}}
 \generate{\file{titletoc-xetex-bidi.def}{\from{\jobname.dtx}{table,titletoc-xetex-bidi.def}}}
@@ -267,7 +267,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 41.3 of the bidi
+  pdftitle={Source documentation for version 41.4 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -286,7 +286,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting in plain \TeX{} and \LaTeX, using \XeTeX{} engine\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 41.3}}
+%\large Source documentation for \textcolor{bidiblue}{version 41.4}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -296,7 +296,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 41.3}}
+%Source documentation for \textcolor{bidiblue}{version 41.4}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -4737,7 +4737,7 @@ by Vafa Khalighi.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \def\bididate{2025/01/06}
-\def\bidi@version{41.3}
+\def\bidi@version{41.4}
 \def\bidi@releasename{Maryam Mirzakhani}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -5140,7 +5140,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %    \begin{macrocode}
 \def\bididate{2025/01/06}
 \catcode`@=11
-\def\bidi@version{41.3}
+\def\bidi@version{41.4}
 \def\bidi@releasename{Maryam Mirzakhani}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
@@ -25379,11 +25379,11 @@ to\rtside{\box\bslice\hfil}}
 %    \end{macrocode}
 % \iffalse
 %</tabulary-xetex-bidi.def>
-%<*tc-xetex-bidi.def>
+%<*tc-xetex-xetex-bidi.def>
 %\fi
-% \section{File \texttt{tc-xetex-bidi.def}}
+% \section{File \texttt{tc-xetex-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{tc-xetex-bidi.def}[2014/07/08 v0.1 bidi adaptations for Clipping driver for XeTeX engine]
+\ProvidesFile{tc-xetex-xetex-bidi.def}[2014/07/08 v0.1 bidi adaptations for Clipping driver for XeTeX engine]
 \def\@cliptoboxdim#1{%
     \setbox#1=\hbox{%
         \Gin@defaultbp\WIDTH{\wd#1}%
@@ -25404,7 +25404,7 @@ to\rtside{\box\bslice\hfil}}
 }
 %    \end{macrocode}
 % \iffalse
-%</tc-xetex-bidi.def>
+%</tc-xetex-xetex-bidi.def>
 %<*tcolorbox-xetex-bidi.def>
 %\fi
 % \section{File \texttt{tcolorbox-xetex-bidi.def}}
