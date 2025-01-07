@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v41.4
+v41.5
 
 This package provides a convenient interface for typesetting
 bidirectional texts in Plain TeX and LaTeX, using XeTeX engine.
@@ -30,7 +30,7 @@ The announcements for the new releases of the package will
 also appear in the Discussions space under the Announcements
 category.
   
-Current version release date: 2025/01/07
+Current version release date: 2025/01/08
 
 ___________________________________________
 Vafa Khalighi
@@ -267,7 +267,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 41.4 of the bidi
+  pdftitle={Source documentation for version 41.5 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -286,7 +286,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting in plain \TeX{} and \LaTeX, using \XeTeX{} engine\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 41.4}}
+%\large Source documentation for \textcolor{bidiblue}{version 41.5}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -296,7 +296,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 41.4}}
+%Source documentation for \textcolor{bidiblue}{version 41.5}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{57382}
+%% \CheckSum{57298}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4736,8 +4736,8 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2025/01/07}
-\def\bidi@version{41.4}
+\def\bididate{2025/01/08}
+\def\bidi@version{41.5}
 \def\bidi@releasename{Maryam Mirzakhani}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -4955,7 +4955,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released January 7, 2025. 
+  Released January 8, 2025. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -5138,9 +5138,9 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2025/01/07}
+\def\bididate{2025/01/08}
 \catcode`@=11
-\def\bidi@version{41.4}
+\def\bidi@version{41.5}
 \def\bidi@releasename{Maryam Mirzakhani}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
@@ -5255,7 +5255,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released January 7, 2025. 
+  Released January 8, 2025. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
@@ -21494,47 +21494,27 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{pstricks-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{pstricks-xetex-bidi.def}[2022/09/22 v0.6 bidi adaptations for pstricks package for XeTeX engine]
-\def\pspicture{\begingroup\ifmmode\else\@RTLfalse\beginL\fi\pst@ifstar\pst@picture}
-\def\endpspicture{%
-  \ifshowgrid\ifnum\showgridp@s>0
-    \psgrid[xunit=\sh@wgridXunit,yunit=\sh@wgridYunit,style=gridstyle]\fi\fi%
-  \pst@killglue
-%  \global\pst@shift=\pst@shift% in fact of the following endgroup
+\ProvidesFile{pstricks-xetex-bidi.def}[2025/01/08 v0.7 bidi adaptations for pstricks package for XeTeX engine]
+\bidi@patchcmd\pspicture\begingroup{%
+  \begingroup
+    \ifmmode
+    \else
+      \@RTLfalse
+      \beginL
+    \fi
+}{}{\bidi@warningnoline{Oops! patching `\string\pspicture' failed}}
+
+\bidi@patchcmd\endpspicture{%
   \endgroup
-  \egroup
-  \ifdim\wd\pst@hbox=\z@\else
-    %\@pstrickserr{Extraneous space in the pspicture environment}%
-    %{Type \space <return> \space to proceed.}%
-  \fi
-  \ht\pst@hbox=\pst@dimd
-  \dp\pst@hbox=-\pst@dimb
-  \setbox\pst@hbox=\hbox{%
-    \kern-\pst@dima
-% Orig version ----------
-%\ifx\pst@tempa\@empty\else
-%\advance\pst@dimd-\pst@dimb
-%\pst@dimd=\pst@tempa\pst@dimd
-%\advance\pst@dimd\pst@dimb
-%\lower\pst@dimd
-%\fi
-%----- end Orig
-    \ifPst@shift@star%\typeout{==pstricks== old behaviour of the shift option}%     shift=*
-      \advance\pst@dimd-\pst@dimb
-      \pst@dimd=0.5\pst@dimd
-    \else\pst@dimd-\pst@shift\fi
-    \advance\pst@dimd\pst@dimb
-    \lower\pst@dimd
-    \box\pst@hbox
-    \kern\pst@dimc}%
-  \if@star\setbox\pst@hbox=\hbox{\clipbox@@\z@}\fi
-  \leavevmode\ifdim\overfullrule=\z@\box\pst@hbox\else
-  \fboxsep=0pt
-  \fbox{\rule[-\pst@shift]{0pt}{\ht\pst@hbox}\rule{\wd\pst@hbox}{0pt}}\fi
-  \ifmmode\else\endL\fi
-  \endgroup%
   \psset[pstricks]{shift=0}% reset value
-}
+}{%
+  \ifmmode
+  \else
+    \endL
+  \fi
+  \endgroup
+  \psset[pstricks]{shift=0}% reset value
+}{}{\bidi@warningnoline{Oops! patching `\string\endpspicture' failed}}
 
 \bidi@patchcmd\@@scalebox{%
   \special{x: bscale \pst@tempc \pst@tempd}%
@@ -21552,7 +21532,7 @@ to\rtside{\box\bslice\hfil}}
   \else
     \special{x: escale}%
   \fi
-}{}{}
+}{}{\bidi@warningnoline{Oops! patching `\string\@@scalebox' failed}}
 \let\ps@@scalebox\@@scalebox
 
 %    \end{macrocode}
