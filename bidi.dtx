@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{57298}
+%% \CheckSum{57322}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -5234,6 +5234,10 @@ Bidirectional typesetting in plain TeX and LaTeX]
   }%
   \the\toks@
 }
+\def\today{\ifcase\month\or
+  January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or December\fi
+  \space\number\day, \number\year}
 \def\two@digits#1{\ifnum#1<10 0\fi\number#1}
 \newcount\bidi@typesethour
 \newcount\bidi@typesetminute
@@ -5246,6 +5250,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 \def\TypesetMinute{\two@digits\bidi@typesetminute}
 \def\TypesetTime{\TypesetHour:\TypesetMinute}
 \def\@bidi@logo@{\@bidi@logo@hb@xt@\hsize{\hss\LRE{\bf Typeset {\today} at {\TypesetTime} by the bidi package\quad\@bidi@logo{bidi-logo.pdf}}}}
+\def\bidilogo{\@bidi@inslogo@}
 \def\nobidilogo{\let\@bidi@logo@\@empty \let\@bidi@inslogo@\@empty}
 \def\@bidi@pdfcreator{%
   The bidi package, v\bidi@version\space (Release \bidi@releasename), \bididate
@@ -5271,8 +5276,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 \def\bidipdfinfoon{\@bidi@pdfm@marktrue}
 \def\bidipdfinfooff{\@bidi@pdfm@markfalse}
 \input plain-xetex-bidi.def
-\@bidi@inslogo@
-\outer\def\bye{\par\vfill\supereject\bidi@pdfm@mark\end}
+\outer\def\bye{\par\vfill\bidi@pdfm@mark\supereject\end}
 \catcode`@=12
 \bidipdfinfoon
 %    \end{macrocode}
