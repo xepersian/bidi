@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v41.5
+v41.6
 
 This package provides a convenient interface for typesetting
 bidirectional texts in Plain TeX and LaTeX, using XeTeX engine.
@@ -30,7 +30,7 @@ The announcements for the new releases of the package will
 also appear in the Discussions space under the Announcements
 category.
   
-Current version release date: 2025/01/08
+Current version release date: 2025/01/16
 
 ___________________________________________
 Vafa Khalighi
@@ -267,7 +267,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 41.5 of the bidi
+  pdftitle={Source documentation for version 41.6 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -286,7 +286,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting in plain \TeX{} and \LaTeX, using \XeTeX{} engine\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 41.5}}
+%\large Source documentation for \textcolor{bidiblue}{version 41.6}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -296,7 +296,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 41.5}}
+%Source documentation for \textcolor{bidiblue}{version 41.6}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{57322}
+%% \CheckSum{57328}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4736,8 +4736,8 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2025/01/08}
-\def\bidi@version{41.5}
+\def\bididate{2025/01/16}
+\def\bidi@version{41.6}
 \def\bidi@releasename{Maryam Mirzakhani}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -4750,6 +4750,16 @@ Bidirectional typesetting in plain TeX and LaTeX]
 \newif\if@bidi@pdfm@mark
 \newif\if@bidi@perpage@footnote
 \ExplSyntaxOn
+\msg_new:nnn {bidi} {cannot-use-engine}
+  {
+    Oops!~can~not~use~\c_sys_engine_str.\\\\
+    The~bidi~package~requires~XeTeX.
+  }
+ \sys_if_engine_xetex:F
+  {
+    \msg_fatal:nn {bidi} {cannot-use-engine}
+  } 
+  
 \keys_define:nn { bidi }
   {
     banner .choice: ,
@@ -4925,8 +4935,6 @@ Bidirectional typesetting in plain TeX and LaTeX]
   \else
     \expandafter\@secondoftwo
   \fi}
-\RequirePackage{iftex}
-\RequireXeTeX
 \RequirePackage{biditools}
 \RequirePackage{zref-abspage}
 \RequirePackage{auxhook}
@@ -4955,7 +4963,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released January 8, 2025. 
+  Released January 16, 2025. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -5138,9 +5146,9 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2025/01/08}
+\def\bididate{2025/01/16}
 \catcode`@=11
-\def\bidi@version{41.5}
+\def\bidi@version{41.6}
 \def\bidi@releasename{Maryam Mirzakhani}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
@@ -5260,7 +5268,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released January 8, 2025. 
+  Released January 16, 2025. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
@@ -5276,7 +5284,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 \def\bidipdfinfoon{\@bidi@pdfm@marktrue}
 \def\bidipdfinfooff{\@bidi@pdfm@markfalse}
 \input plain-xetex-bidi.def
-\outer\def\bye{\par\vfill\bidi@pdfm@mark\supereject\end}
+\outer\def\bye{\bidi@pdfm@mark\par\vfill\supereject\end}
 \catcode`@=12
 \bidipdfinfoon
 %    \end{macrocode}
