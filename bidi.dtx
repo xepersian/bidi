@@ -4765,79 +4765,59 @@ Bidirectional typesetting in plain TeX and LaTeX]
     banner .choice: ,
     banner / on .code:n = \@bidi@bannertrue ,
     banner / off .code:n = \@bidi@bannerfalse ,
-    banner .default:n = on
-  }
-\keys_define:nn { bidi }
-  {
+    banner .default:n = on ,
+    banner .initial:n = on ,
+
     PDFbanner .choice: ,
     PDFbanner / on .code:n = \@bidi@pdfbannertrue ,
     PDFbanner / off .code:n = \@bidi@pdfbannerfalse ,
-    PDFbanner .default:n = on
-  }
-\keys_define:nn { bidi }
-  {
+    PDFbanner .default:n = on ,
+    PDFbanner .initial:n = on ,
+
     RTLdocument .choice: ,
     RTLdocument / on .code:n = \AtEndOfPackage{\@RTLtrue} ,
     RTLdocument / off .code:n = \AtEndOfPackage{\@RTLfalse} ,
-    RTLdocument .default:n = on
-  }
-\keys_define:nn { bidi }
-  {
+    RTLdocument .default:n = on ,
+
     rldocument .choice: ,
     rldocument / on .code:n = \AtEndOfPackage{\@RTLtrue} ,
     rldocument / off .code:n = \AtEndOfPackage{\@RTLfalse} ,
-    rldocument .default:n = on
-  }  
-\keys_define:nn { bidi }
-  {
+    rldocument .default:n = on ,
+
     documentdirection .choice: ,
     documentdirection / righttoleft .code:n = \AtEndOfPackage{\@RTLtrue} ,
-    documentdirection / lefttoright .code:n = \AtEndOfPackage{\@RTLfalse} 
-  }
-\keys_define:nn { bidi }
-  {
+    documentdirection / lefttoright .code:n = \AtEndOfPackage{\@RTLfalse} ,
+
     tabledirection .choice: ,
     tabledirection / righttoleft .code:n = \AtEndOfPackage{\@RTLtabtrue} ,
-    tabledirection / lefttoright .code:n = \AtEndOfPackage{\@RTLtabfalse} 
-  }
-\keys_define:nn { bidi }
-  {
+    tabledirection / lefttoright .code:n = \AtEndOfPackage{\@RTLtabfalse} ,
+
     footnotedirection .choice: ,
     footnotedirection / righttoleft .code:n = \AtEndOfPackage{\@RTL@footnotetrue} ,
-    footnotedirection / lefttoright .code:n = \AtEndOfPackage{\@RTL@footnotefalse} 
-  }
-\keys_define:nn { bidi }
-  {
+    footnotedirection / lefttoright .code:n = \AtEndOfPackage{\@RTL@footnotefalse} ,
+
     debugfootnotedirection .choice: ,
     debugfootnotedirection / on .code:n = \footdir@debugtrue ,
     debugfootnotedirection / off .code:n = \footdir@debugfalse ,
-    debugfootnotedirection .default:n = on
-  }
-\keys_define:nn { bidi }
-  {
+    debugfootnotedirection .default:n = on ,
+ 
     footnoterule .choice: ,
     footnoterule / automatic .code:n = \AtEndOfPackage{\autofootnoterule} ,
     footnoterule / left .code:n = \AtEndOfPackage{\leftfootnoterule} ,
     footnoterule / right .code:n = \AtEndOfPackage{\rightfootnoterule} ,
     footnoterule / split .code:n = \AtEndOfPackage{\SplitFootnoteRule} ,
-    footnoterule / textwidth .code:n = \AtEndOfPackage{\textwidthfootnoterule} 
-  }
-\keys_define:nn { bidi }
-  {
+    footnoterule / textwidth .code:n = \AtEndOfPackage{\textwidthfootnoterule} ,
+
     extrafootnotefeatures .choice: ,
     extrafootnotefeatures / on .code:n = \@extrafootnotefeaturestrue ,
     extrafootnotefeatures / off .code:n = \@extrafootnotefeaturesfalse ,
-    extrafootnotefeatures .default:n = on
-  }
-\keys_define:nn { bidi }
-  {
+    extrafootnotefeatures .default:n = on ,
+
     script .choice: ,
     script / latin .code:n = \@nonlatinfalse ,
     script / nonlatin .code:n = \@nonlatintrue ,
-    script .default:n = latin
-  }
-\keys_define:nn { bidi }
-  {
+    script .default:n = latin ,
+
     DetectColumn .choice: ,
     DetectColumn / on .code:n = 
       \def\bidi@firstcolumn@status@write{% 
@@ -4850,37 +4830,26 @@ Bidirectional typesetting in plain TeX and LaTeX]
     DetectColumn / off .code:n = 
        \let\bidi@firstcolumn@status@write\relax
        \let\bidi@lastcolumn@status@write\relax ,
-    DetectColumn .default:n = on
-  }
-\keys_define:nn { bidi }
-  {
+    DetectColumn .default:n = on ,
+    DetectColumn .initial:n = off ,
+
     logo .choice: ,
     logo / on .code:n = \AtEndOfPackage{\AtBeginDocument{\@bidi@inslogo@}} ,
     logo / off .code:n = \let\@bidi@logo@\@empty \let\@bidi@inslogo@\@empty ,
-    logo .default:n = on
-  }
-\keys_define:nn { bidi }
-  {
+    logo .default:n = on ,
+
     pdfinfo .choice: ,
     pdfinfo / on .code:n = \@bidi@pdfm@marktrue ,
     pdfinfo / off .code:n = \@bidi@pdfm@markfalse ,
-    pdfinfo .default:n = on
-  }
+    pdfinfo .default:n = on ,
+
 % The `perpagefootnote' option is documented in UK TeX FAQ at 
 %  <https://texfaq.org/FAQ-footnpp> (see last paragraph)
-\keys_define:nn { bidi }
-  {
+
     perpagefootnote .choice: ,
     perpagefootnote / on .code:n = \@bidi@perpage@footnotetrue ,
     perpagefootnote / off .code:n = \@bidi@perpage@footnotefalse ,
     perpagefootnote .default:n = on
-  }
-\keys_set:nn { bidi }
-  {
-    banner = on ,
-    PDFbanner = on ,
-    DetectColumn = off
-    
   }
 \ExplSyntaxOff
 \ProcessKeyOptions
@@ -5035,20 +5004,14 @@ Bidirectional typesetting in plain TeX and LaTeX]
 \keys_define:nn { bidi / pdfencrypt }
   {
     userpassword .code:n = \def\bidi@pdfencrypt@userpassword{#1} ,
-    userpassword .default:n =
-  }
-\keys_define:nn { bidi / pdfencrypt }
-  {
+    userpassword .default:n = ,
+
     ownerpassword .code:n = \def\bidi@pdfencrypt@ownerpassword{#1} ,
-    ownerpassword .default:n =
-  }
-\keys_define:nn { bidi / pdfencrypt }
-  {
+    ownerpassword .default:n = ,
+
     keylength .code:n = \def\bidi@pdfencrypt@keylength{#1} ,
-    keylength .default:n = 128
-  }
-\keys_define:nn { bidi / pdfencrypt }
-  {
+    keylength .default:n = 128 ,
+
     permissionflags .code:n = \def\bidi@pdfencrypt@permissionflags{#1} ,
     permissionflags .default:n = 2052
   }
