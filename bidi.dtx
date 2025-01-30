@@ -4917,24 +4917,6 @@ Bidirectional typesetting in plain TeX and LaTeX]
   \everyjob{\bidi@everyjob\typeout{\@bidi@info}}
 \fi
 \newcommand*{\bidiversion}{\ensuremath\bidi@version}
-\newcommand*{\IfbidiPackageVersionLater}[1]{%
-  \ifdim\bidi@version pt > #1 pt %
-    \expandafter\@firstoftwo
-  \else
-    \expandafter\@secondoftwo
-  \fi}
-\newcommand*{\IfbidiPackageVersionBefore}[1]{%
-  \ifdim\bidi@version pt < #1 pt %
-    \expandafter\@firstoftwo
-  \else
-    \expandafter\@secondoftwo
-  \fi}
-\newcommand*{\IfbidiPackageVersion}[1]{%
-  \ifdim\bidi@version pt = #1 pt %
-    \expandafter\@firstoftwo
-  \else
-    \expandafter\@secondoftwo
-  \fi}
 \RequirePackage{biditools}
 \RequirePackage{zref-abspage}
 \RequirePackage{auxhook}
@@ -6074,7 +6056,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 % \section{File \texttt{biditools.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{biditools}[2025/01/03 v2.6 Programming tools for bidi package]
+\ProvidesPackage{biditools}[2026/03/01 v2.7 Programming tools for bidi package]
 \providecommand{\@bidi@saveprimitive}[2]{\begingroup\escapechar`\\\relax
   \edef\@tempa{\string#1}\edef\@tempb{\meaning#1}%
   \ifx\@tempa\@tempb \global\let#2#1%
@@ -6294,6 +6276,41 @@ ill-advised in the old versions of bidi package.%
   
 \newcommand*{\bidi@@convert@dimen@t@pt}[1]{%
     \dimexpr #1*65536/\dimexpr 1pt\relax}
+    
+\newcommand*{\IfPackageVersionAtLeastTF}[1]{%
+  \expnadfter\@if@ver@pkg@least\bidi@csuse{#1@version}
+}
+\newcommand*{\@if@ver@pkg@least}[2]{%
+  \ifnum\expandafter\bidi@parse@ver@#1..00\@nil<\expandafter\bidi@parse@ver@#2..00\@nil
+    \expandafter\@secondoftwo
+  \else
+    \expandafter\@firstoftwo
+  \fi
+}
+\newcommand*{\bidi@parse@ver@}[1]{\bidi@parse@ver0#1}
+\def\bidi@parse@ver#1.#2.#3#4#5\@nil{%
+  \if\relax#2\relax\else#1\fi#2#3#4
+}
+\newcommand*{\IfPackageVersionAtMostTF}[1]{%
+  \expandafter\@if@ver@pkg@most\bidi@csuse{#1@version}
+}
+\newcommand*{\@if@ver@pkg@most}[2]{%
+  \ifnum\expandafter\bidi@parse@ver@#1..00\@nil>\expandafter\bidi@parse@ver@#2..00\@nil
+    \expandafter\@secondoftwo
+  \else
+    \expandafter\@firstoftwo
+  \fi
+}
+\newcommand*{\IfPackageVersionTF}[1]{%
+  \expandafter\@if@ver@pkg@\bidi@csuse{#1@version}
+}
+\newcommand*{\@if@ver@pkg@}[2]{%
+  \ifnum\expandafter\bidi@parse@ver@#1..00\@nil=\expandafter\bidi@parse@ver@#2..00\@nil
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+}
   
 \newcommand*{\if@bidi@csdef}[1]{%
   \ifcsname#1\endcsname
