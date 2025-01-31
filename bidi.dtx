@@ -6290,7 +6290,7 @@ ill-advised in the old versions of bidi package.%
   \expandafter\@if@ver@pkg@least\csname #1@version\endcsname
 }
 \newcommand*{\@if@ver@pkg@least}[2]{%
-  \ifdim\expandafter\bidi@parse@ver@#1..00\@nil<\expandafter\bidi@parse@ver@#2..00\@nil
+  \ifnum\expandafter\bidi@parse@ver@#100\@nil<\expandafter\bidi@parse@ver@#200\@nil
     \expandafter\@secondoftwo
   \else
     \expandafter\@firstoftwo
@@ -6298,13 +6298,13 @@ ill-advised in the old versions of bidi package.%
 }
 \newcommand*{\bidi@parse@ver@}[1]{\bidi@parse@ver0#1}
 \def\bidi@parse@ver#1.#2.#3#4#5\@nil{%
-  \if\relax#2\relax\else#1\fi.#2#3#4 pt
+  \if\relax#2\relax\else#1\fi#2#3#4
 }
 \newcommand*{\IfPackageVersionAtMostTF}[1]{%
   \expandafter\@if@ver@pkg@most\csname #1@version\endcsname
 }
 \newcommand*{\@if@ver@pkg@most}[2]{%
-  \ifdim\expandafter\bidi@parse@ver@#1..00\@nil>\expandafter\bidi@parse@ver@#2..00\@nil
+  \ifnum\expandafter\bidi@parse@ver@#100\@nil>\expandafter\bidi@parse@ver@#200\@nil
     \expandafter\@secondoftwo
   \else
     \expandafter\@firstoftwo
@@ -6314,7 +6314,7 @@ ill-advised in the old versions of bidi package.%
   \expandafter\@if@ver@pkg@\csname #1@version\endcsname
 }
 \newcommand*{\@if@ver@pkg@}[2]{%
-  \ifdim\expandafter\bidi@parse@ver@#1..00\@nil=\expandafter\bidi@parse@ver@#2..00\@nil
+  \ifnum\expandafter\bidi@parse@ver@#100\@nil=\expandafter\bidi@parse@ver@#200\@nil
     \expandafter\@firstoftwo
   \else
     \expandafter\@secondoftwo
