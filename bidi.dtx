@@ -4921,15 +4921,6 @@ Bidirectional typesetting in plain TeX and LaTeX]
 \RequirePackage{zref-abspage}
 \RequirePackage{auxhook}
 \RequirePackage{ltxcmds}
-\newcommand*{\IfbidiPackageVersionLater}{%
-  \IfPackageVersionAtLeastTF{bidi}%
-}
-\newcommand*{\IfbidiPackageVersionBefore}{%
-  \IfPackageVersionAtMostTF{bidi}%
-}
-\newcommand*{\IfbidiPackageVersion}{%
-  \IfPackageVersionTF{bidi}%
-}
 \eqnewif{\if@RTLmain}{\if@rlmain}
 \eqnewif{\if@RTL}{\if@rl}
 \newcommand*{\setlatin}{\@nonlatinfalse}
