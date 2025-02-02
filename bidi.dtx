@@ -285,7 +285,7 @@ by Vafa Khalighi.
 %
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
-%\LARGE Bidirectional typesetting in plain \TeX{} and \LaTeX, using \XeTeX{} engine\\[5pt]
+%\LARGE Bidirectional typesetting in plain {\TeX} and {\LaTeX} formats for XeTeX and LuaTeX engines\\[5pt]
 %\large Source documentation for \textcolor{bidiblue}{version 26.3.1}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
@@ -4887,7 +4887,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 \edef\@bidi@info{****************************************************^^J%
 * ^^J%
 * bidi package (Bidirectional typesetting in^^J% 
-* plain TeX and LaTeX, using XeTeX engine)^^J%
+* plain TeX and LaTeX formats for XeTeX and LuaTeX engines)^^J%
 * ^^J%
 * Description: A convenient interface for^^J% 
 * typesetting bidirectional texts in plain TeX^^J% 
@@ -4902,7 +4902,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 * License: LaTeX Project Public License, version^^J%
 * 1.3c or higher (your choice)^^J%
 * ^^J%
-* Location on CTAN: /macros/xetex/latex/bidi^^J%
+* Location on CTAN: /macros/unicodetex/latex/bidi^^J%
 * ^^J%
 * Issue tracker: https://github.com/xepersian/bidi/issues^^J%
 * ^^J%
@@ -5138,7 +5138,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 \edef\@bidi@info{****************************************************^^J%
 * ^^J%
 * bidi package (Bidirectional typesetting in^^J% 
-* plain TeX and LaTeX, using XeTeX engine)^^J%
+* plain TeX and LaTeX formats for XeTeX and LuaTeX engines)^^J%
 * ^^J%
 * Description: A convenient interface for^^J% 
 * typesetting bidirectional texts in plain TeX^^J% 
@@ -5153,7 +5153,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 * License: LaTeX Project Public License, version^^J%
 * 1.3c or higher (your choice)^^J%
 * ^^J%
-* Location on CTAN: /macros/xetex/latex/bidi^^J%
+* Location on CTAN: /macros/unicodetex/latex/bidi^^J%
 * ^^J%
 * Issue tracker: https://github.com/xepersian/bidi/issues^^J%
 * ^^J%
@@ -6056,7 +6056,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 % \section{File \texttt{biditools.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{biditools}[2026/03/01 v2.7 Programming tools for bidi package]
+\ProvidesPackage{biditools}[2026/02/02 v2.7 Programming tools for bidi package]
 \providecommand{\@bidi@saveprimitive}[2]{\begingroup\escapechar`\\\relax
   \edef\@tempa{\string#1}\edef\@tempb{\meaning#1}%
   \ifx\@tempa\@tempb \global\let#2#1%
@@ -9938,7 +9938,7 @@ bidi implementation of tufte title]
 \def\poem@finish{%
 \poem@write@aux{max@poem@no}{\number\c@poem@no}%
 \ifx\poem@needrun\relax
-\PackageWarning{bidipoem}{Unjustified poem.  Rerun XeLaTeX to get poem right}%
+\PackageWarning{bidipoem}{Unjustified poem.  Rerun TeX to get poem right}%
 \global\let\poem@needrun\undefined
 \fi
 }
