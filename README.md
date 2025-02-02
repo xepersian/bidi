@@ -1,6 +1,7 @@
 # The bidi Package
 The `bidi` package provides a convenient interface for typesetting 
-bidirectional texts with plain TeX and LaTeX. 
+bidirectional texts with plain TeX and LaTeX formats in XeTeX and
+LuaTeX engines.
 
 The package includes adaptations for use with many other commonly-used 
 packages.
