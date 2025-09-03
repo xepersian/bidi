@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v26.3.1
+v25.09.03
 
 This package provides a convenient interface for typesetting
 bidirectional texts with Plain TeX and LaTeX formats in XeTeX and
@@ -31,7 +31,7 @@ The announcements for the new releases of the package will
 also appear in the Discussions space under the Announcements
 category.
   
-Current version release date: 2026/03/01
+Current version release date: 2025/09/03
 
 ___________________________________________
 Vafa Khalighi
@@ -268,7 +268,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 26.3.1 of the bidi
+  pdftitle={Source documentation for version 25.09.03 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -287,7 +287,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting with plain {\TeX} and {\LaTeX} formats in XeTeX and LuaTeX engines\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 26.3.1}}
+%\large Source documentation for \textcolor{bidiblue}{version 25.09.03}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -297,7 +297,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 26.3.1}}
+%Source documentation for \textcolor{bidiblue}{version 25.09.03}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -346,7 +346,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{57328}
+%% \CheckSum{57356}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4737,9 +4737,9 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2026/03/01}
-\def\bidi@version{26.3.1}
-\def\bidi@releasename{Maryam Mirzakhani}
+\def\bididate{2025/09/03}
+\def\bidi@version{25.09.03}
+\def\bidi@releasename{Iran}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
 Bidirectional typesetting in plain TeX and LaTeX]
@@ -4946,7 +4946,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released March 1, 2026. 
+  Released September 3, 2025. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -5129,10 +5129,10 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2026/03/01}
+\def\bididate{2025/09/03}
 \catcode`@=11
-\def\bidi@version{26.3.1}
-\def\bidi@releasename{Maryam Mirzakhani}
+\def\bidi@version{25.09.03}
+\def\bidi@releasename{Iran}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
 \newlinechar`\^^J
@@ -5251,7 +5251,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released March 1, 2026. 
+  Released September 3, 2025. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
@@ -6057,7 +6057,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 % \section{File \texttt{biditools.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{biditools}[2026/02/02 v2.7 Programming tools for bidi package]
+\ProvidesPackage{biditools}[2025/02/02 v2.7 Programming tools for bidi package]
 \providecommand{\@bidi@saveprimitive}[2]{\begingroup\escapechar`\\\relax
   \edef\@tempa{\string#1}\edef\@tempb{\meaning#1}%
   \ifx\@tempa\@tempb \global\let#2#1%
@@ -10441,7 +10441,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{book-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{book-xetex-bidi.def}[2026/03/01 v1.2 bidi adaptations for standard book class for XeTeX engine]
+\ProvidesFile{book-xetex-bidi.def}[2025/03/01 v1.2 bidi adaptations for standard book class for XeTeX engine]
 \renewenvironment{theindex}
                {\if@twocolumn
                   \@restonecolfalse
@@ -16689,19 +16689,12 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{fancyhdr-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{fancyhdr-xetex-bidi.def}[2025/01/07 v0.9 bidi adaptations for fancyhdr package for XeTeX engine]
+\ProvidesFile{fancyhdr-xetex-bidi.def}[2025/09/03 v1.0 bidi adaptations for fancyhdr package for XeTeX engine]
 
 \let\f@nch@everypar\everypar
 
-\bidi@patchcmd\f@nch@hfbox@center\raggedright\bidi@raggedright
-{}{\bidi@warningnoline{Oops! patching `\string\f@nch@hfbox@center' failed}}
-\bidi@patchcmd\f@nch@hfbox@center\raggedleft\bidi@raggedleft
-{}{\bidi@warningnoline{Oops! patching `\string\f@nch@hfbox@center' failed}}
-
-\bidi@patchcmd\f@nch@hfbox@fit\raggedright\bidi@raggedright
-{}{\bidi@warningnoline{Oops! patching `\string\f@nch@hfbox@fit' failed}}
-\bidi@patchcmd\f@nch@hfbox@fit\raggedleft\bidi@raggedleft
-{}{\bidi@warningnoline{Oops! patching `\string\f@nch@hfbox@fit' failed}}
+\def\f@nch@parbox@align@hl{\def\f@nch@align@@h{\bidi@raggedright}}
+\def\f@nch@parbox@align@hr{\def\f@nch@align@@h{\bidi@raggedleft}}
 
 %    \end{macrocode}
 % \iffalse
@@ -22439,7 +22432,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{report-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{report-xetex-bidi.def}[2026/03/01 v0.9 bidi adaptations for standard report class for XeTeX engine]
+\ProvidesFile{report-xetex-bidi.def}[2025/03/01 v0.9 bidi adaptations for standard report class for XeTeX engine]
 \renewenvironment{theindex}
                {\if@twocolumn
                   \@restonecolfalse
