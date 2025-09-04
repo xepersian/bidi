@@ -222,6 +222,7 @@ by Vafa Khalighi.
 \generate{\file{tabulary-xetex-bidi.def}{\from{\jobname.dtx}{table,tabulary-xetex-bidi.def}}}
 \generate{\file{tc-xetex-xetex-bidi.def}{\from{\jobname.dtx}{table,tc-xetex-xetex-bidi.def}}}
 \generate{\file{tcolorbox-xetex-bidi.def}{\from{\jobname.dtx}{table,tcolorbox-xetex-bidi.def}}}
+\generate{\file{thmbox-xetex-bidi.def}{\from{\jobname.dtx}{table,thmbox-xetex-bidi.def}}}
 \generate{\file{titlesec-xetex-bidi.def}{\from{\jobname.dtx}{table,titlesec-xetex-bidi.def}}}
 \generate{\file{titletoc-xetex-bidi.def}{\from{\jobname.dtx}{table,titletoc-xetex-bidi.def}}}
 \generate{\file{tocbibind-xetex-bidi.def}{\from{\jobname.dtx}{table,tocbibind-xetex-bidi.def}}}
@@ -345,7 +346,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{57269}
+%% \CheckSum{57337}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -25399,6 +25400,42 @@ to\rtside{\box\bslice\hfil}}
 %    \end{macrocode}
 % \iffalse
 %</tcolorbox-xetex-bidi.def>
+%<*thmbox-xetex-bidi.def>
+%\fi
+% \section{File \texttt{thmbox-xetex-bidi.def}}
+%    \begin{macrocode}
+\ProvidesFile{thmbox-xetex-bidi.def}[2025/09/04 v0.1 bidi adaptations for thmbox package for XeTeX engine]
+\renewenvironment{thmbox}[2][]{%
+  \parskip\z@%
+  \setkeys{thmbox}{#1}%
+  \ifx\thmbox@style S\else\ifx\thmbox@style M\else\ifx\thmbox@style L\else%
+    \PackageWarning{thmbox}{\thmbox@style\ is not a valid style for
+      \string\thmbox, using M}%
+    \let\thmbox@style=M%
+  \fi\fi\fi%
+  \thmbox@head{{#2}}\nobreak\relax%
+  \thmbox@dim=\hsize%
+  \advance\thmbox@dim-\leftskip%
+  \advance\thmbox@dim-\rightskip%
+  \setbox\thmbox@box=\vbox\bgroup%
+    \if@RTL
+      \@hboxRconstructtrue
+    \fi
+    \hsize=\thmbox@dim%
+    \advance\hsize -\thmbox@leftmargin%
+    \advance\hsize -\thmbox@rightmargin%
+    \textwidth=\hsize%
+    \linewidth=\hsize%
+    \vskip\thmbox@vskip%
+    \begingroup}{\endgroup%
+    \vskip\thmbox@vskip%
+  \egroup%
+  \thmbox@start%
+  \ifx\thmbox@style S\else\thmbox@tail\fi%
+  \@endparenv}
+%    \end{macrocode}
+% \iffalse
+%</thmbox-xetex-bidi.def>
 %<*titlesec-xetex-bidi.def>
 %\fi
 % \section{File \texttt{titlesec-xetex-bidi.def}}
@@ -28221,6 +28258,7 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
   tabularx, %
   tabulary, %
   tcolorbox, %
+  thmbox, %
   titlesec, %
   titletoc, %
   tocbasic, %
