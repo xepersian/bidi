@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{57267}
+%% \CheckSum{57269}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -10452,7 +10452,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{book-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{book-xetex-bidi.def}[2025/03/01 v1.2 bidi adaptations for standard book class for XeTeX engine]
+\ProvidesFile{book-xetex-bidi.def}[2025/09/04 v1.3 bidi adaptations for standard book class for XeTeX engine]
 \renewenvironment{theindex}
                {\if@twocolumn
                   \@restonecolfalse
@@ -10646,6 +10646,7 @@ bidi implementation of tufte title]
     \clearpage
   \fi
   \@mainmatterfalse}
+\IfPackageLoadedF{natbib}{%
 \renewenvironment{thebibliography}[1]
      {\chapter*{\bibname}%
       \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
@@ -10667,6 +10668,7 @@ bidi implementation of tufte title]
      {\def\@noitemerr
        {\@latex@warning{Empty `thebibliography' environment}}%
       \endlist}
+}
 %    \end{macrocode}
 % \iffalse
 %</book-xetex-bidi.def>
@@ -22388,7 +22390,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{report-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{report-xetex-bidi.def}[2025/03/01 v0.9 bidi adaptations for standard report class for XeTeX engine]
+\ProvidesFile{report-xetex-bidi.def}[2025/09/04 v1.0 bidi adaptations for standard report class for XeTeX engine]
 \renewenvironment{theindex}
                {\if@twocolumn
                   \@restonecolfalse
@@ -22572,6 +22574,7 @@ to\rtside{\box\bslice\hfil}}
     \Huge \bfseries  #1\par\nobreak
     \vskip 40\p@
   }}
+\IfPackageLoadedF{natbib}{%
 \renewenvironment{thebibliography}[1]
      {\chapter*{\bibname}%
       \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
@@ -22593,6 +22596,7 @@ to\rtside{\box\bslice\hfil}}
      {\def\@noitemerr
        {\@latex@warning{Empty `thebibliography' environment}}%
       \endlist}
+}
 %    \end{macrocode}
 % \iffalse
 %</report-xetex-bidi.def>
