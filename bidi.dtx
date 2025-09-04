@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v25.09.03
+v25.09.04
 
 This package provides a convenient interface for typesetting
 bidirectional texts with Plain TeX and LaTeX formats in XeTeX and
@@ -31,7 +31,7 @@ The announcements for the new releases of the package will
 also appear in the Discussions space under the Announcements
 category.
   
-Current version release date: 2025/09/03
+Current version release date: 2025/09/04
 
 ___________________________________________
 Vafa Khalighi
@@ -267,7 +267,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 25.09.03 of the bidi
+  pdftitle={Source documentation for version 25.09.04 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -286,7 +286,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting with plain {\TeX} and {\LaTeX} formats in XeTeX and LuaTeX engines\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 25.09.03}}
+%\large Source documentation for \textcolor{bidiblue}{version 25.09.04}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -296,7 +296,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 25.09.03}}
+%Source documentation for \textcolor{bidiblue}{version 25.09.04}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -345,7 +345,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{57258}
+%% \CheckSum{57267}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -782,7 +782,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{array-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{array-xetex-bidi.def}[2024/12/10 v0.5 bidi adaptations for array package for XeTeX engine]
+\ProvidesFile{array-xetex-bidi.def}[2025/09/04 v0.6 bidi adaptations for array package for XeTeX engine]
 \def\@testpach{\@chclass
  \ifnum \@lastchclass=6 \@ne \@chnum \@ne \else
   \ifnum \@lastchclass=7 5 \else
@@ -810,14 +810,15 @@ by Vafa Khalighi.
    \fi \fi  \fi  \fi  \fi  \fi  \fi \fi \fi \fi \fi \fi}
 \def\@tabular{%
   \leavevmode
-  \hbox \bgroup\if@RTLtab\beginR \fi
   \UseTaggingSocket{tbl/hmode/begin}%
-  $\col@sep\tabcolsep \let\d@llarbegin\begingroup
+  \hbox \bgroup\if@RTLtab\beginR \fi
+    \MathCollectFalse$\MathCollectTrue
+    \col@sep\tabcolsep \let\d@llarbegin\begingroup
                                     \let\d@llarend\endgroup
+   \@kernel@tabular@init
   \@tabarray}
-\def\endtabular{\endarray\m@th $
+\def\endtabular{\endarray\m@th $\if@RTLtab\endR\fi\egroup
   \UseTaggingSocket{tbl/hmode/end}%
-  \if@RTLtab\endR\fi\egroup
 }
 \expandafter\let\csname endtabular*\endcsname=\endtabular
 \ExplSyntaxOn
@@ -857,17 +858,28 @@ by Vafa Khalighi.
 \let\@@array\@array
 \ExplSyntaxOn
 \def\endarray {
-  \tbl_crcr:n{endarray} \egroup
-  \UseTaggingSocket{tbl/finalize}
+  \tbl_crcr:n{endarray}
+  \tag_socket_use_expandable:n { math/luamml/array/save }
+  \egroup
+  \tag_socket_use:n { tbl/finalize }
   \tbl_restore_outer_cell_data:
   \if@RTLtab\egroup\endR\egroup\fi 
   \egroup
+  \tag_socket_use:n { math/luamml/array/finalize }
   \@arrayright \gdef\@preamble{}%
 }
 \ExplSyntaxOff
 \def\array{\col@sep\arraycolsep
-  \def\d@llarbegin{$}\let\d@llarend\d@llarbegin\def\@halignto{}%
-  \@RTLtabfalse\@tabarray}
+  \def\d@llarbegin{$\tag_socket_use:n { math/luamml/array/initcol }}
+  \def\d@llarend
+   {
+     \tag_socket_use:nn { math/luamml/save/nn }{{}{mtd}}
+     $
+     \tag_socket_use:nn { math/luamml/array/finalizecol}{\the\@chnum}
+   }
+  \def\@halignto{}%
+  \@RTLtabfalse
+  \@tabarray}
 %    \end{macrocode}
 % \iffalse
 %</array-xetex-bidi.def>
@@ -4736,8 +4748,8 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2025/09/03}
-\def\bidi@version{25.09.03}
+\def\bididate{2025/09/04}
+\def\bidi@version{25.09.04}
 \def\bidi@releasename{Iran}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -4945,7 +4957,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released September 3, 2025. 
+  Released September 4, 2025. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -5128,9 +5140,9 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2025/09/03}
+\def\bididate{2025/09/04}
 \catcode`@=11
-\def\bidi@version{25.09.03}
+\def\bidi@version{25.09.04}
 \def\bidi@releasename{Iran}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
@@ -5250,7 +5262,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released September 3, 2025. 
+  Released September 4, 2025. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
