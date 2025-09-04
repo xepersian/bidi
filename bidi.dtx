@@ -346,7 +346,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{57337}
+%% \CheckSum{57314}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -888,7 +888,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{article-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{article-xetex-bidi.def}[2025/01/05 v0.9 bidi adaptations for standard article class for XeTeX engine]
+\ProvidesFile{article-xetex-bidi.def}[2025/09/04 v1.0 bidi adaptations for standard article class for XeTeX engine]
 \IfClassLoadedT{svmult}{\endinput}
 \if@titlepage
   \renewcommand\maketitle{\begin{titlepage}%
@@ -1029,30 +1029,23 @@ by Vafa Khalighi.
 \renewcommand\thesubsubsection{\thesubsection\@SepMark\@arabic\c@subsubsection}
 \renewcommand\theparagraph    {\thesubsubsection\@SepMark\@arabic\c@paragraph}
 \renewcommand\thesubparagraph {\theparagraph\@SepMark\@arabic\c@subparagraph}
-\def\@part[#1]#2{%
-    \ifnum \c@secnumdepth >\m@ne
-      \refstepcounter{part}%
-      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
-    \else
-      \addcontentsline{toc}{part}{#1}%
-    \fi
-    {\parindent \z@ \if@RTL\raggedleft\else\raggedright\fi
-     \interlinepenalty \@M
-     \normalfont
-     \ifnum \c@secnumdepth >\m@ne
-       \Large\bfseries \partname\nobreakspace\thepart
-       \par\nobreak
-     \fi
-     \huge \bfseries #2%
-     \markboth{}{}\par}%
-    \nobreak
-    \vskip 3ex
-    \@afterheading}
 \ApplyPatchIfPackageLoaded{nameref}{%
+  \bidi@patchcmd\NR@part{%
+    \parindent \z@
+  }{%
+    \parindent \z@
+    \if@RTL\raggedleft\else\raggedright\fi
+  }{}{\bidi@warningnoline{Oops! patching `\string\NR@part' failed}}%
   \bidi@patchcmd\NR@spart\raggedright{%
     \if@RTL\raggedleft\else\raggedright\fi
   }{}{\bidi@warningnoline{Oops! patching `\string\NR@spart' failed}}%
 }{%
+  \bidi@patchcmd\@part{%
+    \parindent \z@
+  }{%
+    \parindent \z@
+    \if@RTL\raggedleft\else\raggedright\fi
+  }{}{\bidi@warningnoline{Oops! patching `\string\@part' failed}}%
   \bidi@patchcmd\@spart\raggedright{%
     \if@RTL\raggedleft\else\raggedright\fi
   }{}{\bidi@warningnoline{Oops! patching `\string\@spart' failed}}%
@@ -12284,7 +12277,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{extarticle-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{extarticle-xetex-bidi.def}[2025/01/05 v0.5 bidi adaptations for extarticle class for XeTeX engine]
+\ProvidesFile{extarticle-xetex-bidi.def}[2025/09/04 v0.6 bidi adaptations for extarticle class for XeTeX engine]
 \renewcommand*\l@section[2]{%
   \ifnum \c@tocdepth >\z@
     \addpenalty\@secpenalty
@@ -12312,30 +12305,23 @@ bidi implementation of tufte title]
        \nobreak
     \endgroup
   \fi}
-  \def\@part[#1]#2{%
-    \ifnum \c@secnumdepth >\m@ne
-      \refstepcounter{part}%
-      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
-    \else
-      \addcontentsline{toc}{part}{#1}%
-    \fi
-    {\parindent \z@ \if@RTL\raggedleft\else\raggedright\fi
-     \interlinepenalty \@M
-     \normalfont
-     \ifnum \c@secnumdepth >\m@ne
-       \Large\bfseries \partname~\thepart
-       \par\nobreak
-     \fi
-     \huge \bfseries #2%
-     \markboth{}{}\par}%
-    \nobreak
-    \vskip 3ex
-    \@afterheading}  
 \ApplyPatchIfPackageLoaded{nameref}{%
+  \bidi@patchcmd\NR@part{%
+    \parindent \z@
+  }{%
+    \parindent \z@
+    \if@RTL\raggedleft\else\raggedright\fi
+  }{}{\bidi@warningnoline{Oops! patching `\string\NR@part' failed}}%
   \bidi@patchcmd\NR@spart\raggedright{%
     \if@RTL\raggedleft\else\raggedright\fi
   }{}{\bidi@warningnoline{Oops! patching `\string\NR@spart' failed}}%
 }{%
+  \bidi@patchcmd\@part{%
+    \parindent \z@
+  }{%
+    \parindent \z@
+    \if@RTL\raggedleft\else\raggedright\fi
+  }{}{\bidi@warningnoline{Oops! patching `\string\@part' failed}}%
   \bidi@patchcmd\@spart\raggedright{%
     \if@RTL\raggedleft\else\raggedright\fi
   }{}{\bidi@warningnoline{Oops! patching `\string\@spart' failed}}%
@@ -28277,6 +28263,7 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
 }[tex]
 
 \ApplyPatchToFile{tc-xetex}
+
 %    \end{macrocode}
 % \iffalse
 %</latex-xetex-bidi.def>
