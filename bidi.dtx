@@ -163,6 +163,7 @@ by Vafa Khalighi.
 \generate{\file{ftnright-xetex-bidi.def}{\from{\jobname.dtx}{table,ftnright-xetex-bidi.def}}}
 \generate{\file{graphicx-xetex-bidi.def}{\from{\jobname.dtx}{table,graphicx-xetex-bidi.def}}}
 \generate{\file{geometry-xetex-bidi.def}{\from{\jobname.dtx}{table,geometry-xetex-bidi.def}}}
+\generate{\file{hgeneric-testphase-xetex-bidi.def}{\from{\jobname.dtx}{table,hgeneric-testphase-xetex-bidi.def}}}
 \generate{\file{hvfloat-xetex-bidi.def}{\from{\jobname.dtx}{table,hvfloat-xetex-bidi.def}}}
 \generate{\file{hyperref-xetex-bidi.def}{\from{\jobname.dtx}{table,hyperref-xetex-bidi.def}}}
 \generate{\file{imsproc-xetex-bidi.def}{\from{\jobname.dtx}{table,imsproc-xetex-bidi.def}}}
@@ -326,7 +327,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{54013}
+%% \CheckSum{54246}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2819,7 +2820,7 @@ by Vafa Khalighi.
     \color@endgroup}}
     
 \renewcommand<>\@mpfootnotetext[1]{%
-\ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\if@RTL@footnote\global\let\bidi@mpfootnoterule\right@footnoterule\else\global\let\bidi@mpfootnoterule\left@footnoterule\fi\fi\fi
+\ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\if@RTL@footnote\global\let\bidi@mpfootnoterule\right@mpfootnoterule\else\global\let\bidi@mpfootnoterule\left@footnoterule\fi\fi\fi
   \global\setbox\@mpfootins\vbox{%
     \unvbox\@mpfootins
     \if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi
@@ -2835,7 +2836,7 @@ by Vafa Khalighi.
     \color@endgroup}}
     
 \renewcommand<>\@mpRTLfootnotetext[1]{%
-\ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\global\let\bidi@mpfootnoterule\right@footnoterule\fi\fi
+\ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\global\let\bidi@mpfootnoterule\right@mpfootnoterule\fi\fi
   \global\setbox\@mpfootins\vbox{%
      \unvbox\@mpfootins
      \@RTLtrue
@@ -15334,7 +15335,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{footnote-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{footnote-xetex-bidi.def}[2024/12/14 v1.3 bidi footnote macros for XeTeX engine]
+\ProvidesFile{footnote-xetex-bidi.def}[2025/09/20 v1.4 bidi footnote macros for XeTeX engine]
 \if@RTLmain\@RTL@footnotetrue\else\@RTL@footnotefalse\fi
 \newif\ifbidi@autofootnoterule
 \def\bidi@mpfootnoterule{\footnoterule}
@@ -15427,20 +15428,31 @@ bidi implementation of tufte title]
   \kern-3\p@
   \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
   \kern2.6\p@}
+\def\right@mpfootnoterule{%
+  \kern-\baselineskip
+  \kern-3\p@
+  \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
+  \kern2.6\p@}
 \def\left@footnoterule{\kern-3\p@
   \hrule \@width .4\columnwidth \kern 2.6\p@} 
 \def\textwidth@footnoterule{\kern-3\p@
   \hrule \@width \columnwidth \kern 2.6\p@}
 \def\leftfootnoterule{%
 \bidi@autofootnoterulefalse%
-\def\footnoterule{\left@footnoterule}}
+\def\footnoterule{\left@footnoterule}%
+\def\bidi@mpfootnoterule{\left@footnoterule}%
+}
 \let\LRfootnoterule=\leftfootnoterule
 \def\rightfootnoterule{%
 \bidi@autofootnoterulefalse%
-\def\footnoterule{\right@footnoterule}}
+\def\footnoterule{\right@footnoterule}%
+\def\bidi@mpfootnoterule{\right@mpfootnoterule}%
+}
 \def\textwidthfootnoterule{%
 \bidi@autofootnoterulefalse%
-\def\footnoterule{\textwidth@footnoterule}}
+\def\footnoterule{\textwidth@footnoterule}%
+\def\bidi@mpfootnoterule{\textwidth@footnoterule}%
+}
 
 
 
@@ -15570,7 +15582,7 @@ bidi implementation of tufte title]
 \footdir@temp\footdir@ORG@bidi@LTRfootnotetext\@LTRfootnotetext{L}%
 
 \long\def\@mpRTLfootnotetext#1{%
-  \ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\global\let\bidi@mpfootnoterule\right@footnoterule\fi\fi%
+  \ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\global\let\bidi@mpfootnoterule\right@mpfootnoterule\fi\fi%
   \global\setbox\@mpfootins\vbox{%
     \unvbox\@mpfootins
     \@RTLtrue
@@ -15600,7 +15612,7 @@ bidi implementation of tufte title]
         \rule\z@\footnotesep\ignorespaces#1\@finalstrut\strutbox}%
     \color@endgroup}}
 \long\def\@mpfootnotetext#1{%
- \ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\if@RTL@footnote\global\let\bidi@mpfootnoterule\right@footnoterule\else\global\let\bidi@mpfootnoterule\left@footnoterule\fi\fi\fi%
+ \ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\if@RTL@footnote\global\let\bidi@mpfootnoterule\right@mpfootnoterule\else\global\let\bidi@mpfootnoterule\left@footnoterule\fi\fi\fi%
   \global\setbox\@mpfootins\vbox{%
     \unvbox\@mpfootins
     \if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi
@@ -16370,6 +16382,191 @@ bidi implementation of tufte title]
 %    \end{macrocode}
 % \iffalse
 %</geometry-xetex-bidi.def>
+%<*hgeneric-testphase-xetex-bidi.def>
+%\fi
+% \section{File \texttt{hgeneric-testphase-xetex-bidi.def}}
+%    \begin{macrocode}
+\ProvidesFile{hgeneric-testphase-xetex-bidi.def}[2025/09/20 v0.1 bidi adaptations for generic Hyperref driver for the LaTeX PDF management bundle for XeTeX engine]
+\ExplSyntaxOn
+\AtBeginDocument{%
+\bidi@undef\hyper@link
+\bidi@undef\hyper@linkfile
+\bidi@undef\hyper@linkurl
+\bidi@undef\hyper@linknamed
+\cs_new_protected:Npn \hyper@link #1 #2 #3 %#1 context, #2=destination name, #3 content
+  {
+    \bool_if:NTF \l__hyp_annot_GoTo_bool
+      {
+        \int_gincr:N\g__hyp_linknestlevel_int
+        \__hyp_check_link_nesting:TF
+          {
+            \Hy@VerboseLinkStart{#1}{#2}
+            \group_begin:
+            \tl_set:Nn \l_hyp_current_dest_name_tl {#2}
+            \socket_use:nnn{hyp/link/GoTo/Contents}{#2}{#3}
+            \hook_use:n {hyp/link/#1}
+            \__hyp_link_goto_begin:nw {#2}\ifmmode\else\if@RTL\beginR\fi\fi#3\ifmmode\else\if@RTL\endR\fi\fi\Hy@xspace@end
+            \__hyp_link_goto_end:
+            \group_end:
+            \Hy@VerboseLinkStop
+          }
+          {
+            \group_begin: #3\group_end:
+          }
+        \int_gdecr:N\g__hyp_linknestlevel_int
+      }
+      {{\let\protect\relax#3}}
+  }
+\cs_new_protected:Npn \hyper@linkfile #1 #2 #3 % link text, filename, destname
+  {
+   \bool_if:NTF \l__hyp_annot_GoToR_bool
+     {
+        \int_gincr:N\g__hyp_linknestlevel_int
+        \__hyp_check_link_nesting:TF
+          {
+            \group_begin:
+            \tl_set:Ne \l__hyp_filename_tmpa_tl { \text_expand:n { #2 } }
+            \exp_args:Ne
+              \pdf_object_if_exist:nF { __hyp_file_\tl_to_str:N \l__hyp_filename_tmpa_tl }
+                {
+                  \pdfdict_put:nne { l_pdffile/Filespec}{Subtype}{\pdf_name_from_unicode_e:n {application/pdf}}
+                  \pdffile_embed_file:noe
+                    {}
+                    {\l__hyp_filename_tmpa_tl }
+                    {__hyp_file_\tl_to_str:N \l__hyp_filename_tmpa_tl }
+                }
+            \pdfdict_put:nne
+               {l_hyp/annot/A/GoToR}
+               {F}
+               {\pdf_object_ref:e {__hyp_file_\tl_to_str:N \l__hyp_filename_tmpa_tl}}
+            \__hyp_text_pdfstring:nnN
+              { #3 }
+              { \l__hyp_text_enc_dest_print_tl }
+              \l__hyp_dest_name_tmpa_tl
+            \socket_use:nn{hyp/link/GoToR/Contents}{#2}
+            \tl_if_blank:eTF {#3}
+              {
+                \pdfdict_put:nne {l_hyp/annot/A/GoToR}{D}
+                  {
+                   [
+                     \int_eval:n
+                      { \int_max:nn {0}{ 0\l__hyp_href_pdf_page_tl - 1 }}
+                     /\l__hyp_dest_pdfremotestartview_tl
+                   ]
+                  }
+              }
+              {
+                \pdfdict_put:nno {l_hyp/annot/A/GoToR}{D}{\l__hyp_dest_name_tmpa_tl}
+              }
+            \mode_leave_vertical:
+            \pdf_object_unnamed_write:ne{dict}{\pdfdict_use:n {l_hyp/annot/A/GoToR}}
+            \pdfannot_dict_put:nne {link/GoToR}{A}{\pdf_object_ref_last:}
+            \pdfannot_link:nnn %expansion??
+              { GoToR }
+              {
+              }
+              {
+               \let\protect\relax
+                \ifmmode\else\if@RTL\beginR\fi\fi#1\ifmmode\else\if@RTL\endR\fi\fi\Hy@xspace@end
+                \Hy@VerboseLinkStop %where is the start??
+              }
+            \group_end:
+          }
+          {
+            \group_begin: #1 \group_end:
+          }
+        \int_gdecr:N\g__hyp_linknestlevel_int
+     }
+     {{\let\protect\relax#1}}
+  }
+\cs_new_protected:Npn \hyper@linkurl #1 #2  %#1:link text #2: URI,
+  {
+    \bool_if:NTF \l__hyp_annot_URI_bool
+      {
+        \int_gincr:N\g__hyp_linknestlevel_int
+        \__hyp_check_link_nesting:TF
+          {
+           \group_begin:
+            \__hyp_text_pdfstring:eoN
+              { #2}
+              { \l__hyp_text_enc_uri_print_tl }
+              \l__hyp_uri_tmpa_tl
+            \pdfdict_put:nno{l_hyp/annot/A/URI}{URI}{\l__hyp_uri_tmpa_tl}
+            \bool_if:NT \l__hyp_href_url_ismap_bool
+              {
+               \pdfdict_put:nnn{l_hyp/annot/A/URI}{IsMap}{true}
+              }
+            \socket_use:nn{hyp/link/URI/Contents}{#2}
+            \cs_set_eq:NN \# \c_hash_str
+            \cs_set_eq:NN \% \c_percent_str
+            \Hy@safe@activestrue
+            \mode_leave_vertical:
+            \pdfannot_dict_put:nne {link/URI}{A}{<<\pdfdict_use:n {l_hyp/annot/A/URI}>>}
+            \pdfannot_link:nen { URI }
+              {
+              }
+              {
+                \let\protect\relax
+                \ifmmode\else\if@RTL\beginR\fi\fi#1\ifmmode\else\if@RTL\endR\fi\fi
+                \Hy@xspace@end
+                \Hy@VerboseLinkStop %where is the start??
+              }
+            \group_end:
+           }
+           {
+             \group_begin: #1 \group_end:
+           }
+         \int_gdecr:N\g__hyp_linknestlevel_int
+      }
+      {{\let\protect\relax#1}}
+  }
+\RenewDocumentCommand \Acrobatmenu { m m }
+  {
+    \hyper@linknamed {#1} {#2}
+  }
+\cs_new_protected:Npn \hyper@linknamed #1 #2 %#1 action, #2 link text
+  {
+    \bool_if:NTF \l__hyp_annot_Named_bool
+      {
+         \int_gincr:N\g__hyp_linknestlevel_int
+         \__hyp_check_link_nesting:TF
+          {
+            \group_begin:
+            \pdfmeta_standard_verify:nnTF {named_actions}{#1}
+              {
+                \mode_leave_vertical:
+                \pdfdict_put:nne {l_hyp/annot/A/Named}{N}
+                  {\pdf_name_from_unicode_e:n{#1}}
+                \pdfannot_dict_put:nne {link/Named}{A}{<<\pdfdict_use:n {l_hyp/annot/A/Named}>>}
+                \pdfannot_link:nnn { Named }
+                 {
+   %                /A
+   %                  <<
+   %                    \pdfdict_use:n { l_hyp/annot/A/Named }
+   %                  >>
+                 }
+                 {
+                   \ifmmode\else\if@RTL\beginR\fi\fi#2\ifmmode\else\if@RTL\endR\fi
+                   \Hy@xspace@end
+                   \Hy@VerboseLinkStop
+                 }
+              }
+              {
+                \msg_warning:nnn { hyp } { pdfa-no-named-action }{#1}
+                #2
+              }
+           \group_end:
+          }
+          { \group_begin: #2 \group_end: }
+        \int_gdecr:N\g__hyp_linknestlevel_int
+      }
+      {{\let\protect\relax#2}}
+  }
+}
+\ExplSyntaxOff
+%    \end{macrocode}
+% \iffalse
+%</hgeneric-testphase-xetex-bidi.def>
 %<*hvfloat-xetex-bidi.def>
 %\fi
 % \section{File \texttt{hvfloat-xetex-bidi.def}}
@@ -26548,7 +26745,10 @@ $\@@underline{\hbox{#1}}\m@th$\relax\fi\fi}
   pstricks %
 }[tex]
 
-\ApplyPatchToFile{tc-xetex}
+\ApplyPatchToFiles{%
+  hgeneric-testphase, %
+  tc-xetex %
+}
 
 %    \end{macrocode}
 % \iffalse
