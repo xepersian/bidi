@@ -327,7 +327,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{54246}
+%% \CheckSum{54222}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -21248,7 +21248,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{scrartcl-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{scrartcl-xetex-bidi.def}[2022/05/27 v1.3 bidi adaptations for scrartcl class for XeTeX engine]
+\ProvidesFile{scrartcl-xetex-bidi.def}[2025/09/20 v1.4 bidi adaptations for scrartcl class for XeTeX engine]
 \newcommand{\scr@saved@LTRfootnotetext}{}
 \newcommand{\scr@saved@RTLfootnotetext}{}
 \let\scr@saved@footnotetext\@footnotetext
@@ -21843,23 +21843,12 @@ to\rtside{\box\bslice\hfil}}
 \bidi@AfterFile{longtable-xetex-bidi.def}{%
   \if@komalongtable
     \renewcommand{\LT@makecaption}[3]{%
-      \noalign{%
-        \if@captionabove
-          \vskip\belowcaptionskip
-        \else
-          \vskip\abovecaptionskip
-        \fi
-      }%
       \LT@mcol\LT@cols c{%
         \hbox to\z@{\hss\parbox[t]\linewidth{%
-            \def\@captype{table}%
+            \if@captionabove\else\vskip\belowcaptionskip\fi
             \@@makecaption{#1}{#2}{#3}%
             \endgraf
-            \if@captionabove
-              \vskip\abovecaptionskip
-            \else
-              \vskip\belowcaptionskip
-            \fi
+            \if@captionabove\vskip\abovecaptionskip\fi
           }%
           \hss
         }%
@@ -21868,16 +21857,16 @@ to\rtside{\box\bslice\hfil}}
     \renewcommand*{\scr@LT@array}{}%
     \let\scr@LT@array=\LT@array
     \renewcommand*{\LT@array}{%
-      \let\scr@caption=\LT@caption
+      \def\@captype{table}%
+      \@ifundefined{LTcaptype}{}{%
+        \Ifstr{\LTcaptype}{}{}{\let\@captype\LTcaptype}%
+      }%
+      \csname tocbasic_if_caption_above:TF\endcsname
+        {\@captionabovetrue}{\@captionabovefalse}%
       \def\captionabove{\noalign{\global\@captionabovetrue}%
-        \scr@caption}%
+        \LT@caption}%
       \def\captionbelow{\noalign{\global\@captionabovefalse}%
-        \scr@caption}%
-      \if@tablecaptionabove
-        \let\LT@caption=\captionabove
-      \else
-        \let\LT@caption=\captionbelow
-      \fi
+        \LT@caption}%
       \scr@LT@array
     }%
     \ClassInfo{\KOMAClassName}{%
@@ -21994,7 +21983,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{scrbook-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{scrbook-xetex-bidi.def}[2022/05/27 v1.3 bidi adaptations for scrbook class for XeTeX engine]
+\ProvidesFile{scrbook-xetex-bidi.def}[2025/09/20 v1.4 bidi adaptations for scrbook class for XeTeX engine]
 \newcommand{\scr@saved@LTRfootnotetext}{}
 \newcommand{\scr@saved@RTLfootnotetext}{}
 \let\scr@saved@footnotetext\@footnotetext
@@ -22612,23 +22601,12 @@ to\rtside{\box\bslice\hfil}}
 \bidi@AfterFile{longtable-xetex-bidi.def}{%
   \if@komalongtable
     \renewcommand{\LT@makecaption}[3]{%
-      \noalign{%
-        \if@captionabove
-          \vskip\belowcaptionskip
-        \else
-          \vskip\abovecaptionskip
-        \fi
-      }%
       \LT@mcol\LT@cols c{%
         \hbox to\z@{\hss\parbox[t]\linewidth{%
-            \def\@captype{table}%
+            \if@captionabove\else\vskip\belowcaptionskip\fi
             \@@makecaption{#1}{#2}{#3}%
             \endgraf
-            \if@captionabove
-              \vskip\abovecaptionskip
-            \else
-              \vskip\belowcaptionskip
-            \fi
+            \if@captionabove\vskip\abovecaptionskip\fi
           }%
           \hss
         }%
@@ -22637,16 +22615,16 @@ to\rtside{\box\bslice\hfil}}
     \renewcommand*{\scr@LT@array}{}%
     \let\scr@LT@array=\LT@array
     \renewcommand*{\LT@array}{%
-      \let\scr@caption=\LT@caption
+      \def\@captype{table}%
+      \@ifundefined{LTcaptype}{}{%
+        \Ifstr{\LTcaptype}{}{}{\let\@captype\LTcaptype}%
+      }%
+      \csname tocbasic_if_caption_above:TF\endcsname
+        {\@captionabovetrue}{\@captionabovefalse}%
       \def\captionabove{\noalign{\global\@captionabovetrue}%
-        \scr@caption}%
+        \LT@caption}%
       \def\captionbelow{\noalign{\global\@captionabovefalse}%
-        \scr@caption}%
-      \if@tablecaptionabove
-        \let\LT@caption=\captionabove
-      \else
-        \let\LT@caption=\captionbelow
-      \fi
+        \LT@caption}%
       \scr@LT@array
     }%
     \ClassInfo{\KOMAClassName}{%
@@ -22774,7 +22752,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{scrreprt-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{scrreprt-xetex-bidi.def}[2022/05/27 v1.3 bidi adaptations for scrreprt class for XeTeX engine]
+\ProvidesFile{scrreprt-xetex-bidi.def}[2025/09/20 v1.4 bidi adaptations for scrreprt class for XeTeX engine]
 \newcommand{\scr@saved@LTRfootnotetext}{}
 \newcommand{\scr@saved@RTLfootnotetext}{}
 \let\scr@saved@footnotetext\@footnotetext
@@ -23384,23 +23362,12 @@ to\rtside{\box\bslice\hfil}}
 \bidi@AfterFile{longtable-xetex-bidi.def}{%
   \if@komalongtable
     \renewcommand{\LT@makecaption}[3]{%
-      \noalign{%
-        \if@captionabove
-          \vskip\belowcaptionskip
-        \else
-          \vskip\abovecaptionskip
-        \fi
-      }%
       \LT@mcol\LT@cols c{%
         \hbox to\z@{\hss\parbox[t]\linewidth{%
-            \def\@captype{table}%
+            \if@captionabove\else\vskip\belowcaptionskip\fi
             \@@makecaption{#1}{#2}{#3}%
             \endgraf
-            \if@captionabove
-              \vskip\abovecaptionskip
-            \else
-              \vskip\belowcaptionskip
-            \fi
+            \if@captionabove\vskip\abovecaptionskip\fi
           }%
           \hss
         }%
@@ -23409,16 +23376,16 @@ to\rtside{\box\bslice\hfil}}
     \renewcommand*{\scr@LT@array}{}%
     \let\scr@LT@array=\LT@array
     \renewcommand*{\LT@array}{%
-      \let\scr@caption=\LT@caption
+      \def\@captype{table}%
+      \@ifundefined{LTcaptype}{}{%
+        \Ifstr{\LTcaptype}{}{}{\let\@captype\LTcaptype}%
+      }%
+      \csname tocbasic_if_caption_above:TF\endcsname
+        {\@captionabovetrue}{\@captionabovefalse}%
       \def\captionabove{\noalign{\global\@captionabovetrue}%
-        \scr@caption}%
+        \LT@caption}%
       \def\captionbelow{\noalign{\global\@captionabovefalse}%
-        \scr@caption}%
-      \if@tablecaptionabove
-        \let\LT@caption=\captionabove
-      \else
-        \let\LT@caption=\captionbelow
-      \fi
+        \LT@caption}%
       \scr@LT@array
     }%
     \ClassInfo{\KOMAClassName}{%
