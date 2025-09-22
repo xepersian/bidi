@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v25.09.20
+v25.09.22
 
 This package provides a convenient interface for typesetting
 bidirectional texts with Plain TeX and LaTeX formats in XeTeX and
@@ -22,7 +22,7 @@ In doing so, please always explain your issue well enough,
 and always include a minimal working example showing the 
 issue.
   
-Current version release date: 2025/09/20
+Current version release date: 2025/09/22
 
 ___________________________________________
 Vafa Khalighi
@@ -261,7 +261,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 25.09.20 of the bidi
+  pdftitle={Source documentation for version 25.09.22 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -280,7 +280,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting with plain {\TeX} and {\LaTeX} formats in XeTeX and LuaTeX engines\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 25.09.20}}
+%\large Source documentation for \textcolor{bidiblue}{version 25.09.22}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -290,7 +290,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 25.09.20}}
+%Source documentation for \textcolor{bidiblue}{version 25.09.22}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -327,7 +327,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{54222}
+%% \CheckSum{54292}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4715,8 +4715,8 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2025/09/20}
-\def\bidi@version{25.09.20}
+\def\bididate{2025/09/22}
+\def\bidi@version{25.09.22}
 \def\bidi@releasename{Iran}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -4922,7 +4922,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released September 20, 2025. 
+  Released September 22, 2025. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -5105,9 +5105,9 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2025/09/20}
+\def\bididate{2025/09/22}
 \catcode`@=11
-\def\bidi@version{25.09.20}
+\def\bidi@version{25.09.22}
 \def\bidi@releasename{Iran}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
@@ -5225,7 +5225,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released September 20, 2025. 
+  Released September 22, 2025. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
@@ -16386,8 +16386,48 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{hgeneric-testphase-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{hgeneric-testphase-xetex-bidi.def}[2025/09/20 v0.1 bidi adaptations for generic Hyperref driver for the LaTeX PDF management bundle for XeTeX engine]
+\ProvidesFile{hgeneric-testphase-xetex-bidi.def}[2025/09/22 v0.2 bidi adaptations for generic Hyperref driver for the LaTeX PDF management bundle for XeTeX engine]
 \ExplSyntaxOn
+\bidi@undef\hyper@linkstart
+\bidi@undef\hyper@linkend
+\cs_new_protected:Npn \hyper@linkstart #1 #2 %#1 context, #2=destination name
+  {
+    \bool_if:NT \l__hyp_annot_GoTo_bool
+      {
+        \int_gincr:N\g__hyp_linknestlevel_int
+        \__hyp_check_link_nesting:TF
+          {
+            \Hy@VerboseLinkStart{#1}{#2}% only for debug
+            \group_begin:
+            \tl_set:Nn \l_hyp_current_dest_name_tl {#2}
+            \socket_use:nnn{hyp/link/GoTo/Contents}{#2}{}
+            \hook_use:n {hyp/link/#1}
+            \ifmmode\else\beginL\fi
+            \__hyp_link_goto_begin:nw {#2}
+          }
+          {
+            \group_begin:
+          }
+      }
+  }
+
+\cs_new_protected:Npn \hyper@linkend
+  {
+    \bool_if:NT \l__hyp_annot_GoTo_bool
+      {
+        \__hyp_check_link_nesting:TF
+          {
+            \__hyp_link_goto_end:
+            \ifmmode\else\endL\fi
+            \group_end:
+            \Hy@VerboseLinkStop
+          }
+          {
+            \group_end:
+          }
+        \int_gdecr:N\g__hyp_linknestlevel_int
+      }
+  }
 \AtBeginDocument{%
 \bidi@undef\hyper@link
 \bidi@undef\hyper@linkfile
@@ -16405,8 +16445,10 @@ bidi implementation of tufte title]
             \tl_set:Nn \l_hyp_current_dest_name_tl {#2}
             \socket_use:nnn{hyp/link/GoTo/Contents}{#2}{#3}
             \hook_use:n {hyp/link/#1}
+            \ifmmode\else\beginL\fi
             \__hyp_link_goto_begin:nw {#2}\ifmmode\else\if@RTL\beginR\fi\fi#3\ifmmode\else\if@RTL\endR\fi\fi\Hy@xspace@end
             \__hyp_link_goto_end:
+            \ifmmode\else\endL\fi
             \group_end:
             \Hy@VerboseLinkStop
           }
@@ -16461,6 +16503,7 @@ bidi implementation of tufte title]
             \mode_leave_vertical:
             \pdf_object_unnamed_write:ne{dict}{\pdfdict_use:n {l_hyp/annot/A/GoToR}}
             \pdfannot_dict_put:nne {link/GoToR}{A}{\pdf_object_ref_last:}
+            \ifmmode\else\beginL\fi
             \pdfannot_link:nnn %expansion??
               { GoToR }
               {
@@ -16470,6 +16513,7 @@ bidi implementation of tufte title]
                 \ifmmode\else\if@RTL\beginR\fi\fi#1\ifmmode\else\if@RTL\endR\fi\fi\Hy@xspace@end
                 \Hy@VerboseLinkStop %where is the start??
               }
+            \ifmmode\else\endL\fi
             \group_end:
           }
           {
@@ -16502,6 +16546,7 @@ bidi implementation of tufte title]
             \Hy@safe@activestrue
             \mode_leave_vertical:
             \pdfannot_dict_put:nne {link/URI}{A}{<<\pdfdict_use:n {l_hyp/annot/A/URI}>>}
+            \ifmmode\else\beginL\fi
             \pdfannot_link:nen { URI }
               {
               }
@@ -16511,6 +16556,7 @@ bidi implementation of tufte title]
                 \Hy@xspace@end
                 \Hy@VerboseLinkStop %where is the start??
               }
+            \ifmmode\else\endL\fi
             \group_end:
            }
            {
@@ -16538,6 +16584,7 @@ bidi implementation of tufte title]
                 \pdfdict_put:nne {l_hyp/annot/A/Named}{N}
                   {\pdf_name_from_unicode_e:n{#1}}
                 \pdfannot_dict_put:nne {link/Named}{A}{<<\pdfdict_use:n {l_hyp/annot/A/Named}>>}
+                \ifmmode\else\beginL\fi
                 \pdfannot_link:nnn { Named }
                  {
    %                /A
@@ -16550,6 +16597,7 @@ bidi implementation of tufte title]
                    \Hy@xspace@end
                    \Hy@VerboseLinkStop
                  }
+                 \ifmmode\else\endL\fi
               }
               {
                 \msg_warning:nnn { hyp } { pdfa-no-named-action }{#1}
