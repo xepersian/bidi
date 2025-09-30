@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v25.09.30
+v26.02.22
 
 This package provides a convenient interface for typesetting
 bidirectional texts with Plain TeX and LaTeX formats in XeTeX and
@@ -22,12 +22,12 @@ In doing so, please always explain your issue well enough,
 and always include a minimal working example showing the 
 issue.
   
-Current version release date: 2025/09/30
+Current version release date: 2026/02/22
 
 ___________________________________________
 Vafa Khalighi
   
-Copyright (c) Vafa Khalighi 2007--2025
+Copyright (c) Vafa Khalighi 2007--2026
 Copyright (c) bidi-tex GitHub Organization 2018--2020
                       
 It may be distributed and/or modified under the LaTeX Project Public License,
@@ -49,7 +49,7 @@ by Vafa Khalighi.
   __________________________________________________
   Vafa Khalighi
   
-  Copyright (c) 2007--2025  Vafa Khalighi
+  Copyright (c) 2007--2026  Vafa Khalighi
   Copyright (c) 2018--2020 bidi-tex GitHub Organization
 
   It may be distributed and/or modified under the LaTeX Project Public License,
@@ -261,7 +261,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 25.09.30 of the bidi
+  pdftitle={Source documentation for version 26.02.22 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -280,7 +280,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting with plain {\TeX} and {\LaTeX} formats in XeTeX and LuaTeX engines\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 25.09.30}}
+%\large Source documentation for \textcolor{bidiblue}{version 26.02.22}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -290,7 +290,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 25.09.30}}
+%Source documentation for \textcolor{bidiblue}{version 26.02.22}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -311,7 +311,7 @@ by Vafa Khalighi.
 %
 %\vskip 0pt plus 3fill
 %
-%Copyright (c) 2007--2025 Vafa Khalighi
+%Copyright (c) 2007--2026 Vafa Khalighi
 %
 %Copyright (c) 2018--2020 bidi-tex GitHub Organization
 %
@@ -327,7 +327,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{54313}
+%% \CheckSum{54331}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4721,8 +4721,8 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2025/09/30}
-\def\bidi@version{25.09.30}
+\def\bididate{2026/02/22}
+\def\bidi@version{26.02.22}
 \def\bidi@releasename{Iran}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -4738,9 +4738,9 @@ Bidirectional typesetting in plain TeX and LaTeX]
 \msg_new:nnn {bidi} {cannot-use-engine}
   {
     Oops!~can~not~use~\c_sys_engine_str.\\\\
-    The~bidi~package~requires~XeTeX.
+    The~bidi~package~requires~either~LuaTeX~or~XeTeX.
   }
- \sys_if_engine_xetex:F
+ \sys_if_engine_opentype:F
   {
     \msg_fatal:nn {bidi} {cannot-use-engine}
   } 
@@ -4879,7 +4879,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 * and LaTeX.  The package includes adaptations^^J%
 * for use with many other commonly-used packages.^^J%
 * ^^J%
-* Copyright (c) 2007--2025 Vafa Khalighi^^J%
+* Copyright (c) 2007--2026 Vafa Khalighi^^J%
 * Copyright (c) 2018--2020 bidi-tex GitHub organization^^J%
 * ^^J%
 * v\bidi@version\space (Release \bidi@releasename), \bididate^^J%
@@ -4928,7 +4928,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released September 30, 2025. 
+  Released February 22, 2026. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -5111,9 +5111,9 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2025/09/30}
+\def\bididate{2026/02/22}
 \catcode`@=11
-\def\bidi@version{25.09.30}
+\def\bidi@version{26.02.22}
 \def\bidi@releasename{Iran}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
@@ -5128,7 +5128,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 * and LaTeX.  The package includes adaptations^^J%
 * for use with many other commonly-used packages.^^J%
 * ^^J%
-* Copyright (c) 2007--2025 Vafa Khalighi^^J%
+* Copyright (c) 2007--2026 Vafa Khalighi^^J%
 * Copyright (c) 2018--2020 bidi-tex GitHub organization^^J%
 * ^^J%
 * v\bidi@version\space (Release \bidi@releasename), \bididate^^J%
@@ -5231,7 +5231,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released September 30, 2025. 
+  Released February 22, 2026. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
@@ -5246,7 +5246,9 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\bidipdfinfoon{\@bidi@pdfm@marktrue}
 \def\bidipdfinfooff{\@bidi@pdfm@markfalse}
+\ifXeTeX
 \input plain-xetex-bidi.def
+\fi
 \outer\def\bye{\bidi@pdfm@mark\par\vfill\supereject\end}
 \catcode`@=12
 \bidipdfinfoon
@@ -6081,7 +6083,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 % \section{File \texttt{biditools.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{biditools}[2025/02/02 v2.7 Programming tools for bidi package]
+\ProvidesPackage{biditools}[2026/02/22 v2.8 Programming tools for bidi package]
 \providecommand{\@bidi@saveprimitive}[2]{\begingroup\escapechar`\\\relax
   \edef\@tempa{\string#1}\edef\@tempb{\meaning#1}%
   \ifx\@tempa\@tempb \global\let#2#1%
@@ -7895,19 +7897,21 @@ ill-advised in the old versions of bidi package.%
   }%
 }
 
+\ExplSyntaxOn
 \NewDocumentCommand \ApplyPatchToFile { m O{def} O{bidi} }
   {
     \bidi@patch@AfterFile{#1.#2}{%
       \ifnum\catcode`\@=11
-        \input{#1-xetex-#3.def}%
+        \input{#1-\c_sys_engine_str-#3.def}%
       \else
         \bidi@storecatcode\@
         \makeatletter
-        \input{#1-xetex-#3.def}%
+        \input{#1-\c_sys_engine_str-#3.def}%
         \bidi@restorecatcode\@
       \fi
     }%
   }
+\ExplSyntaxOff
   
 \NewDocumentCommand \ApplyPatchCodeToFile { m +m O{def} }
   {
@@ -7923,19 +7927,20 @@ ill-advised in the old versions of bidi package.%
     }
   }
   
+\ExplSyntaxOn
 \NewDocumentCommand \ApplyPatchToClassIfPackageLoadedF { m m O{bidi} }
   {
     \AddToHook{begindocument/before}{%
       \IfPackageLoadedF{#2}{%
         \ifnum\catcode`\@=11
           \@ifclassloaded{#1}{%
-            \input{#1-xetex-#3.def}%
+            \input{#1-\c_sys_engine_str-#3.def}%
           }{}%
         \else
           \bidi@storecatcode\@
           \makeatletter
           \@ifclassloaded{#1}{%
-            \input{#1-xetex-#3.def}%
+            \input{#1-\c_sys_engine_str-#3.def}%
           }{}%
           \bidi@restorecatcode\@
         \fi
@@ -7949,17 +7954,18 @@ ill-advised in the old versions of bidi package.%
       \IfPackageLoadedF{#2}{%
         \IfPackageLoadedT{#1}{%
           \ifnum\catcode`\@=11
-            \input{#1-xetex-#3.def}%
+            \input{#1-\c_sys_engine_str-#3.def}%
           \else
             \bidi@storecatcode\@
             \makeatletter
-            \input{#1-xetex-#3.def}%
+            \input{#1-\c_sys_engine_str-#3.def}%
             \bidi@restorecatcode\@
           \fi
         }%
       }%
     }
   }
+\ExplSyntaxOff
   
 \NewDocumentCommand \ApplyPatchIfPackageLoaded { m +m +m }
   {
@@ -7985,20 +7991,24 @@ ill-advised in the old versions of bidi package.%
     \ApplyPatchIfPackageLoaded{#1}{}{#2}%
   }
 
+\ExplSyntaxOn
 \NewDocumentCommand \ApplyPatchToPackage { m O{bidi} }
   {
-    \bidi@patch@AfterPackage{#1}{\input{#1-xetex-#2.def}}%
+    \bidi@patch@AfterPackage{#1}{\input{#1-\c_sys_engine_str-#2.def}}%
   }
+\ExplSyntaxOff
 
 \NewDocumentCommand \ApplyPatchCodeToPackage { m +m }
   {
     \bidi@patch@AfterPackage{#1}{#2}%
   }
   
+\ExplSyntaxOn
 \NewDocumentCommand \ApplyPatchToClass { m O{bidi} }
   {
-    \@ifclassloaded{#1}{\input{#1-xetex-#2.def}}{}%
+    \@ifclassloaded{#1}{\input{#1-\c_sys_engine_str-#2.def}}{}%
   }
+\ExplSyntaxOff
 %    \end{macrocode}
 % \iffalse
 %</biditools.sty>
