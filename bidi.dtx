@@ -5,7 +5,7 @@
 %<*readme>
 ___________________
 The bidi package
-v25.09.26
+v25.09.30
 
 This package provides a convenient interface for typesetting
 bidirectional texts with Plain TeX and LaTeX formats in XeTeX and
@@ -22,7 +22,7 @@ In doing so, please always explain your issue well enough,
 and always include a minimal working example showing the 
 issue.
   
-Current version release date: 2025/09/26
+Current version release date: 2025/09/30
 
 ___________________________________________
 Vafa Khalighi
@@ -261,7 +261,7 @@ by Vafa Khalighi.
 \documentclass{ltxdoc}
 \input{bidi-doc-preamble.ltx}
 \hypersetup{%
-  pdftitle={Source documentation for version 25.09.26 of the bidi
+  pdftitle={Source documentation for version 25.09.30 of the bidi
                 package}%
 }
 \EnableCrossrefs
@@ -280,7 +280,7 @@ by Vafa Khalighi.
 % \GetFileInfo{\jobname.dtx}
 % \title{\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}\\
 %\LARGE Bidirectional typesetting with plain {\TeX} and {\LaTeX} formats in XeTeX and LuaTeX engines\\[5pt]
-%\large Source documentation for \textcolor{bidiblue}{version 25.09.26}}
+%\large Source documentation for \textcolor{bidiblue}{version 25.09.30}}
 % \author{Vafa Khalighi\thanks{Thanks to the bidi-tex GitHub organization consisted of David Carlisle and other members of the  {\LaTeX} team for maintaining the package in the period 2018--2020.}}
 %\setcounter{page}{0}
 %\thispagestyle{empty}
@@ -290,7 +290,7 @@ by Vafa Khalighi.
 %\textcolor{bidiblue}{\Huge The \textsf{bidi} \textit{Package}}
 %
 %\Large
-%Source documentation for \textcolor{bidiblue}{version 25.09.26}}
+%Source documentation for \textcolor{bidiblue}{version 25.09.30}}
 %
 %\vskip 0pt plus 3fill
 %\textit{\large to my Master, \textbf{Ferdowsi The Great}}
@@ -327,7 +327,7 @@ by Vafa Khalighi.
 %\iffalse
 %<*table>
 %\fi
-%% \CheckSum{54311}
+%% \CheckSum{54313}
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -352,7 +352,7 @@ by Vafa Khalighi.
 %
 %
 %    \begin{macrocode}
-\ProvidesFile{amsart-xetex-bidi.def}[2017/08/09 v1.1 bidi adaptations for amsart class for XeTeX engine]
+\ProvidesFile{amsart-xetex-bidi.def}[2025/09/30 v1.2 bidi adaptations for amsart class for XeTeX engine]
 \def\@tocline#1#2#3#4#5#6#7{\relax
   \ifnum #1>\c@tocdepth % then omit
   \else
@@ -379,6 +379,7 @@ by Vafa Khalighi.
   {\normalfont\bfseries\if@RTL\raggedleft\else\raggedright\fi}}
 \def\right@footnoterule{%
   \kern-.4\p@
+  \nointerlineskip
   \hbox to \columnwidth{\hskip \dimexpr\columnwidth-5pc\relax \hrulefill }
   \kern11\p@\kern-\footnotesep}  
 \def\left@footnoterule{\kern-.4\p@
@@ -581,7 +582,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{amsbook-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{amsbook-xetex-bidi.def}[2017/08/09 v1.2 bidi adaptations for amsbook class for XeTeX engine]
+\ProvidesFile{amsbook-xetex-bidi.def}[2025/09/30 v1.3 bidi adaptations for amsbook class for XeTeX engine]
 \def\@tocline#1#2#3#4#5#6#7{\relax
   \ifnum #1>\c@tocdepth % then omit
   \else
@@ -617,6 +618,7 @@ by Vafa Khalighi.
 \def\subsubitem{\par\hangindent \if@RTL-\fi3em\hspace*{2em}}
 \def\right@footnoterule{%
   \kern-.4\p@
+  \nointerlineskip
   \hbox to \columnwidth{\hskip \dimexpr\columnwidth-5pc\relax \hrulefill }
   \kern11\p@\kern-\footnotesep}  
 \def\left@footnoterule{\kern-.4\p@
@@ -867,7 +869,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{article-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{article-xetex-bidi.def}[2025/09/08 v1.1 bidi adaptations for standard article class for XeTeX engine]
+\ProvidesFile{article-xetex-bidi.def}[2025/09/30 v1.2 bidi adaptations for standard article class for XeTeX engine]
 \IfClassLoadedT{svmult}{\endinput}
 \if@titlepage
   \renewcommand\maketitle{\begin{titlepage}%
@@ -1002,6 +1004,7 @@ by Vafa Khalighi.
   \kern2.6\p@}
 \renewcommand\right@footnoterule{%
   \kern-3\p@
+  \nointerlineskip
   \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
   \kern2.6\p@}
 \renewcommand\thesubsection   {\thesection\@SepMark\@arabic\c@subsection}
@@ -1066,7 +1069,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{artikel1-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{artikel1-xetex-bidi.def}[2017/06/09 v0.4 bidi adaptations for artikel1 class for XeTeX engine]
+\ProvidesFile{artikel1-xetex-bidi.def}[2025/09/30 v0.5 bidi adaptations for artikel1 class for XeTeX engine]
 \renewenvironment{theindex}{%
   \if@twocolumn
     \@restonecolfalse
@@ -1192,6 +1195,7 @@ by Vafa Khalighi.
 \renewcommand*\right@footnoterule{%
   \kern-3\p@
   \kern.5\baselineskip
+  \nointerlineskip
   \hbox to \columnwidth{\hskip \dimexpr\columnwidth-\unitindent\relax \hrulefill }
   \kern.4\baselineskip}
 \if@titlepage
@@ -1322,7 +1326,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{artikel2-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{artikel2-xetex-bidi.def}[2017/06/09 v0.4 bidi adaptations for artikel2 class for XeTeX engine]
+\ProvidesFile{artikel2-xetex-bidi.def}[2025/09/30 v0.5 bidi adaptations for artikel2 class for XeTeX engine]
 \renewenvironment{theindex}{%
   \if@twocolumn
     \@restonecolfalse
@@ -1433,6 +1437,7 @@ by Vafa Khalighi.
 }
 \renewcommand*\right@footnoterule{%
   \kern-3\p@
+  \nointerlineskip
   \hbox to \columnwidth{\hskip \dimexpr\columnwidth-3\unitindent\relax \hrulefill }
   \kern 2.6\p@}
 \renewenvironment{thebibliography}[1]
@@ -1581,7 +1586,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{artikel3-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{artikel3-xetex-bidi.def}[2017/06/09 v0.5 bidi adaptations for artikel3 class for XeTeX engine]
+\ProvidesFile{artikel3-xetex-bidi.def}[2025/09/30 v0.6 bidi adaptations for artikel3 class for XeTeX engine]
 \renewenvironment{theindex}{%
   \if@twocolumn
     \@restonecolfalse
@@ -1686,6 +1691,7 @@ by Vafa Khalighi.
 \renewcommand*\right@footnoterule{%
   \kern-3\p@
   \kern.5\baselineskip
+  \nointerlineskip
   \hbox to \columnwidth{\hskip \dimexpr\columnwidth-\unitindent\relax \hrulefill }
   \kern.4\baselineskip}
 \renewcommand*\thesubsection{\thesection\@SepMark\@arabic\c@subsection}
@@ -2547,7 +2553,7 @@ by Vafa Khalighi.
 %\fi
 % \section{File \texttt{beamerbaseframecomponents-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{beamerbaseframecomponents-xetex-bidi.def}[2024/12/28 v0.7 bidi adaptations for beamerbaseframecomponents package for XeTeX engine]
+\ProvidesFile{beamerbaseframecomponents-xetex-bidi.def}[2025/09/30 v0.8 bidi adaptations for beamerbaseframecomponents package for XeTeX engine]
 \renewcommand{\setbeamersize}[1]{%
   \beamer@dogeometryfalse%
   \setkeys{beamer@margin}{#1}%
@@ -2820,7 +2826,7 @@ by Vafa Khalighi.
     \color@endgroup}}
     
 \renewcommand<>\@mpfootnotetext[1]{%
-\ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\if@RTL@footnote\global\let\bidi@mpfootnoterule\right@mpfootnoterule\else\global\let\bidi@mpfootnoterule\left@footnoterule\fi\fi\fi
+\ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\if@RTL@footnote\global\let\bidi@mpfootnoterule\right@footnoterule\else\global\let\bidi@mpfootnoterule\left@footnoterule\fi\fi\fi
   \global\setbox\@mpfootins\vbox{%
     \unvbox\@mpfootins
     \if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi
@@ -2836,7 +2842,7 @@ by Vafa Khalighi.
     \color@endgroup}}
     
 \renewcommand<>\@mpRTLfootnotetext[1]{%
-\ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\global\let\bidi@mpfootnoterule\right@mpfootnoterule\fi\fi
+\ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\global\let\bidi@mpfootnoterule\right@footnoterule\fi\fi
   \global\setbox\@mpfootins\vbox{%
      \unvbox\@mpfootins
      \@RTLtrue
@@ -4715,8 +4721,8 @@ by Vafa Khalighi.
 % \section{File \texttt{bidi.sty}}
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\def\bididate{2025/09/26}
-\def\bidi@version{25.09.26}
+\def\bididate{2025/09/30}
+\def\bidi@version{25.09.30}
 \def\bidi@releasename{Iran}
 \newcommand*{\bidireleasename}{\bidi@releasename}
 \ProvidesPackage{bidi}[\bididate\space v\bidi@version\space (Release \bidi@releasename)\space
@@ -4922,7 +4928,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \newcommand*{\@bidi@pdfcustomproperties}{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released September 26, 2025. 
+  Released September 30, 2025. 
 }
 \newcommand*{\bidi@beamer@ragged}{}
 \@RTLmainfalse
@@ -5105,9 +5111,9 @@ Bidirectional typesetting in plain TeX and LaTeX]
 %\fi
 % \section{File \texttt{bidi.tex}}
 %    \begin{macrocode}
-\def\bididate{2025/09/26}
+\def\bididate{2025/09/30}
 \catcode`@=11
-\def\bidi@version{25.09.26}
+\def\bidi@version{25.09.30}
 \def\bidi@releasename{Iran}
 \def\bidireleasename{\bidi@releasename}
 \let \protect \relax
@@ -5225,7 +5231,7 @@ Bidirectional typesetting in plain TeX and LaTeX]
 }
 \def\@bidi@pdfcustomproperties{%
   This is the bidi package, Version \bidi@version\space (Release \bidi@releasename),
-  Released September 26, 2025. 
+  Released September 30, 2025. 
 }
 \def\bidi@pdfm@mark{%
   \special{pdf:%
@@ -10051,7 +10057,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{boek3-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{boek3-xetex-bidi.def}[2017/06/09 v0.4 bidi adaptations for boek3 class for XeTeX engine]
+\ProvidesFile{boek3-xetex-bidi.def}[2025/09/30 v0.5 bidi adaptations for boek3 class for XeTeX engine]
 \renewenvironment{theindex}{%
   \if@twocolumn
     \@restonecolfalse
@@ -10160,6 +10166,7 @@ bidi implementation of tufte title]
 \renewcommand*\right@footnoterule{%
   \kern-3\p@
   \kern.5\baselineskip
+  \nointerlineskip
   \hbox to \columnwidth{\hskip \dimexpr\columnwidth-\unitindent\relax \hrulefill }
   \kern.4\baselineskip}
 \renewcommand*\thesection{\thechapter\@SepMark\@arabic\c@section}
@@ -10235,7 +10242,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{boek-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{boek-xetex-bidi.def}[2017/06/09 v0.4 bidi adaptations for boek class for XeTeX engine]
+\ProvidesFile{boek-xetex-bidi.def}[2025/09/30 v0.5 bidi adaptations for boek class for XeTeX engine]
 \renewenvironment{theindex}{%
   \if@twocolumn
     \@restonecolfalse
@@ -10320,6 +10327,7 @@ bidi implementation of tufte title]
 \renewcommand*\right@footnoterule{%
   \kern-3\p@
   \kern.5\baselineskip
+  \nointerlineskip
   \hbox to \columnwidth{\hskip \dimexpr\columnwidth-\unitindent\relax \hrulefill }
   \kern.4\baselineskip}
 \renewenvironment{abstract}{%
@@ -10459,7 +10467,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{book-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{book-xetex-bidi.def}[2025/09/04 v1.3 bidi adaptations for standard book class for XeTeX engine]
+\ProvidesFile{book-xetex-bidi.def}[2025/09/30 v1.4 bidi adaptations for standard book class for XeTeX engine]
 \renewenvironment{theindex}
                {\if@twocolumn
                   \@restonecolfalse
@@ -10610,6 +10618,7 @@ bidi implementation of tufte title]
   \kern2.6\p@}
 \renewcommand\right@footnoterule{%
   \kern-3\p@
+  \nointerlineskip
   \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
   \kern2.6\p@}
 \renewcommand\theequation
@@ -12290,7 +12299,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{extarticle-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{extarticle-xetex-bidi.def}[2025/09/08 v0.7 bidi adaptations for extarticle class for XeTeX engine]
+\ProvidesFile{extarticle-xetex-bidi.def}[2025/09/30 v0.8 bidi adaptations for extarticle class for XeTeX engine]
 \renewcommand*\l@section[2]{%
   \ifnum \c@tocdepth >\z@
     \addpenalty\@secpenalty
@@ -12357,6 +12366,7 @@ bidi implementation of tufte title]
   \kern2.6\p@}
 \renewcommand\right@footnoterule{%
   \kern-3\p@
+  \nointerlineskip
   \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
   \kern2.6\p@}
     \if@titlepage
@@ -12639,7 +12649,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{extletter-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{extletter-xetex-bidi.def}[2015/11/14 v0.2 bidi adaptations for extletter class for XeTeX engine]
+\ProvidesFile{extletter-xetex-bidi.def}[2025/09/30 v0.3 bidi adaptations for extletter class for XeTeX engine]
 \renewcommand*{\opening}[1]{\ifx\@empty\fromaddress
   \thispagestyle{firstpage}%
     {\if@RTL\raggedright\else\raggedleft\fi\@date\par}%
@@ -12670,6 +12680,7 @@ bidi implementation of tufte title]
   \kern .6\p@}
 \renewcommand\right@footnoterule{%
   \kern-\p@
+  \nointerlineskip
   \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
   \kern .6\p@}
 %    \end{macrocode}
@@ -14758,7 +14769,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{extreport-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{extreport-xetex-bidi.def}[2017/06/09 v0.3 bidi adaptations for extreport class for XeTeX engine]
+\ProvidesFile{extreport-xetex-bidi.def}[2025/09/30 v0.4 bidi adaptations for extreport class for XeTeX engine]
 \renewcommand*\l@part[2]{%
   \ifnum \c@tocdepth >-2\relax
     \addpenalty{-\@highpenalty}%
@@ -14815,6 +14826,7 @@ bidi implementation of tufte title]
   \kern2.6\p@}
 \renewcommand\right@footnoterule{%
   \kern-3\p@
+  \nointerlineskip
   \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
   \kern2.6\p@}
 \renewenvironment{thebibliography}[1]
@@ -15335,7 +15347,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{footnote-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{footnote-xetex-bidi.def}[2025/09/26 v1.5 bidi footnote macros for XeTeX engine]
+\ProvidesFile{footnote-xetex-bidi.def}[2025/09/30 v1.6 bidi footnote macros for XeTeX engine]
 \if@RTLmain\@RTL@footnotetrue\else\@RTL@footnotefalse\fi
 \newif\ifbidi@autofootnoterule
 \def\bidi@mpfootnoterule{\footnoterule}
@@ -15426,10 +15438,6 @@ bidi implementation of tufte title]
 
 \def\right@footnoterule{%
   \kern-3\p@
-  \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
-  \kern2.6\p@}
-\def\right@mpfootnoterule{%
-  \kern-3\p@
   \nointerlineskip
   \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
   \kern2.6\p@}
@@ -15438,21 +15446,15 @@ bidi implementation of tufte title]
 \def\textwidth@footnoterule{\kern-3\p@
   \hrule \@width \columnwidth \kern 2.6\p@}
 \def\leftfootnoterule{%
-\bidi@autofootnoterulefalse%
-\def\footnoterule{\left@footnoterule}%
-\def\bidi@mpfootnoterule{\left@footnoterule}%
-}
+\bidi@autofootnoterulefalse
+\def\footnoterule{\left@footnoterule}}
 \let\LRfootnoterule=\leftfootnoterule
 \def\rightfootnoterule{%
-\bidi@autofootnoterulefalse%
-\def\footnoterule{\right@footnoterule}%
-\def\bidi@mpfootnoterule{\right@mpfootnoterule}%
-}
+\bidi@autofootnoterulefalse
+\def\footnoterule{\right@footnoterule}}
 \def\textwidthfootnoterule{%
-\bidi@autofootnoterulefalse%
-\def\footnoterule{\textwidth@footnoterule}%
-\def\bidi@mpfootnoterule{\textwidth@footnoterule}%
-}
+\bidi@autofootnoterulefalse
+\def\footnoterule{\textwidth@footnoterule}}
 
 
 
@@ -15582,7 +15584,7 @@ bidi implementation of tufte title]
 \footdir@temp\footdir@ORG@bidi@LTRfootnotetext\@LTRfootnotetext{L}%
 
 \long\def\@mpRTLfootnotetext#1{%
-  \ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\global\let\bidi@mpfootnoterule\right@mpfootnoterule\fi\fi%
+  \ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\global\let\bidi@mpfootnoterule\right@footnoterule\fi\fi%
   \global\setbox\@mpfootins\vbox{%
     \unvbox\@mpfootins
     \@RTLtrue
@@ -15612,7 +15614,7 @@ bidi implementation of tufte title]
         \rule\z@\footnotesep\ignorespaces#1\@finalstrut\strutbox}%
     \color@endgroup}}
 \long\def\@mpfootnotetext#1{%
- \ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\if@RTL@footnote\global\let\bidi@mpfootnoterule\right@mpfootnoterule\else\global\let\bidi@mpfootnoterule\left@footnoterule\fi\fi\fi%
+ \ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\if@RTL@footnote\global\let\bidi@mpfootnoterule\right@footnoterule\else\global\let\bidi@mpfootnoterule\left@footnoterule\fi\fi\fi%
   \global\setbox\@mpfootins\vbox{%
     \unvbox\@mpfootins
     \if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi
@@ -17563,7 +17565,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{imsproc-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{imsproc-xetex-bidi.def}[2017/06/09 v0.1 bidi adaptations for imsproc class for XeTeX engine]
+\ProvidesFile{imsproc-xetex-bidi.def}[2025/09/30 v0.2 bidi adaptations for imsproc class for XeTeX engine]
 \newenvironment{thebibliography}[1]{%
   \@bibtitlestyle
   \normalfont\bibliofont\labelsep .5em\relax
@@ -17595,6 +17597,7 @@ bidi implementation of tufte title]
 
 \def\right@footnoterule{%
   \kern-.4\p@
+  \nointerlineskip
   \hbox to \columnwidth{\hskip \dimexpr\columnwidth-5pc\relax \hrulefill }
   \kern11\p@\kern-\footnotesep} 
 \def\left@footnoterule{\kern-.4\p@
@@ -17667,7 +17670,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{letter-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{letter-xetex-bidi.def}[2015/11/14 v0.3 bidi adaptations for standard letter class for XeTeX engine]
+\ProvidesFile{letter-xetex-bidi.def}[2025/09/30 v0.4 bidi adaptations for standard letter class for XeTeX engine]
 \renewcommand*{\opening}[1]{\ifx\@empty\fromaddress
   \thispagestyle{firstpage}%
     {\if@RTL\raggedright\else\raggedleft\fi\@date\par}%
@@ -17687,6 +17690,7 @@ bidi implementation of tufte title]
   \kern .6\p@}
 \renewcommand\right@footnoterule{%
   \kern-\p@
+  \nointerlineskip
   \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
   \kern .6\p@}
 %    \end{macrocode}
@@ -19251,7 +19255,7 @@ bidi implementation of tufte title]
 %\fi
 % \section{File \texttt{multicol-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{multicol-xetex-bidi.def}[2022/07/10 v1.4 bidi adaptations for multicol package for XeTeX engine]
+\ProvidesFile{multicol-xetex-bidi.def}[2025/09/30 v1.5 bidi adaptations for multicol package for XeTeX engine]
 \def\page@sofar{%
    \process@cols\mult@rightbox
        {\ifvoid\count@
@@ -19383,6 +19387,7 @@ bidi implementation of tufte title]
          \orig@RTLfootnotetext{#1}\endgroup}
 \def\right@footnoterule{%
   \kern-3\p@
+  \nointerlineskip
   \hbox to \textwidth{\hskip \dimexpr\textwidth-.4\columnwidth\relax \hrulefill }
   \kern2.6\p@}
 \def\textwidth@footnoterule{\kern-3\p@
@@ -20227,7 +20232,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{rapport1-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{rapport1-xetex-bidi.def}[2017/06/09 v0.4 bidi adaptations for rapport1 class for XeTeX engine]
+\ProvidesFile{rapport1-xetex-bidi.def}[2025/09/30 v0.5 bidi adaptations for rapport1 class for XeTeX engine]
 \renewenvironment{theindex}{%
   \if@twocolumn
     \@restonecolfalse
@@ -20330,6 +20335,7 @@ to\rtside{\box\bslice\hfil}}
 \renewcommand*\right@footnoterule{%
   \kern-3\p@
   \kern.5\baselineskip
+  \nointerlineskip
   \hbox to \columnwidth{\hskip \dimexpr\columnwidth-\unitindent\relax \hrulefill }
   \kern.4\baselineskip}
 \renewenvironment{thebibliography}[1]
@@ -20489,7 +20495,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{rapport3-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{rapport3-xetex-bidi.def}[2017/06/09 v0.6 bidi adaptations for rapport3 class for XeTeX engine]
+\ProvidesFile{rapport3-xetex-bidi.def}[2025/09/30 v0.7 bidi adaptations for rapport3 class for XeTeX engine]
 \renewenvironment{theindex}{%
   \if@twocolumn
     \@restonecolfalse
@@ -20760,6 +20766,7 @@ to\rtside{\box\bslice\hfil}}
 \renewcommand*\right@footnoterule{%
   \kern-3\p@
   \kern.5\baselineskip
+  \nointerlineskip
   \hbox to \columnwidth{\hskip \dimexpr\columnwidth-\unitindent\relax \hrulefill }
   \kern.4\baselineskip}
 \renewcommand*\head@style{%
@@ -20773,7 +20780,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{refrep-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{refrep-xetex-bidi.def}[2017/06/09 v0.5 bidi adaptations for refrep class for XeTeX engine]
+\ProvidesFile{refrep-xetex-bidi.def}[2025/09/30 v0.6 bidi adaptations for refrep class for XeTeX engine]
 \if@titlepage
   \renewcommand\maketitle{\begin{titlepage}%
   \let\footnotesize\small
@@ -20921,6 +20928,7 @@ to\rtside{\box\bslice\hfil}}
   \kern 2.6\p@}
 \renewcommand\right@footnoterule{%
   \kern-3\p@
+  \nointerlineskip
   \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
   \kern2.6\p@}
 \renewcommand\theequation
@@ -20962,7 +20970,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{report-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{report-xetex-bidi.def}[2025/09/04 v1.0 bidi adaptations for standard report class for XeTeX engine]
+\ProvidesFile{report-xetex-bidi.def}[2025/09/30 v1.1 bidi adaptations for standard report class for XeTeX engine]
 \renewenvironment{theindex}
                {\if@twocolumn
                   \@restonecolfalse
@@ -21112,6 +21120,7 @@ to\rtside{\box\bslice\hfil}}
   \kern2.6\p@}
 \renewcommand\right@footnoterule{%
   \kern-3\p@
+  \nointerlineskip
   \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
   \kern2.6\p@}
 \renewcommand\theequation
@@ -21312,7 +21321,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{scrartcl-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{scrartcl-xetex-bidi.def}[2025/09/20 v1.4 bidi adaptations for scrartcl class for XeTeX engine]
+\ProvidesFile{scrartcl-xetex-bidi.def}[2025/09/30 v1.5 bidi adaptations for scrartcl class for XeTeX engine]
 \newcommand{\scr@saved@LTRfootnotetext}{}
 \newcommand{\scr@saved@RTLfootnotetext}{}
 \let\scr@saved@footnotetext\@footnotetext
@@ -21407,6 +21416,7 @@ to\rtside{\box\bslice\hfil}}
   \normalsize\ftn@rule@test@values
   \kern-\dimexpr 2.6\p@+\ftn@rule@height\relax
   \ifx\@textbottom\relax\else\vskip \z@ \@plus.05fil\fi
+  \nointerlineskip
   {\usekomafont{footnoterule}{%
       \hbox to \columnwidth{\hskip \dimexpr\columnwidth-\ftn@rule@width\relax  \leavevmode\leaders\hrule\@height\ftn@rule@height\hfill\kern\z@}}}%
   \kern 2.6\p@} 
@@ -22047,7 +22057,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{scrbook-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{scrbook-xetex-bidi.def}[2025/09/20 v1.4 bidi adaptations for scrbook class for XeTeX engine]
+\ProvidesFile{scrbook-xetex-bidi.def}[2025/09/30 v1.5 bidi adaptations for scrbook class for XeTeX engine]
 \newcommand{\scr@saved@LTRfootnotetext}{}
 \newcommand{\scr@saved@RTLfootnotetext}{}
 \let\scr@saved@footnotetext\@footnotetext
@@ -22143,6 +22153,7 @@ to\rtside{\box\bslice\hfil}}
   \normalsize\ftn@rule@test@values
   \kern-\dimexpr 2.6\p@+\ftn@rule@height\relax
   \ifx\@textbottom\relax\else\vskip \z@ \@plus.05fil\fi
+  \nointerlineskip
   {\usekomafont{footnoterule}{%
       \hbox to \columnwidth{\hskip \dimexpr\columnwidth-\ftn@rule@width\relax  \leavevmode\leaders\hrule\@height\ftn@rule@height\hfill\kern\z@}}}%
   \kern 2.6\p@} 
@@ -22816,7 +22827,7 @@ to\rtside{\box\bslice\hfil}}
 %\fi
 % \section{File \texttt{scrreprt-xetex-bidi.def}}
 %    \begin{macrocode}
-\ProvidesFile{scrreprt-xetex-bidi.def}[2025/09/20 v1.4 bidi adaptations for scrreprt class for XeTeX engine]
+\ProvidesFile{scrreprt-xetex-bidi.def}[2025/09/30 v1.5 bidi adaptations for scrreprt class for XeTeX engine]
 \newcommand{\scr@saved@LTRfootnotetext}{}
 \newcommand{\scr@saved@RTLfootnotetext}{}
 \let\scr@saved@footnotetext\@footnotetext
@@ -22912,6 +22923,7 @@ to\rtside{\box\bslice\hfil}}
   \normalsize\ftn@rule@test@values
   \kern-\dimexpr 2.6\p@+\ftn@rule@height\relax
   \ifx\@textbottom\relax\else\vskip \z@ \@plus.05fil\fi
+  \nointerlineskip
   {\usekomafont{footnoterule}{%
       \hbox to \columnwidth{\hskip \dimexpr\columnwidth-\ftn@rule@width\relax  \leavevmode\leaders\hrule\@height\ftn@rule@height\hfill\kern\z@}}}%
   \kern 2.6\p@}  
