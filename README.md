@@ -6,6 +6,9 @@ LuaTeX engines.
 The package includes adaptations for use with many other commonly-used 
 packages.
 
+## Note
+This GitHub repository should only be used for reporting issues; the code is developed privately off GitHub on my local computer.
+
 The official versions of the package are released on [CTAN](https://ctan.org/pkg/bidi).
 
 ## Using the Package
